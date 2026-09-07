@@ -1,0 +1,290 @@
+{
+  "mode": "LOCAL_BASE_FORK",
+  "keeperhubExecution": false,
+  "sourceBlock": {
+    "number": "50998408",
+    "hash": "0x2d4d801ef6db4e58e8924c6d41acafa19dfb6c544bd22511514a963d974fa8dc",
+    "timestamp": 1788786163
+  },
+  "tokenId": "5950160",
+  "originalRange": [
+    -198060,
+    -197940
+  ],
+  "parkPlanHash": "0x0cf7634e006ff3c5983b617bd0afbf4352e1095517d40856d8c4e049cf212bc0",
+  "returnPlanHash": "0x22900913a39d35648c9dba978df3227f66bc6b141fe9f89131771e662dd96289",
+  "supplied": "996999999999999939",
+  "withdrawn": "997050058400897633",
+  "returned": {
+    "chainId": 8453,
+    "tokenId": "5950160",
+    "owner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "pool": "0x6c561B446416E1A00E8E93E221854d6eA4171372",
+    "token0": {
+      "address": "0x4200000000000000000000000000000000000006",
+      "decimals": 18,
+      "symbol": "WETH"
+    },
+    "token1": {
+      "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "decimals": 6,
+      "symbol": "USDC"
+    },
+    "fee": 3000,
+    "tickLower": -198060,
+    "tickUpper": -197940,
+    "currentTick": -198015,
+    "sqrtPriceX96": "3974418769873524100481652",
+    "liquidity": "8301932216584070",
+    "principal0": "611761538977021465",
+    "principal1": "955218586",
+    "checkpointOwed0": "0",
+    "checkpointOwed1": "0",
+    "twapTick": -198015,
+    "twapWindowSeconds": 300,
+    "block": {
+      "number": "50998456",
+      "hash": "0x8227f016f66655fa671f3d7bfaeca0beee2aa7bd19d879eafc0ee42dd71081eb",
+      "timestamp": 1788876434
+    }
+  },
+  "events": [
+    {
+      "step": "release",
+      "transactionHash": "0x7092c16b914f7ef6959cb8c09c9cc25cbe374dd60b8ff4ca615468a6a277fc64",
+      "block": "50998445",
+      "gasUsed": "144938"
+    },
+    {
+      "step": "recovery",
+      "result": "Confirmed original release receipt; duplicate submission refused"
+    },
+    {
+      "step": "approve",
+      "transactionHash": "0x6dc18f4262d53133c5979f5e7ad998cd4f0ba44c0953124388eebb88625f2e94",
+      "block": "50998446",
+      "gasUsed": "46055"
+    },
+    {
+      "step": "supply",
+      "transactionHash": "0xbf486ac5a8e5006200f324f6dcb3026afb0f91c271af1a45d1bb4f1ebfbc1e7d",
+      "block": "50998447",
+      "gasUsed": "189016"
+    },
+    {
+      "step": "withdraw",
+      "transactionHash": "0x81137c01c57bb49a8512104f4eaa416cdca3929aef08f6c292a53d74f9fce1c7",
+      "block": "50998451",
+      "gasUsed": "155668"
+    },
+    {
+      "step": "approve-swap",
+      "transactionHash": "0x60593137f9b50f0e2234e05fd1623053155a9bcbedc056cadb5ab2c26dab282b",
+      "block": "50998452",
+      "gasUsed": "46055"
+    },
+    {
+      "step": "swap",
+      "transactionHash": "0x24490370cc9b899c5f998d9be4176829691ac9c48a09310d5d384619e93f2d6e",
+      "block": "50998453",
+      "gasUsed": "134767"
+    },
+    {
+      "step": "approve-lp0",
+      "transactionHash": "0xc00cae3ff949c4d464d3b2545b13bf39bdc134c3c774a774ba03c47a45b91025",
+      "block": "50998454",
+      "gasUsed": "28955"
+    },
+    {
+      "step": "approve-lp1",
+      "transactionHash": "0x9550278ee10f4754b06124f862e9aa1efcdf0770afff7890ea8958078b069088",
+      "block": "50998455",
+      "gasUsed": "55449"
+    },
+    {
+      "step": "increase",
+      "transactionHash": "0xd30bc5d38188be0682207a06ffc8a206ffa5bde284f65cce3ff9e0c4465f1d69",
+      "block": "50998456",
+      "gasUsed": "199401"
+    }
+  ],
+  "journal": {
+    "park": [
+      {
+        "kind": "PLAN_CREATED",
+        "payload": "{\n  \"hash\": \"0x0cf7634e006ff3c5983b617bd0afbf4352e1095517d40856d8c4e049cf212bc0\"\n}",
+        "created_at": 1788808297728
+      },
+      {
+        "kind": "APPROVED",
+        "payload": "{\n  \"actor\": \"local-fork-test\"\n}",
+        "created_at": 1788808297730
+      },
+      {
+        "kind": "SUBMITTING",
+        "payload": "{\n  \"step\": \"release\",\n  \"idempotencyKey\": \"0xec79a108d5ee130d5d3b3c416dc14129c325d1c62d8d38ced50c6b6a7d3b76f1\",\n  \"baseline\": {\n    \"weth\": \"1000000000000000060\"\n  }\n}",
+        "created_at": 1788808297892
+      },
+      {
+        "kind": "TRANSACTION_SUBMITTED",
+        "payload": "{\n  \"step\": \"release\",\n  \"txHash\": \"0x7092c16b914f7ef6959cb8c09c9cc25cbe374dd60b8ff4ca615468a6a277fc64\"\n}",
+        "created_at": 1788808298055
+      },
+      {
+        "kind": "RECONCILIATION_REQUIRED",
+        "payload": "{\n  \"step\": \"release\",\n  \"reason\": \"Injected response timeout after mined transaction\"\n}",
+        "created_at": 1788808298064
+      },
+      {
+        "kind": "STEP_VERIFIED",
+        "payload": "{\n  \"id\": \"release\",\n  \"txHash\": \"0x7092c16b914f7ef6959cb8c09c9cc25cbe374dd60b8ff4ca615468a6a277fc64\",\n  \"evidence\": {\n    \"verified\": true,\n    \"block\": \"50998445\"\n  }\n}",
+        "created_at": 1788808298066
+      },
+      {
+        "kind": "SUBMITTING",
+        "payload": "{\n  \"step\": \"approve\",\n  \"idempotencyKey\": \"0xcd8a0847e7cf213801c3ddd70d41e77dca4025354360789bdd1876b0c1972db4\",\n  \"baseline\": {\n    \"weth\": \"1999999999999999999\"\n  }\n}",
+        "created_at": 1788808298070
+      },
+      {
+        "kind": "TRANSACTION_SUBMITTED",
+        "payload": "{\n  \"step\": \"approve\",\n  \"txHash\": \"0x6dc18f4262d53133c5979f5e7ad998cd4f0ba44c0953124388eebb88625f2e94\"\n}",
+        "created_at": 1788808298392
+      },
+      {
+        "kind": "STEP_VERIFIED",
+        "payload": "{\n  \"id\": \"approve\",\n  \"txHash\": \"0x6dc18f4262d53133c5979f5e7ad998cd4f0ba44c0953124388eebb88625f2e94\",\n  \"evidence\": {\n    \"verified\": true,\n    \"block\": \"50998446\"\n  }\n}",
+        "created_at": 1788808298393
+      },
+      {
+        "kind": "SUBMITTING",
+        "payload": "{\n  \"step\": \"supply\",\n  \"idempotencyKey\": \"0x5f329f77016dc4923921b7b098c3a7dd46cb0712dad59a20e256b2a2a72bbacf\",\n  \"baseline\": {\n    \"weth\": \"1999999999999999999\"\n  }\n}",
+        "created_at": 1788808298397
+      },
+      {
+        "kind": "TRANSACTION_SUBMITTED",
+        "payload": "{\n  \"step\": \"supply\",\n  \"txHash\": \"0xbf486ac5a8e5006200f324f6dcb3026afb0f91c271af1a45d1bb4f1ebfbc1e7d\"\n}",
+        "created_at": 1788808299990
+      },
+      {
+        "kind": "STEP_VERIFIED",
+        "payload": "{\n  \"id\": \"supply\",\n  \"txHash\": \"0xbf486ac5a8e5006200f324f6dcb3026afb0f91c271af1a45d1bb4f1ebfbc1e7d\",\n  \"evidence\": {\n    \"verified\": true,\n    \"block\": \"50998447\"\n  }\n}",
+        "created_at": 1788808299991
+      }
+    ],
+    "withdraw": [
+      {
+        "kind": "PLAN_CREATED",
+        "payload": "{\n  \"hash\": \"0xa8d4d58931c6f042b4a0abac44b6bfb1a4bb12e970d2845509ff4c887ac4dcc8\"\n}",
+        "created_at": 1788808302637
+      },
+      {
+        "kind": "APPROVED",
+        "payload": "{\n  \"actor\": \"local-fork-test\"\n}",
+        "created_at": 1788808302638
+      },
+      {
+        "kind": "SUBMITTING",
+        "payload": "{\n  \"step\": \"withdraw\",\n  \"idempotencyKey\": \"0x9047806fbdb1e9d4466884cbcc9730828d816a4e750fa39c0f4d9a87f143ee3a\",\n  \"baseline\": {}\n}",
+        "created_at": 1788808302640
+      },
+      {
+        "kind": "TRANSACTION_SUBMITTED",
+        "payload": "{\n  \"step\": \"withdraw\",\n  \"txHash\": \"0x81137c01c57bb49a8512104f4eaa416cdca3929aef08f6c292a53d74f9fce1c7\"\n}",
+        "created_at": 1788808302994
+      },
+      {
+        "kind": "STEP_VERIFIED",
+        "payload": "{\n  \"id\": \"withdraw\",\n  \"txHash\": \"0x81137c01c57bb49a8512104f4eaa416cdca3929aef08f6c292a53d74f9fce1c7\",\n  \"evidence\": {\n    \"receiptStatus\": \"success\",\n    \"block\": \"50998451\"\n  }\n}",
+        "created_at": 1788808302994
+      }
+    ],
+    "reentry": [
+      {
+        "kind": "PLAN_CREATED",
+        "payload": "{\n  \"hash\": \"0x22900913a39d35648c9dba978df3227f66bc6b141fe9f89131771e662dd96289\"\n}",
+        "created_at": 1788808303334
+      },
+      {
+        "kind": "APPROVED",
+        "payload": "{\n  \"actor\": \"local-fork-test\"\n}",
+        "created_at": 1788808303336
+      },
+      {
+        "kind": "SUBMITTING",
+        "payload": "{\n  \"step\": \"approve-swap\",\n  \"idempotencyKey\": \"0xa5f8ef8c9d9e49a388501c7b8e3aa19a2bf11ace0f6559df8c52fb91d8660be0\",\n  \"baseline\": {}\n}",
+        "created_at": 1788808303341
+      },
+      {
+        "kind": "TRANSACTION_SUBMITTED",
+        "payload": "{\n  \"step\": \"approve-swap\",\n  \"txHash\": \"0x60593137f9b50f0e2234e05fd1623053155a9bcbedc056cadb5ab2c26dab282b\"\n}",
+        "created_at": 1788808304684
+      },
+      {
+        "kind": "STEP_VERIFIED",
+        "payload": "{\n  \"id\": \"approve-swap\",\n  \"txHash\": \"0x60593137f9b50f0e2234e05fd1623053155a9bcbedc056cadb5ab2c26dab282b\",\n  \"evidence\": {\n    \"receiptStatus\": \"success\",\n    \"block\": \"50998452\"\n  }\n}",
+        "created_at": 1788808304685
+      },
+      {
+        "kind": "SUBMITTING",
+        "payload": "{\n  \"step\": \"swap\",\n  \"idempotencyKey\": \"0x9a8830432f0ce9cade6ea941acd0b0b62b4533f4d1ab1a3315c1866ca170cf73\",\n  \"baseline\": {}\n}",
+        "created_at": 1788808304689
+      },
+      {
+        "kind": "TRANSACTION_SUBMITTED",
+        "payload": "{\n  \"step\": \"swap\",\n  \"txHash\": \"0x24490370cc9b899c5f998d9be4176829691ac9c48a09310d5d384619e93f2d6e\"\n}",
+        "created_at": 1788808305023
+      },
+      {
+        "kind": "STEP_VERIFIED",
+        "payload": "{\n  \"id\": \"swap\",\n  \"txHash\": \"0x24490370cc9b899c5f998d9be4176829691ac9c48a09310d5d384619e93f2d6e\",\n  \"evidence\": {\n    \"receiptStatus\": \"success\",\n    \"block\": \"50998453\"\n  }\n}",
+        "created_at": 1788808305023
+      },
+      {
+        "kind": "SUBMITTING",
+        "payload": "{\n  \"step\": \"approve-lp0\",\n  \"idempotencyKey\": \"0xfe50753cadbc5cf035d6fab5e2a08b2cc34afd8f8428f16b66f582b130d2f534\",\n  \"baseline\": {}\n}",
+        "created_at": 1788808305028
+      },
+      {
+        "kind": "TRANSACTION_SUBMITTED",
+        "payload": "{\n  \"step\": \"approve-lp0\",\n  \"txHash\": \"0xc00cae3ff949c4d464d3b2545b13bf39bdc134c3c774a774ba03c47a45b91025\"\n}",
+        "created_at": 1788808305254
+      },
+      {
+        "kind": "STEP_VERIFIED",
+        "payload": "{\n  \"id\": \"approve-lp0\",\n  \"txHash\": \"0xc00cae3ff949c4d464d3b2545b13bf39bdc134c3c774a774ba03c47a45b91025\",\n  \"evidence\": {\n    \"receiptStatus\": \"success\",\n    \"block\": \"50998454\"\n  }\n}",
+        "created_at": 1788808305254
+      },
+      {
+        "kind": "SUBMITTING",
+        "payload": "{\n  \"step\": \"approve-lp1\",\n  \"idempotencyKey\": \"0xaee8a8973f0e01d6988a7384d096859555dc18925d542a20c6269bf2b8fe2d60\",\n  \"baseline\": {}\n}",
+        "created_at": 1788808305259
+      },
+      {
+        "kind": "TRANSACTION_SUBMITTED",
+        "payload": "{\n  \"step\": \"approve-lp1\",\n  \"txHash\": \"0x9550278ee10f4754b06124f862e9aa1efcdf0770afff7890ea8958078b069088\"\n}",
+        "created_at": 1788808305653
+      },
+      {
+        "kind": "STEP_VERIFIED",
+        "payload": "{\n  \"id\": \"approve-lp1\",\n  \"txHash\": \"0x9550278ee10f4754b06124f862e9aa1efcdf0770afff7890ea8958078b069088\",\n  \"evidence\": {\n    \"receiptStatus\": \"success\",\n    \"block\": \"50998455\"\n  }\n}",
+        "created_at": 1788808305654
+      },
+      {
+        "kind": "SUBMITTING",
+        "payload": "{\n  \"step\": \"increase\",\n  \"idempotencyKey\": \"0xa40755bc273ed2fff7042e1288dd0e1c09591704081f5b9b391db9878e77f4b9\",\n  \"baseline\": {}\n}",
+        "created_at": 1788808305657
+      },
+      {
+        "kind": "TRANSACTION_SUBMITTED",
+        "payload": "{\n  \"step\": \"increase\",\n  \"txHash\": \"0xd30bc5d38188be0682207a06ffc8a206ffa5bde284f65cce3ff9e0c4465f1d69\"\n}",
+        "created_at": 1788808307185
+      },
+      {
+        "kind": "STEP_VERIFIED",
+        "payload": "{\n  \"id\": \"increase\",\n  \"txHash\": \"0xd30bc5d38188be0682207a06ffc8a206ffa5bde284f65cce3ff9e0c4465f1d69\",\n  \"evidence\": {\n    \"receiptStatus\": \"success\",\n    \"block\": \"50998456\"\n  }\n}",
+        "created_at": 1788808307185
+      }
+    ]
+  },
+  "completedAt": "2026-09-07T19:11:50.368Z"
+}

@@ -1,0 +1,74 @@
+{
+  "mode": "LOCAL_BASE_FORK",
+  "keeperhubExecution": false,
+  "sourceBlock": "50998408",
+  "tokenId": "5950160",
+  "originalRange": [
+    -198060,
+    -197940
+  ],
+  "supplied": "996999999999999939",
+  "withdrawn": "997050058400897633",
+  "returnedLiquidity": "8301932216584070",
+  "events": [
+    {
+      "step": "release",
+      "transactionHash": "0x7092c16b914f7ef6959cb8c09c9cc25cbe374dd60b8ff4ca615468a6a277fc64",
+      "block": "50998445",
+      "gasUsed": "144938"
+    },
+    {
+      "step": "recovery",
+      "result": "Confirmed original release receipt; duplicate submission refused"
+    },
+    {
+      "step": "approve",
+      "transactionHash": "0x6dc18f4262d53133c5979f5e7ad998cd4f0ba44c0953124388eebb88625f2e94",
+      "block": "50998446",
+      "gasUsed": "46055"
+    },
+    {
+      "step": "supply",
+      "transactionHash": "0xbf486ac5a8e5006200f324f6dcb3026afb0f91c271af1a45d1bb4f1ebfbc1e7d",
+      "block": "50998447",
+      "gasUsed": "189016"
+    },
+    {
+      "step": "withdraw",
+      "transactionHash": "0x81137c01c57bb49a8512104f4eaa416cdca3929aef08f6c292a53d74f9fce1c7",
+      "block": "50998451",
+      "gasUsed": "155668"
+    },
+    {
+      "step": "approve-swap",
+      "transactionHash": "0x60593137f9b50f0e2234e05fd1623053155a9bcbedc056cadb5ab2c26dab282b",
+      "block": "50998452",
+      "gasUsed": "46055"
+    },
+    {
+      "step": "swap",
+      "transactionHash": "0x24490370cc9b899c5f998d9be4176829691ac9c48a09310d5d384619e93f2d6e",
+      "block": "50998453",
+      "gasUsed": "134767"
+    },
+    {
+      "step": "approve-lp0",
+      "transactionHash": "0xc00cae3ff949c4d464d3b2545b13bf39bdc134c3c774a774ba03c47a45b91025",
+      "block": "50998454",
+      "gasUsed": "28955"
+    },
+    {
+      "step": "approve-lp1",
+      "transactionHash": "0x9550278ee10f4754b06124f862e9aa1efcdf0770afff7890ea8958078b069088",
+      "block": "50998455",
+      "gasUsed": "55449"
+    },
+    {
+      "step": "increase",
+      "transactionHash": "0xd30bc5d38188be0682207a06ffc8a206ffa5bde284f65cce3ff9e0c4465f1d69",
+      "block": "50998456",
+      "gasUsed": "199401"
+    }
+  ],
+  "completedAt": "2026-09-07T19:11:50.368Z"
+}

@@ -1,0 +1,92 @@
+{
+  "mode": "LIVE_READ_ONLY",
+  "position": {
+    "chainId": 8453,
+    "tokenId": "5950133",
+    "owner": "0x75C67Ba3DeD290B86005745E57f8e43257162fFb",
+    "pool": "0x6c561B446416E1A00E8E93E221854d6eA4171372",
+    "token0": {
+      "address": "0x4200000000000000000000000000000000000006",
+      "decimals": 18,
+      "symbol": "WETH"
+    },
+    "token1": {
+      "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "decimals": 6,
+      "symbol": "USDC"
+    },
+    "fee": 3000,
+    "tickLower": -198360,
+    "tickUpper": -197760,
+    "currentTick": -198080,
+    "sqrtPriceX96": "3961343346025971769120311",
+    "liquidity": "11719703824021709",
+    "principal0": "3720124479890360366",
+    "principal1": "8146631533",
+    "checkpointOwed0": "1342155391100",
+    "checkpointOwed1": "203915",
+    "twapTick": -198081,
+    "twapWindowSeconds": 300,
+    "block": {
+      "number": "50998408",
+      "hash": "0x2d4d801ef6db4e58e8924c6d41acafa19dfb6c544bd22511514a963d974fa8dc",
+      "timestamp": 1788786163
+    }
+  },
+  "aaveMarkets": [
+    {
+      "chainId": 8453,
+      "protocol": "aave-v3",
+      "pool": "0xA238Dd80C259a72e81d7e4664a9801593F98d1c5",
+      "asset": {
+        "address": "0x4200000000000000000000000000000000000006",
+        "decimals": 18,
+        "symbol": "WETH"
+      },
+      "aToken": "0xD4a0e0b9149BCee3C920d2E00b5dE09138fd8bb7",
+      "supplyAprRay": "17952100223109878775302544",
+      "availableLiquidity": "10679654207622459018599",
+      "supplyCapRemaining": "85587485919535214715293",
+      "active": true,
+      "frozen": false,
+      "paused": false,
+      "block": {
+        "number": "50998408",
+        "hash": "0x2d4d801ef6db4e58e8924c6d41acafa19dfb6c544bd22511514a963d974fa8dc",
+        "timestamp": 1788786163
+      }
+    },
+    {
+      "chainId": 8453,
+      "protocol": "aave-v3",
+      "pool": "0xA238Dd80C259a72e81d7e4664a9801593F98d1c5",
+      "asset": {
+        "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "decimals": 6,
+        "symbol": "USDC"
+      },
+      "aToken": "0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB",
+      "supplyAprRay": "37136772653061856825350680",
+      "availableLiquidity": "18646220869608",
+      "supplyCapRemaining": "46276870195732",
+      "active": true,
+      "frozen": false,
+      "paused": false,
+      "block": {
+        "number": "50998408",
+        "hash": "0x2d4d801ef6db4e58e8924c6d41acafa19dfb6c544bd22511514a963d974fa8dc",
+        "timestamp": 1788786163
+      }
+    }
+  ],
+  "observation": {
+    "positionKey": "8453:5950133:0x75c67ba3ded290b86005745e57f8e43257162ffb:0x6c561b446416e1a00e8e93e221854d6ea4171372:-198360:-197760:11719703824021709",
+    "side": "IN_RANGE",
+    "since": 1788786163,
+    "lastAt": 1788786163,
+    "lastBlock": "50998408",
+    "lastHash": "0x2d4d801ef6db4e58e8924c6d41acafa19dfb6c544bd22511514a963d974fa8dc"
+  },
+  "decision": "NOT_EVALUATED",
+  "reason": "A single snapshot does not establish persistence. Live cost and opportunity-cost assumptions are also required."
+}

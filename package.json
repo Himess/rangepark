@@ -1,0 +1,37 @@
+{
+  "name": "rangepark",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic parking for fee-idle Uniswap V3 liquidity, powered by KeeperHub",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "demo": "tsx src/cli.ts demo",
+    "inspect": "tsx src/cli.ts inspect",
+    "observe": "tsx src/cli.ts observe",
+    "discover": "tsx src/cli.ts discover",
+    "preflight": "tsx src/cli.ts preflight",
+    "test:fork": "tsx scripts/fork-lifecycle.ts",
+    "sync:web": "node scripts/sync-web-core.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm test"
+  },
+  "dependencies": {
+    "@uniswap/sdk-core": "7.19.2",
+    "@uniswap/v3-sdk": "3.31.3",
+    "viem": "2.56.3",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "4.23.13",
+    "typescript": "~5.9.3",
+    "vitest": "^3.2.4"
+  },
+  "optionalDependencies": {
+    "@foundry-rs/anvil-win32-amd64": "1.7.1"
+  }
+}
