@@ -21,9 +21,9 @@ Implemented:
 - Full lifecycle verified with nine transaction receipts on an Anvil fork of Base. Evidence is bundled in the console and explicitly labelled local.
 - Web console in `apps/web`: public NFT reads, D1 observation history, synthetic decision lab, and downloadable execution evidence.
 
-**Not implemented yet:** authenticated KeeperHub execution, a production transaction executor, automatic gas/opportunity-cost quotes, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. RETURN plans are review drafts; they require fresh chain checks before execution.
+**Not implemented yet:** a complete KeeperHub Uniswap/Aave lifecycle, a production strategy executor, automatic gas/opportunity-cost quotes, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. RETURN plans are review drafts; they require fresh chain checks before execution.
 
-An authenticated KeeperHub zero-approval simulation has passed with a verified `mcp:read` key and the expected organization signer. No KeeperHub value-movement transaction has been performed. The generated decision demo remains synthetic and is not submission evidence.
+The first real KeeperHub testnet transaction is verified: **0.001 test ETH → 0.001 WETH on Base Sepolia**, with gas sponsored by KeeperHub. [Transaction proof](https://sepolia.basescan.org/tx/0x9bcc5690cf3c0261c6d1733d07efd7f32cc4731b999dfc81e80b0696c762e4ae) and [execution boundaries](docs/testnet.md) distinguish this initial funding step from the pending public Uniswap/Aave lifecycle. The generated decision demo remains synthetic and is not submission evidence.
 
 ## Run locally
 

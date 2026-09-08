@@ -1,0 +1,66 @@
+{
+  "mode": "BASE_SEPOLIA_KEEPERHUB_EXECUTION",
+  "keeperhubExecution": true,
+  "executionRoute": "KEEPERHUB_EIP7702",
+  "chainId": 84532,
+  "intent": "764b8631661179515c71b40fae7d888c2c035169a524d1469cb1a7bf7e14158b",
+  "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+  "executionId": "chodgtho78elwzx45xc28",
+  "transactionHash": "0x9bcc5690cf3c0261c6d1733d07efd7f32cc4731b999dfc81e80b0696c762e4ae",
+  "explorerUrl": "https://sepolia.basescan.org/tx/0x9bcc5690cf3c0261c6d1733d07efd7f32cc4731b999dfc81e80b0696c762e4ae",
+  "blockNumber": "46565630",
+  "blockHash": "0x38fc3c2c8e2a3c9d707743d0d6fd8fa4ee770cfa9cd7b7890de9e6bfc4156a1a",
+  "receiptStatus": "success",
+  "gasUsed": "100777",
+  "effectiveGasPrice": "6000000",
+  "wethBefore": "0",
+  "wethAfter": "1000000000000000",
+  "wethDelta": "1000000000000000",
+  "keeperhubStatus": {
+    "executionId": "chodgtho78elwzx45xc28",
+    "status": "completed",
+    "type": "contract-call",
+    "transactionHash": "0x9bcc5690cf3c0261c6d1733d07efd7f32cc4731b999dfc81e80b0696c762e4ae",
+    "transactionLink": "https://sepolia.basescan.org/tx/0x9bcc5690cf3c0261c6d1733d07efd7f32cc4731b999dfc81e80b0696c762e4ae",
+    "sponsored": true,
+    "receipts": [
+      {
+        "hash": "0x9bcc5690cf3c0261c6d1733d07efd7f32cc4731b999dfc81e80b0696c762e4ae",
+        "chainId": 84532,
+        "gasUsed": "100777",
+        "verified": true,
+        "verifiedAt": "2026-09-08T20:32:29.180Z",
+        "blockNumber": 46565630,
+        "receiptStatus": "success"
+      }
+    ],
+    "result": {
+      "chainId": 84532,
+      "gasUsed": "604662000000",
+      "success": true,
+      "sponsored": true,
+      "executedCall": {
+        "args": {},
+        "reverted": false,
+        "sponsored": true,
+        "topLevelTo": "0x5af5194b4b0909eb978e3cf1e25333852277f07d",
+        "functionName": "deposit",
+        "contractAddress": "0x4200000000000000000000000000000000000006",
+        "functionSignature": "deposit()"
+      },
+      "gasUsedUnits": "100777",
+      "transactionHash": "0x9bcc5690cf3c0261c6d1733d07efd7f32cc4731b999dfc81e80b0696c762e4ae",
+      "transactionLink": "https://sepolia.basescan.org/tx/0x9bcc5690cf3c0261c6d1733d07efd7f32cc4731b999dfc81e80b0696c762e4ae",
+      "effectiveGasPrice": "6000000"
+    },
+    "error": null,
+    "gasUsedWei": "604662000000",
+    "gasPriceWei": "6000000",
+    "estimatedCostUsd": null,
+    "retryCount": 0,
+    "network": "84532",
+    "createdAt": "2026-09-08T20:32:26.423Z",
+    "completedAt": "2026-09-08T20:32:29.256Z"
+  },
+  "verifiedAt": "2026-09-08T20:35:30.194Z"
+}

@@ -16,6 +16,7 @@
     "connection": "tsx src/cli.ts connection",
     "testnet:check": "tsx scripts/check-testnet.ts",
     "testnet:preflight": "tsx scripts/preflight-testnet.ts",
+    "testnet:deposit": "tsx scripts/execute-testnet-deposit.ts",
     "test:fork": "tsx scripts/fork-lifecycle.ts",
     "sync:web": "node scripts/sync-web-core.mjs",
     "typecheck": "tsc --noEmit",
