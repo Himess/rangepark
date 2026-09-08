@@ -1,11 +1,11 @@
-# Build status — 7 September 2026
+# Build status — updated 8 September 2026
 
 Private console deployed successfully: https://rangepark.semihcvlk53.chatgpt.site (owner-only access).
 
 ## Completed and verified
 
 - Strict TypeScript checks pass, including the fork harness.
-- 56 offline tests pass: policy, transport, frozen calls, journal recovery and same-NFT return. Three optional live tests are skipped in the offline suite; they passed separately during the initial read milestone.
+- 60 offline tests pass: policy, transport, connection response handling, frozen calls, journal recovery and same-NFT return. Three optional live tests are skipped in the offline suite; they passed separately during the initial read milestone.
 - Full PARK → withdrawal → reentry passed against real Uniswap/Aave contracts on a local Base fork: nine successful strategy transactions, original NFT `5950160` restored to `[-198060, -197940)`.
 - Frozen WETH supply: `996999999999999939` wei. aToken mint delta was one wei lower due to share rounding; the harness allows only two atomic units of rounding tolerance.
 - Withdrawal after advanced fork time: `997050058400897633` wei. This is a fixture observation, not a projected or realized mainnet return.
@@ -22,7 +22,7 @@ The original public read sample is NFT `5950133` at Base block `50998408`, hash 
 
 The downloadable lifecycle report is marked `LOCAL_BASE_FORK` and `keeperhubExecution: false`. Funding, impersonation, time advancement and transactions occurred exclusively on localhost. Local hashes must never be presented as Basescan transaction links.
 
-KeeperHub API transport is implemented and mocked tests pass. **No authenticated KeeperHub simulation or value-movement transaction exists yet.** The inspected KeeperHub browser session is signed out. No organization API key or project-owned execution NFT has been provided.
+KeeperHub authentication and a real zero-approval simulation now pass, as detailed below. **No KeeperHub value-movement transaction exists yet.** The project execution wallet has no Base ETH/WETH/USDC or Uniswap NFT at the latest recorded read. The deployed console still represents the earlier read/fork milestone; its runtime has not received the local API credential.
 
 ## Next delivery gates
 
@@ -30,13 +30,15 @@ KeeperHub API transport is implemented and mocked tests pass. **No authenticated
 
 The user signed into KeeperHub. Organization settings confirm an EVM signer with no Safe accounts. A same-block public Base read of that signer found zero ETH, WETH, USDC and Uniswap V3 NFTs. Exact account details and block evidence stay in local ignored artifacts.
 
-The read-only API key form is prepared. KeeperHub requires an email code and authenticator verification before minting the key; user completion is pending. No key has been created or received and no authenticated probe has been claimed successful.
+The user completed both factors and supplied the read-only key. Its `mcp:read` scope was verified through KeeperHub's authenticated key inventory. The key is stored only in the ignored local environment, not in source control or the browser bundle.
 
-The new connection command checks wallet readiness and, once a key is configured, simulates a balance read and zero-amount approval with strict expected-sender checking. Three focused tests passed for simulation-only payloads, scope failures and wrong-organization rejection. The earlier 56-test suite passed before this addition.
+The authenticated connection command passed: USDC balance read returned zero; a zero-amount WETH approval simulated successfully with `wouldRevert:false`, gas estimate `26401`, and the expected organization sender. No allowance was granted, no transaction was broadcast, and no mainnet value movement is claimed. Local evidence is in `artifacts/keeperhub-connection.json`, with wallet state pinned to Base block `51041029`.
+
+The live API revealed that view functions return `{result}` even with `simulate:true`; only the write simulation returns the signer/gas/revert envelope. The client now treats these separately and never accepts a read result as proof of a write simulation.
 
 ### Remaining gates
 
-1. Authenticate the KeeperHub organization and establish its execution-wallet identity and EOA routing.
+1. Authentication and execution-wallet identity are verified with read-only scope. Establish an explicitly bounded funding and execution budget for the mainnet demonstration.
 2. Add a production step executor with fresh chain guards, sender/target checks, durable submission records, and verified receipt/delta reconciliation. Use strategy-attributable share accounting when the owner already has Aave deposits.
 3. Produce current execution-cost and foregone-fee inputs; reserve the original range and apply return persistence/cooldown before starting a return.
 4. Authenticate simulation for a project-owned NFT; then perform a separately authorized, bounded mainnet demonstration and retain KeeperHub execution IDs and explorer links.

@@ -23,7 +23,7 @@ Implemented:
 
 **Not implemented yet:** authenticated KeeperHub execution, a production transaction executor, automatic gas/opportunity-cost quotes, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. RETURN plans are review drafts; they require fresh chain checks before execution.
 
-No KeeperHub transaction or authenticated KeeperHub simulation has been performed. The generated demo is synthetic and is not submission evidence.
+An authenticated KeeperHub zero-approval simulation has passed with a verified `mcp:read` key and the expected organization signer. No KeeperHub value-movement transaction has been performed. The generated decision demo remains synthetic and is not submission evidence.
 
 ## Run locally
 

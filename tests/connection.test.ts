@@ -12,6 +12,8 @@ describe("authenticated connection probe", () => {
         const request = JSON.parse(options!.body as string);
         expect(request.simulate).toBe(true);
         expect(request.value).toBe("0");
+        if (request.functionName === "balanceOf")
+          return new Response(JSON.stringify({ result: "0" }));
         if (request.functionName === "approve")
           expect(JSON.parse(request.functionArgs)).toEqual([
             BASE.aavePool,
@@ -39,17 +41,15 @@ describe("authenticated connection probe", () => {
     expect(fetcher).toHaveBeenCalledTimes(2);
   });
   it("stops on invalid credentials and retains no reflected secret", async () => {
-    const fetcher = vi
-      .fn<typeof fetch>()
-      .mockResolvedValue(
-        new Response(
-          JSON.stringify({
-            error: "kh_secret_should_not_be_saved",
-            code: "insufficient_scope",
-          }),
-          { status: 403 },
-        ),
-      );
+    const fetcher = vi.fn<typeof fetch>().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          error: "kh_secret_should_not_be_saved",
+          code: "insufficient_scope",
+        }),
+        { status: 403 },
+      ),
+    );
     const result = await probeConnection(
       new KeeperHubClient("kh_test", fetcher),
       owner,
@@ -62,6 +62,7 @@ describe("authenticated connection probe", () => {
   it("refuses a simulation from another organization", async () => {
     const fetcher = vi
       .fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(JSON.stringify({ result: "0" })))
       .mockResolvedValue(
         new Response(
           JSON.stringify({
@@ -69,7 +70,7 @@ describe("authenticated connection probe", () => {
             status: "simulated",
             wouldRevert: false,
             from: BASE.factory,
-            to: BASE.usdc,
+            to: BASE.weth,
             value: "0",
             gasEstimate: "1000",
           }),
@@ -78,6 +79,16 @@ describe("authenticated connection probe", () => {
     await expect(
       probeConnection(new KeeperHubClient("kh_test", fetcher), owner),
     ).rejects.toThrow("mismatch");
-    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(fetcher).toHaveBeenCalledTimes(2);
+  });
+  it("does not mistake a direct read result for a write simulation receipt", async () => {
+    const fetcher = vi
+      .fn<typeof fetch>()
+      .mockImplementation(
+        async () => new Response(JSON.stringify({ result: "0" })),
+      );
+    await expect(
+      probeConnection(new KeeperHubClient("kh_test", fetcher), owner),
+    ).rejects.toThrow("Unexpected KeeperHub simulation response");
   });
 });

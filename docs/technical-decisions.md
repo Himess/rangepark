@@ -60,6 +60,8 @@ Do not reuse a pre-withdraw approval for different swap calldata. After withdraw
 
 ## 8. Sources and deployment verification
 
+Authenticated check on 8 September: `mcp:read` is sufficient for direct-execution dry runs. The real route returns a direct `{result}` envelope for view functions even when `simulate:true`; write calls with that flag return the detailed simulation envelope. The client keeps these separate and verifies the expected organization signer on the write simulation. A successful simulated zero approval proves the authenticated transport and signer selection, not a funded PARK lifecycle.
+
 Addresses are explicit in `src/config/base.ts` and were checked against:
 
 - [Uniswap Base deployments](https://developers.uniswap.org/docs/protocols/v3/deployments/v3-base-deployments)

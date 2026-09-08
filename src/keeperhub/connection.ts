@@ -86,7 +86,10 @@ export async function probeConnection(client: KeeperHubClient, owner: Address) {
       checks.push({
         id: step.id,
         status: "PASSED",
-        result: await client.simulate(step, owner),
+        result:
+          step.id === "read-balance"
+            ? await client.readUsdcBalance(owner)
+            : await client.simulate(step, owner),
       });
     } catch (error) {
       if (!(error instanceof KeeperHubError)) throw error;
