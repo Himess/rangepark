@@ -72,7 +72,11 @@ The harness only writes to `http://127.0.0.1:8545` after checking that it is Anv
 
 It mints a locally funded out-of-range position, observes persistence, releases and supplies WETH, injects an ambiguous response, advances local time, moves pool price with a real swap, withdraws, swaps into the range ratio and restores the same NFT. Local account funding, impersonation and time advancement are fixture operations, not a mainnet strategy. The result is saved to `artifacts/fork-lifecycle.json`. Windows receives an optional native Anvil package; other operating systems can use their own Anvil installation.
 
-### KeeperHub preflight
+### Testnet first
+
+The next onchain rehearsal is restricted to **Base Sepolia (84532)**. Run `npm run testnet:check` for wallet/contracts/markets and `npm run testnet:preflight` for a fixed **0.001 test ETH** wrap simulation through KeeperHub. Both commands are non-broadcasting. The existing organization wallet already has test ETH; no private-key export is needed. See [testnet evidence and execution boundaries](docs/testnet.md), including the difference between Aave test USDC and Circle test USDC.
+
+### Base mainnet read-only preflight
 
 `npm run connection` reads the verified execution EOA's Base ETH/WETH/USDC balances and its Uniswap NFTs. Configure `KEEPERHUB_EXPECTED_SENDER` from the organization's Wallets page. Without an API key, it explicitly reports `NOT_AUTHENTICATED`; with one, it simulates a USDC balance read and a zero-amount WETH approval. Neither probe broadcasts or grants an allowance. The report is saved locally as `artifacts/keeperhub-connection.json`.
 

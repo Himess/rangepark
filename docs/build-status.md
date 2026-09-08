@@ -5,7 +5,7 @@ Private console deployed successfully: https://rangepark.semihcvlk53.chatgpt.sit
 ## Completed and verified
 
 - Strict TypeScript checks pass, including the fork harness.
-- 60 offline tests pass: policy, transport, connection response handling, frozen calls, journal recovery and same-NFT return. Three optional live tests are skipped in the offline suite; they passed separately during the initial read milestone.
+- 72 offline tests pass: policy, transport, connection response handling, frozen calls, journal recovery, same-NFT return, and testnet chain/simulation boundaries. Three optional live tests are skipped in the offline suite; they passed separately during the initial read milestone.
 - Full PARK → withdrawal → reentry passed against real Uniswap/Aave contracts on a local Base fork: nine successful strategy transactions, original NFT `5950160` restored to `[-198060, -197940)`.
 - Frozen WETH supply: `996999999999999939` wei. aToken mint delta was one wei lower due to share rounding; the harness allows only two atomic units of rounding tolerance.
 - Withdrawal after advanced fork time: `997050058400897633` wei. This is a fixture observation, not a projected or realized mainnet return.
@@ -38,10 +38,10 @@ The live API revealed that view functions return `{result}` even with `simulate:
 
 ### Remaining gates
 
-1. Authentication and execution-wallet identity are verified with read-only scope. Establish an explicitly bounded funding and execution budget for the mainnet demonstration.
+1. Follow the user's testnet-first direction: Base Sepolia (84532), initial principal 0.001 test ETH. Readiness and authenticated deposit simulation passed; actual execution still needs write authorization. See [testnet status](testnet.md). No mainnet funding or execution is currently authorized.
 2. Add a production step executor with fresh chain guards, sender/target checks, durable submission records, and verified receipt/delta reconciliation. Use strategy-attributable share accounting when the owner already has Aave deposits.
 3. Produce current execution-cost and foregone-fee inputs; reserve the original range and apply return persistence/cooldown before starting a return.
-4. Authenticate simulation for a project-owned NFT; then perform a separately authorized, bounded mainnet demonstration and retain KeeperHub execution IDs and explorer links.
+4. Create and simulate a project-owned testnet NFT; complete the bounded Base Sepolia lifecycle with KeeperHub execution IDs and verified explorer receipts. Determine submission network requirements before considering any separately authorized mainnet demonstration.
 5. Add Compound comparison only after the primary flow is operational; keep Morpho and wider strategy modes out of the critical path.
 6. Prepare the narrow upstream Uniswap position-management contribution, final README, short demo video and submission proof.
 
