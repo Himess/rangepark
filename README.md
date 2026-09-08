@@ -4,7 +4,7 @@
 
 RangePark is a KeeperHub hackathon project for parking fee-idle Uniswap V3 capital in the same underlying asset on Aave V3, then returning it to its original range.
 
-## Current milestone: complete local PARK → RETURN and live console
+## Current milestone: verified KeeperHub PARK on Base Sepolia
 
 Implemented:
 
@@ -20,10 +20,11 @@ Implemented:
 - Aave withdrawal followed by a separately approved ratio swap and increase of the **original NFT**, with deadlines and nonzero minimum amounts.
 - Full lifecycle verified with nine transaction receipts on an Anvil fork of Base. Evidence is bundled in the console and explicitly labelled local.
 - Web console in `apps/web`: public NFT reads, D1 observation history, synthetic decision lab, and downloadable execution evidence.
+- Real KeeperHub Base Sepolia PARK rehearsal: mint owned NFT `82083`, atomically release its liquidity, and supply the same WETH to Aave. Five additional transactions have verified receipts and balance deltas; the original NFT and range are preserved.
 
-**Not implemented yet:** a complete KeeperHub Uniswap/Aave lifecycle, a production strategy executor, automatic gas/opportunity-cost quotes, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. RETURN plans are review drafts; they require fresh chain checks before execution.
+**Not implemented yet:** the public testnet RETURN executor, a production strategy executor, automatic gas/opportunity-cost quotes, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. RETURN plans are review drafts; they require fresh chain checks before execution.
 
-The first real KeeperHub testnet transaction is verified: **0.001 test ETH → 0.001 WETH on Base Sepolia**, with gas sponsored by KeeperHub. [Transaction proof](https://sepolia.basescan.org/tx/0x9bcc5690cf3c0261c6d1733d07efd7f32cc4731b999dfc81e80b0696c762e4ae) and [execution boundaries](docs/testnet.md) distinguish this initial funding step from the pending public Uniswap/Aave lifecycle. The generated decision demo remains synthetic and is not submission evidence.
+KeeperHub has now executed the initial **0.001 test ETH wrap** and the subsequent **Uniswap NFT → Aave PARK** on Base Sepolia. [Aave supply proof](https://sepolia.basescan.org/tx/0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8) and [execution boundaries](docs/testnet.md) distinguish this manually staged contract rehearsal from an autonomous profitable strategy. The generated decision demo remains synthetic. The full public RETURN lifecycle and hackathon eligibility checks are pending.
 
 ## Run locally
 
@@ -75,6 +76,8 @@ It mints a locally funded out-of-range position, observes persistence, releases 
 ### Testnet first
 
 The next onchain rehearsal is restricted to **Base Sepolia (84532)**. Run `npm run testnet:check` for wallet/contracts/markets and `npm run testnet:preflight` for a fixed **0.001 test ETH** wrap simulation through KeeperHub. Both commands are non-broadcasting. The existing organization wallet already has test ETH; no private-key export is needed. See [testnet evidence and execution boundaries](docs/testnet.md), including the difference between Aave test USDC and Circle test USDC.
+
+`npm run testnet:park -- mint` and `npm run testnet:park -- park` are explicit broadcast commands for the one-time rehearsal; its funding and PARK steps are already complete. `npm run testnet:park -- reconcile` reads the recorded executions without sending them again. `npm run testnet:return-check` reads the original NFT/range and simulates principal withdrawal only; it never broadcasts or claims that the complete RETURN policy is ready.
 
 ### Base mainnet read-only preflight
 

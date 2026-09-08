@@ -28,11 +28,31 @@ KeeperHub used its EIP-7702 gas-sponsorship route. The initial direct-EOA verifi
 
 The relay ABI and packed signature/nonce/deadline layout were checked against Sourcify exact-match source for the Base Sepolia [gas station](https://sourcify.dev/server/v2/contract/84532/0x5af5194b4b0909eb978e3cf1e25333852277f07d?fields=sources) and [delegate](https://sourcify.dev/server/v2/contract/84532/0x955d84139e7621bc571b117d8eb5d28a4a222c6f?fields=sources).
 
-## Run
+## PARK completed — 9 September 2026
+
+The controlled rehearsal created project-owned Uniswap V3 NFT **82083** in WETH/Aave test USDC, fee 500, original range **[-196230,-196170)**. The observed tick was -196257. This is deliberately staged test data; no autonomous profitability or 30-minute persistence decision is claimed (`policyDecision:false`).
+
+| Step | Verified Base Sepolia transaction |
+| --- | --- |
+| Exact WETH approval to NFT manager | [7490fb0c…](https://sepolia.basescan.org/tx/0x7490fb0c3a95a7d93395bf9ddc085ad8a8e3b9bf138a3c0a9f5a30d1a1dc5f34) |
+| Mint NFT 82083 | [a26a6863…](https://sepolia.basescan.org/tx/0xa26a6863cc240742a710bafc2b0bf425c18d71a77a2ca2b6053c5fe2ebce0d86) |
+| Atomic decrease + collect | [b038fc5a…](https://sepolia.basescan.org/tx/0xb038fc5a00e2a20a3f1f86af9655f71e88ae10c3c489e2d9af9a88602982281e) |
+| Exact WETH approval to Aave | [0c254dca…](https://sepolia.basescan.org/tx/0x0c254dcabf9f59b006b7cd6e07258690962382bd76dbea74e7a43b4e96eae52a) |
+| Supply same WETH to Aave | [06cd1be6…](https://sepolia.basescan.org/tx/0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8) |
+
+Mint used `999999999999985` wei WETH; collect returned `999999999999984`; that exact amount was supplied to Aave. The aToken mint delta was `999999999999983` wei (one wei share-rounding difference). The wallet retained 15 wei WETH. The same NFT remains owned with zero liquidity and unchanged ticks. Gas was sponsored by KeeperHub.
+
+Full source-block, request, execution-ID, transaction, metadata and balance evidence is in [testnet-park.json](evidence/testnet-park.json). Each step is preceded by authenticated simulation and a durable unique request record, then checked against the onchain inner call, block hash, KeeperHub verified receipt and appropriate state delta. Re-running the command reads existing completed steps; it cannot create another allocation. An ambiguous submission stops dependent steps and requires reconciliation.
+
+At block `46566779`, current tick remained -196257 and the original range had not returned. A KeeperHub simulation successfully withdrew the supplied principal, but it did not broadcast. [Return check evidence](evidence/testnet-return-check.json) explicitly reports `automaticReturnReady:false`: return persistence/TWAP, fresh economics and the withdrawal-to-swap-to-same-NFT executor are still required. Aave balance growth in this report is denominated in test tokens, not realized monetary profit.
+
+## Commands
 
 ```sh
 npm run testnet:check
 npm run testnet:preflight
+npm run testnet:park -- reconcile
+npm run testnet:return-check
 ```
 
 Both commands load the ignored local `.env`. They need the verified organization sender; the preflight additionally needs `KEEPERHUB_API_KEY`. Use read scope for simulations. Outputs are ignored local artifacts: `testnet-readiness.json` and `testnet-deposit-preflight.json`. The preflight is a fixed 0.001 ETH deposit simulation, not an arbitrary contract executor.
@@ -49,8 +69,8 @@ The Aave Base Sepolia USDC reserve is `0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5
 
 1. Completed: the user approved and created a separate Read + Write credential. The existing read-only key remains separate. Organization write access is not restricted to a single chain by KeeperHub; this executor only constructs chain-84532 requests.
 2. Completed: the fixed 0.001 test ETH wrap was freshly simulated, submitted once and reconciled against both the chain and KeeperHub. No additional initial funding is needed.
-3. Create a small WETH-funded out-of-range Uniswap NFT using current ticks, exact approvals and a deadline. Read and retain its actual token ID and original range.
-4. Observe the position and demonstrate decrease/collect, Aave supply, withdrawal, then restoration of the same NFT. Do not present manually staged testnet conditions as a profitable live strategy decision.
+3. Completed: project-owned NFT 82083 was created with exact approvals and a short deadline; its ID and original range are recorded.
+4. Decrease/collect and Aave supply are complete. Implement withdrawal, ratio swap and restoration of the same NFT. Do not present manually staged testnet conditions as a profitable live strategy decision.
 5. Label all public testnet receipts separately from the existing local Anvil evidence. Testnet completion does not by itself establish hackathon eligibility or authorize mainnet deployment.
 
 The initial principal budget is 0.001 test ETH; network fees also use test ETH. Broad recurring execution, transfers to third-party wallets and mainnet transactions are outside this rehearsal.

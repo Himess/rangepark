@@ -1,0 +1,37 @@
+{
+  "mode": "BASE_SEPOLIA_RETURN_READ_ONLY",
+  "chainId": 84532,
+  "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+  "tokenId": "82083",
+  "block": {
+    "number": "46566779",
+    "hash": "0xd8985640d556df7875c62d552d7b25f93963ec49f072b919ec3ba852f2dd0d81",
+    "timestamp": "1788901846"
+  },
+  "range": {
+    "lower": -196230,
+    "upper": -196170,
+    "currentTick": -196257,
+    "inRange": false
+  },
+  "aTokenBalance": "1000000714493757",
+  "originalSuppliedPrincipal": "999999999999984",
+  "withdrawalSimulation": {
+    "success": true,
+    "status": "simulated",
+    "from": "0x7109c8e3b56c0a94729f3f538105b6916ef5934b",
+    "to": "0x8bAB6d1b75f19e9eD9fCe8b9BD338844fF79aE27",
+    "value": "0",
+    "gasEstimate": "160799",
+    "simulatedReturnValue": "999999999999984",
+    "wouldRevert": false
+  },
+  "rangeState": "WAITING_FOR_ORIGINAL_RANGE",
+  "automaticReturnReady": false,
+  "missingGuards": [
+    "Return persistence and TWAP",
+    "Fresh execution economics",
+    "Withdrawal-to-swap-to-same-NFT executor"
+  ],
+  "transactions": []
+}

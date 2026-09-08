@@ -8,7 +8,12 @@ import {
   type Address,
 } from "viem";
 import { baseSepolia } from "viem/chains";
-import { aaveDataAbi, factoryAbi, poolAbi } from "../chain/abis.js";
+import {
+  aaveDataAbi,
+  factoryAbi,
+  poolAbi,
+  positionManagerAbi,
+} from "../chain/abis.js";
 import { BASE_SEPOLIA as config, requireTestnetChain } from "./config.js";
 
 export async function testnetReadiness(owner: Address) {
@@ -100,11 +105,50 @@ export async function testnetReadiness(owner: Address) {
       return {
         asset,
         aToken: tokens[0],
+        ownerBalance: await client.readContract({
+          address: tokens[0],
+          abi: erc20Abi,
+          functionName: "balanceOf",
+          args: [owner],
+          blockNumber: block.number,
+        }),
         active: state[8],
         frozen: state[9],
         paused,
       };
     }),
+  );
+  const positions = await Promise.all(
+    Array.from(
+      { length: Number(nftCount > 32n ? 32n : nftCount) },
+      async (_, index) => {
+        const tokenId = await client.readContract({
+          address: config.positionManager,
+          abi: parseAbi([
+            "function tokenOfOwnerByIndex(address owner,uint256 index) view returns (uint256)",
+          ]),
+          functionName: "tokenOfOwnerByIndex",
+          args: [owner, BigInt(index)],
+          blockNumber: block.number,
+        });
+        const p = await client.readContract({
+          address: config.positionManager,
+          abi: positionManagerAbi,
+          functionName: "positions",
+          args: [tokenId],
+          blockNumber: block.number,
+        });
+        return {
+          tokenId,
+          token0: p[2],
+          token1: p[3],
+          fee: p[4],
+          tickLower: p[5],
+          tickUpper: p[6],
+          liquidity: p[7],
+        };
+      },
+    ),
   );
   const pools = await Promise.all(
     [500, 3000, 10000].map(async (fee) => {
@@ -148,6 +192,8 @@ export async function testnetReadiness(owner: Address) {
     },
     balances: { eth, weth, aaveUsdc: usdc },
     nftCount,
+    positions,
+    positionsTruncated: nftCount > 32n,
     contracts: code,
     reserves,
     markets,

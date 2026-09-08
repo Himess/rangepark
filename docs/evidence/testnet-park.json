@@ -1,0 +1,256 @@
+{
+  "mode": "MANUAL_BASE_SEPOLIA_PARK_REHEARSAL",
+  "chainId": 84532,
+  "keeperhubExecution": true,
+  "policyDecision": false,
+  "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+  "originalPrincipal": "1000000000000000",
+  "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+  "aToken": "0x73a5bB60b0B0fc35710DDc0ea9c407031E31Bdbb",
+  "steps": [
+    {
+      "id": "approve-position",
+      "baseline": {
+        "state": {
+          "block": "46566672",
+          "hash": "0xcbff46bedf746a0a4ec2b4f3cb66ea1f8a85bc539d85ccb36e016be45f89a639",
+          "timestamp": 1788901632,
+          "weth": "1000000000000000",
+          "usdc": "0",
+          "aToken": "0",
+          "nftCount": "0"
+        },
+        "step": {
+          "id": "approve-position",
+          "calldata": "0x095ea7b300000000000000000000000027f971cb582bf9e50f397e4d29a5c7a34f11faa200000000000000000000000000000000000000000000000000038d7ea4c68000",
+          "request": {
+            "chainId": 84532,
+            "contractAddress": "0x4200000000000000000000000000000000000006",
+            "functionName": "approve",
+            "functionArgs": "[\n  \"0x27F971cb582BF9E50F397e4d29a5C7A34f11faA2\",\n  \"1000000000000000\"\n]",
+            "abi": "[{\"type\":\"event\",\"name\":\"Approval\",\"inputs\":[{\"indexed\":true,\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}]},{\"type\":\"event\",\"name\":\"Transfer\",\"inputs\":[{\"indexed\":true,\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"allowance\",\"stateMutability\":\"view\",\"inputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"spender\",\"type\":\"address\"}],\"outputs\":[{\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"approve\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"name\":\"spender\",\"type\":\"address\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"outputs\":[{\"type\":\"bool\"}]},{\"type\":\"function\",\"name\":\"balanceOf\",\"stateMutability\":\"view\",\"inputs\":[{\"name\":\"account\",\"type\":\"address\"}],\"outputs\":[{\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"decimals\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"uint8\"}]},{\"type\":\"function\",\"name\":\"name\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"string\"}]},{\"type\":\"function\",\"name\":\"symbol\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"string\"}]},{\"type\":\"function\",\"name\":\"totalSupply\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"transfer\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"name\":\"recipient\",\"type\":\"address\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"outputs\":[{\"type\":\"bool\"}]},{\"type\":\"function\",\"name\":\"transferFrom\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"name\":\"sender\",\"type\":\"address\"},{\"name\":\"recipient\",\"type\":\"address\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"outputs\":[{\"type\":\"bool\"}]}]",
+            "value": "0"
+          }
+        },
+        "meta": {}
+      },
+      "after": {
+        "block": "46566675",
+        "hash": "0xaf5b6d11725f8c000537594faaa6e3fa9e7d3dc5e09decded1ff83f8b16c1803",
+        "timestamp": 1788901638,
+        "weth": "1000000000000000",
+        "usdc": "0",
+        "aToken": "0",
+        "nftCount": "0"
+      },
+      "executionId": "agb0u227x9othejimvrr8",
+      "transactionHash": "0x7490fb0c3a95a7d93395bf9ddc085ad8a8e3b9bf138a3c0a9f5a30d1a1dc5f34",
+      "blockHash": "0xaf5b6d11725f8c000537594faaa6e3fa9e7d3dc5e09decded1ff83f8b16c1803",
+      "explorerUrl": "https://sepolia.basescan.org/tx/0x7490fb0c3a95a7d93395bf9ddc085ad8a8e3b9bf138a3c0a9f5a30d1a1dc5f34",
+      "meta": {},
+      "sponsored": true
+    },
+    {
+      "id": "mint",
+      "baseline": {
+        "state": {
+          "block": "46566677",
+          "hash": "0x3d5e1c962c21795346b82f37cb69246f21b270145c662e51822e47ade5e25be0",
+          "timestamp": 1788901642,
+          "weth": "1000000000000000",
+          "usdc": "0",
+          "aToken": "0",
+          "nftCount": "0"
+        },
+        "step": {
+          "id": "mint",
+          "calldata": "0x883164560000000000000000000000004200000000000000000000000000000000000006000000000000000000000000ba50cd2a20f6da35d788639e581bca8d0b5d4d5f00000000000000000000000000000000000000000000000000000000000001f4fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd017afffffffffffffffffffffffffffffffffffffffffffffffffffffffffffd01b600000000000000000000000000000000000000000000000000038d7ea4c68000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000038ac426d7500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007109c8e3b56c0a94729f3f538105b6916ef5934b000000000000000000000000000000000000000000000000000000006aa07982",
+          "request": {
+            "chainId": 84532,
+            "contractAddress": "0x27F971cb582BF9E50F397e4d29a5C7A34f11faA2",
+            "functionName": "mint",
+            "functionArgs": "[\n  {\n    \"token0\": \"0x4200000000000000000000000000000000000006\",\n    \"token1\": \"0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f\",\n    \"fee\": 500,\n    \"tickLower\": -196230,\n    \"tickUpper\": -196170,\n    \"amount0Desired\": \"1000000000000000\",\n    \"amount1Desired\": \"0\",\n    \"amount0Min\": \"997000000000000\",\n    \"amount1Min\": \"0\",\n    \"recipient\": \"0x7109C8e3B56C0A94729F3f538105b6916EF5934B\",\n    \"deadline\": \"1788901762\"\n  }\n]",
+            "abi": "[{\"name\":\"positions\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[{\"type\":\"uint256\",\"name\":\"tokenId\"}],\"outputs\":[{\"type\":\"uint96\",\"name\":\"nonce\"},{\"type\":\"address\",\"name\":\"operator\"},{\"type\":\"address\",\"name\":\"token0\"},{\"type\":\"address\",\"name\":\"token1\"},{\"type\":\"uint24\",\"name\":\"fee\"},{\"type\":\"int24\",\"name\":\"tickLower\"},{\"type\":\"int24\",\"name\":\"tickUpper\"},{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"feeGrowthInside0LastX128\"},{\"type\":\"uint256\",\"name\":\"feeGrowthInside1LastX128\"},{\"type\":\"uint128\",\"name\":\"tokensOwed0\"},{\"type\":\"uint128\",\"name\":\"tokensOwed1\"}]},{\"name\":\"ownerOf\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[{\"type\":\"uint256\",\"name\":\"tokenId\"}],\"outputs\":[{\"type\":\"address\"}]},{\"name\":\"totalSupply\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"uint256\"}]},{\"name\":\"tokenByIndex\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[{\"type\":\"uint256\",\"name\":\"index\"}],\"outputs\":[{\"type\":\"uint256\"}]},{\"name\":\"decreaseLiquidity\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"amount0Min\"},{\"type\":\"uint256\",\"name\":\"amount1Min\"},{\"type\":\"uint256\",\"name\":\"deadline\"}]}],\"outputs\":[{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]},{\"name\":\"collect\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"address\",\"name\":\"recipient\"},{\"type\":\"uint128\",\"name\":\"amount0Max\"},{\"type\":\"uint128\",\"name\":\"amount1Max\"}]}],\"outputs\":[{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]},{\"name\":\"multicall\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"bytes[]\",\"name\":\"data\"}],\"outputs\":[{\"type\":\"bytes[]\",\"name\":\"results\"}]},{\"name\":\"mint\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"address\",\"name\":\"token0\"},{\"type\":\"address\",\"name\":\"token1\"},{\"type\":\"uint24\",\"name\":\"fee\"},{\"type\":\"int24\",\"name\":\"tickLower\"},{\"type\":\"int24\",\"name\":\"tickUpper\"},{\"type\":\"uint256\",\"name\":\"amount0Desired\"},{\"type\":\"uint256\",\"name\":\"amount1Desired\"},{\"type\":\"uint256\",\"name\":\"amount0Min\"},{\"type\":\"uint256\",\"name\":\"amount1Min\"},{\"type\":\"address\",\"name\":\"recipient\"},{\"type\":\"uint256\",\"name\":\"deadline\"}]}],\"outputs\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]},{\"name\":\"increaseLiquidity\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"uint256\",\"name\":\"amount0Desired\"},{\"type\":\"uint256\",\"name\":\"amount1Desired\"},{\"type\":\"uint256\",\"name\":\"amount0Min\"},{\"type\":\"uint256\",\"name\":\"amount1Min\"},{\"type\":\"uint256\",\"name\":\"deadline\"}]}],\"outputs\":[{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]}]",
+            "value": "0"
+          }
+        },
+        "meta": {
+          "lower": -196230,
+          "upper": -196170,
+          "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+          "tick": -196257
+        }
+      },
+      "after": {
+        "block": "46566681",
+        "hash": "0xbd268ccc4c211e352634138e73c8f6163c2388b7a8e59c95304078e94e1e706b",
+        "timestamp": 1788901650,
+        "weth": "15",
+        "usdc": "0",
+        "aToken": "0",
+        "nftCount": "1"
+      },
+      "executionId": "hecfjfpf2uvv9i2mee5af",
+      "transactionHash": "0xa26a6863cc240742a710bafc2b0bf425c18d71a77a2ca2b6053c5fe2ebce0d86",
+      "blockHash": "0xbd268ccc4c211e352634138e73c8f6163c2388b7a8e59c95304078e94e1e706b",
+      "explorerUrl": "https://sepolia.basescan.org/tx/0xa26a6863cc240742a710bafc2b0bf425c18d71a77a2ca2b6053c5fe2ebce0d86",
+      "meta": {
+        "lower": -196230,
+        "upper": -196170,
+        "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+        "tick": -196257,
+        "tokenId": "82083",
+        "liquidity": "18309835226607",
+        "wethSpent": "999999999999985"
+      },
+      "sponsored": true
+    },
+    {
+      "id": "release",
+      "baseline": {
+        "state": {
+          "block": "46566696",
+          "hash": "0xc41d19215e37944e29041a6f834345d490c57b5b4da75b5d69b640a0dfcd65e8",
+          "timestamp": 1788901680,
+          "weth": "15",
+          "usdc": "0",
+          "aToken": "0",
+          "nftCount": "1"
+        },
+        "step": {
+          "id": "release",
+          "calldata": "0xac9650d8000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000012000000000000000000000000000000000000000000000000000000000000000a40c49ccbe00000000000000000000000000000000000000000000000000000000000140a3000000000000000000000000000000000000000000000000000010a717397def00000000000000000000000000000000000000000000000000038ac426d74ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006aa079a8000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000084fc6f786500000000000000000000000000000000000000000000000000000000000140a30000000000000000000000007109c8e3b56c0a94729f3f538105b6916ef5934b00000000000000000000000000000000ffffffffffffffffffffffffffffffff00000000000000000000000000000000ffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000",
+          "request": {
+            "chainId": 84532,
+            "contractAddress": "0x27F971cb582BF9E50F397e4d29a5C7A34f11faA2",
+            "functionName": "multicall",
+            "functionArgs": "[\n  [\n    \"0x0c49ccbe00000000000000000000000000000000000000000000000000000000000140a3000000000000000000000000000000000000000000000000000010a717397def00000000000000000000000000000000000000000000000000038ac426d74ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006aa079a8\",\n    \"0xfc6f786500000000000000000000000000000000000000000000000000000000000140a30000000000000000000000007109c8e3b56c0a94729f3f538105b6916ef5934b00000000000000000000000000000000ffffffffffffffffffffffffffffffff00000000000000000000000000000000ffffffffffffffffffffffffffffffff\"\n  ]\n]",
+            "abi": "[{\"name\":\"positions\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[{\"type\":\"uint256\",\"name\":\"tokenId\"}],\"outputs\":[{\"type\":\"uint96\",\"name\":\"nonce\"},{\"type\":\"address\",\"name\":\"operator\"},{\"type\":\"address\",\"name\":\"token0\"},{\"type\":\"address\",\"name\":\"token1\"},{\"type\":\"uint24\",\"name\":\"fee\"},{\"type\":\"int24\",\"name\":\"tickLower\"},{\"type\":\"int24\",\"name\":\"tickUpper\"},{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"feeGrowthInside0LastX128\"},{\"type\":\"uint256\",\"name\":\"feeGrowthInside1LastX128\"},{\"type\":\"uint128\",\"name\":\"tokensOwed0\"},{\"type\":\"uint128\",\"name\":\"tokensOwed1\"}]},{\"name\":\"ownerOf\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[{\"type\":\"uint256\",\"name\":\"tokenId\"}],\"outputs\":[{\"type\":\"address\"}]},{\"name\":\"totalSupply\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"uint256\"}]},{\"name\":\"tokenByIndex\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[{\"type\":\"uint256\",\"name\":\"index\"}],\"outputs\":[{\"type\":\"uint256\"}]},{\"name\":\"decreaseLiquidity\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"amount0Min\"},{\"type\":\"uint256\",\"name\":\"amount1Min\"},{\"type\":\"uint256\",\"name\":\"deadline\"}]}],\"outputs\":[{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]},{\"name\":\"collect\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"address\",\"name\":\"recipient\"},{\"type\":\"uint128\",\"name\":\"amount0Max\"},{\"type\":\"uint128\",\"name\":\"amount1Max\"}]}],\"outputs\":[{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]},{\"name\":\"multicall\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"bytes[]\",\"name\":\"data\"}],\"outputs\":[{\"type\":\"bytes[]\",\"name\":\"results\"}]},{\"name\":\"mint\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"address\",\"name\":\"token0\"},{\"type\":\"address\",\"name\":\"token1\"},{\"type\":\"uint24\",\"name\":\"fee\"},{\"type\":\"int24\",\"name\":\"tickLower\"},{\"type\":\"int24\",\"name\":\"tickUpper\"},{\"type\":\"uint256\",\"name\":\"amount0Desired\"},{\"type\":\"uint256\",\"name\":\"amount1Desired\"},{\"type\":\"uint256\",\"name\":\"amount0Min\"},{\"type\":\"uint256\",\"name\":\"amount1Min\"},{\"type\":\"address\",\"name\":\"recipient\"},{\"type\":\"uint256\",\"name\":\"deadline\"}]}],\"outputs\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]},{\"name\":\"increaseLiquidity\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"uint256\",\"name\":\"amount0Desired\"},{\"type\":\"uint256\",\"name\":\"amount1Desired\"},{\"type\":\"uint256\",\"name\":\"amount0Min\"},{\"type\":\"uint256\",\"name\":\"amount1Min\"},{\"type\":\"uint256\",\"name\":\"deadline\"}]}],\"outputs\":[{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]}]",
+            "value": "0"
+          }
+        },
+        "meta": {
+          "tokenId": "82083",
+          "liquidity": "18309835226607",
+          "expectedWeth": "999999999999984",
+          "tick": -196257
+        }
+      },
+      "after": {
+        "block": "46566698",
+        "hash": "0xb30afb0a1395e6a52ad2e24e1c3525d82006b934e23774a1ad693ba7dfff874b",
+        "timestamp": 1788901684,
+        "weth": "999999999999999",
+        "usdc": "0",
+        "aToken": "0",
+        "nftCount": "1"
+      },
+      "executionId": "vekqekxbefd5vqd53sqcc",
+      "transactionHash": "0xb038fc5a00e2a20a3f1f86af9655f71e88ae10c3c489e2d9af9a88602982281e",
+      "blockHash": "0xb30afb0a1395e6a52ad2e24e1c3525d82006b934e23774a1ad693ba7dfff874b",
+      "explorerUrl": "https://sepolia.basescan.org/tx/0xb038fc5a00e2a20a3f1f86af9655f71e88ae10c3c489e2d9af9a88602982281e",
+      "meta": {
+        "tokenId": "82083",
+        "liquidity": "18309835226607",
+        "expectedWeth": "999999999999984",
+        "tick": -196257,
+        "releasedWeth": "999999999999984"
+      },
+      "sponsored": true
+    },
+    {
+      "id": "approve-aave",
+      "baseline": {
+        "state": {
+          "block": "46566699",
+          "hash": "0xa344564c19706058d2359fb32f53e302d1145d5cf2196ce87662b3422ca42110",
+          "timestamp": 1788901686,
+          "weth": "999999999999999",
+          "usdc": "0",
+          "aToken": "0",
+          "nftCount": "1"
+        },
+        "step": {
+          "id": "approve-aave",
+          "calldata": "0x095ea7b30000000000000000000000008bab6d1b75f19e9ed9fce8b9bd338844ff79ae2700000000000000000000000000000000000000000000000000038d7ea4c67ff0",
+          "request": {
+            "chainId": 84532,
+            "contractAddress": "0x4200000000000000000000000000000000000006",
+            "functionName": "approve",
+            "functionArgs": "[\n  \"0x8bAB6d1b75f19e9eD9fCe8b9BD338844fF79aE27\",\n  \"999999999999984\"\n]",
+            "abi": "[{\"type\":\"event\",\"name\":\"Approval\",\"inputs\":[{\"indexed\":true,\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}]},{\"type\":\"event\",\"name\":\"Transfer\",\"inputs\":[{\"indexed\":true,\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"allowance\",\"stateMutability\":\"view\",\"inputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"spender\",\"type\":\"address\"}],\"outputs\":[{\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"approve\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"name\":\"spender\",\"type\":\"address\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"outputs\":[{\"type\":\"bool\"}]},{\"type\":\"function\",\"name\":\"balanceOf\",\"stateMutability\":\"view\",\"inputs\":[{\"name\":\"account\",\"type\":\"address\"}],\"outputs\":[{\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"decimals\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"uint8\"}]},{\"type\":\"function\",\"name\":\"name\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"string\"}]},{\"type\":\"function\",\"name\":\"symbol\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"string\"}]},{\"type\":\"function\",\"name\":\"totalSupply\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"transfer\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"name\":\"recipient\",\"type\":\"address\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"outputs\":[{\"type\":\"bool\"}]},{\"type\":\"function\",\"name\":\"transferFrom\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"name\":\"sender\",\"type\":\"address\"},{\"name\":\"recipient\",\"type\":\"address\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"outputs\":[{\"type\":\"bool\"}]}]",
+            "value": "0"
+          }
+        },
+        "meta": {
+          "amount": "999999999999984"
+        }
+      },
+      "after": {
+        "block": "46566702",
+        "hash": "0x3d2a59c493440aea5692cd676aaced195bdc8529b25bb49e5aaac0d068c6c666",
+        "timestamp": 1788901692,
+        "weth": "999999999999999",
+        "usdc": "0",
+        "aToken": "0",
+        "nftCount": "1"
+      },
+      "executionId": "cxizlkarzt7f26duqafu4",
+      "transactionHash": "0x0c254dcabf9f59b006b7cd6e07258690962382bd76dbea74e7a43b4e96eae52a",
+      "blockHash": "0x3d2a59c493440aea5692cd676aaced195bdc8529b25bb49e5aaac0d068c6c666",
+      "explorerUrl": "https://sepolia.basescan.org/tx/0x0c254dcabf9f59b006b7cd6e07258690962382bd76dbea74e7a43b4e96eae52a",
+      "meta": {
+        "amount": "999999999999984"
+      },
+      "sponsored": true
+    },
+    {
+      "id": "supply",
+      "baseline": {
+        "state": {
+          "block": "46566704",
+          "hash": "0x1ee3d90e01d2f037d50bc7ece0e699b26482908f58107787cb5f86cef7f8e9ba",
+          "timestamp": 1788901696,
+          "weth": "999999999999999",
+          "usdc": "0",
+          "aToken": "0",
+          "nftCount": "1"
+        },
+        "step": {
+          "id": "supply",
+          "calldata": "0x617ba037000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000038d7ea4c67ff00000000000000000000000007109c8e3b56c0a94729f3f538105b6916ef5934b0000000000000000000000000000000000000000000000000000000000000000",
+          "request": {
+            "chainId": 84532,
+            "contractAddress": "0x8bAB6d1b75f19e9eD9fCe8b9BD338844fF79aE27",
+            "functionName": "supply",
+            "functionArgs": "[\n  \"0x4200000000000000000000000000000000000006\",\n  \"999999999999984\",\n  \"0x7109C8e3B56C0A94729F3f538105b6916EF5934B\",\n  0\n]",
+            "abi": "[{\"name\":\"supply\",\"type\":\"function\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"type\":\"address\",\"name\":\"asset\"},{\"type\":\"uint256\",\"name\":\"amount\"},{\"type\":\"address\",\"name\":\"onBehalfOf\"},{\"type\":\"uint16\",\"name\":\"referralCode\"}],\"outputs\":[]},{\"name\":\"withdraw\",\"type\":\"function\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"type\":\"address\",\"name\":\"asset\"},{\"type\":\"uint256\",\"name\":\"amount\"},{\"type\":\"address\",\"name\":\"to\"}],\"outputs\":[{\"type\":\"uint256\"}]}]",
+            "value": "0"
+          }
+        },
+        "meta": {
+          "amount": "999999999999984"
+        }
+      },
+      "after": {
+        "block": "46566708",
+        "hash": "0xb82753200af5f2acf51a12617983cbe9505499212baa985df227aa5dac45a086",
+        "timestamp": 1788901704,
+        "weth": "15",
+        "usdc": "0",
+        "aToken": "999999999999983",
+        "nftCount": "1"
+      },
+      "executionId": "ahrs383aubik7myiv1kgz",
+      "transactionHash": "0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8",
+      "blockHash": "0xb82753200af5f2acf51a12617983cbe9505499212baa985df227aa5dac45a086",
+      "explorerUrl": "https://sepolia.basescan.org/tx/0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8",
+      "meta": {
+        "amount": "999999999999984",
+        "aTokenDelta": "999999999999983"
+      },
+      "sponsored": true
+    }
+  ],
+  "complete": true
+}

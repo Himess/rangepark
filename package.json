@@ -17,10 +17,12 @@
     "testnet:check": "tsx scripts/check-testnet.ts",
     "testnet:preflight": "tsx scripts/preflight-testnet.ts",
     "testnet:deposit": "tsx scripts/execute-testnet-deposit.ts",
+    "testnet:park": "tsx scripts/testnet-park.ts",
+    "testnet:return-check": "tsx scripts/testnet-return-check.ts",
     "test:fork": "tsx scripts/fork-lifecycle.ts",
     "sync:web": "node scripts/sync-web-core.mjs",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "vitest run --maxWorkers=1 --minWorkers=1",
     "check": "npm run typecheck && npm test"
   },
   "dependencies": {
