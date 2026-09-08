@@ -13,6 +13,7 @@
     "observe": "tsx src/cli.ts observe",
     "discover": "tsx src/cli.ts discover",
     "preflight": "tsx src/cli.ts preflight",
+    "connection": "tsx src/cli.ts connection",
     "test:fork": "tsx scripts/fork-lifecycle.ts",
     "sync:web": "node scripts/sync-web-core.mjs",
     "typecheck": "tsc --noEmit",

@@ -1,7 +1,7 @@
 import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { existsSync } from "node:fs";
-import { formatUnits, isAddressEqual } from "viem";
+import { formatUnits, isAddress, isAddressEqual } from "viem";
 import { BASE } from "./config/base.js";
 import { baseClient, readBlock, verifyBlock } from "./chain/client.js";
 import { discoverPositions, readPosition } from "./chain/uniswap.js";
@@ -25,6 +25,28 @@ async function save(name: string, value: unknown) {
 
 async function main() {
   const [command, argument] = process.argv.slice(2);
+  if (command === "connection") {
+    const expected = process.env.KEEPERHUB_EXPECTED_SENDER;
+    if (!expected || !isAddress(expected))
+      throw new Error(
+        "Set KEEPERHUB_EXPECTED_SENDER to the verified organization EOA",
+      );
+    const { inspectExecutionWallet, probeConnection } = await import(
+      "./keeperhub/connection.js"
+    );
+    const wallet = await inspectExecutionWallet(baseClient(), expected);
+    const key = process.env.KEEPERHUB_API_KEY;
+    const probe = key
+      ? await probeConnection(new KeeperHubClient(key), expected)
+      : {
+          mode: "NOT_AUTHENTICATED",
+          reason: "Organization API key not configured",
+          transactions: [],
+        };
+    const artifact = await save("keeperhub-connection.json", { wallet, probe });
+    console.log(json({ wallet, probe, artifact }));
+    return;
+  }
   if (command === "demo") {
     const input = demoInput();
     const decision = decidePark(input);
@@ -68,7 +90,9 @@ async function main() {
     );
     return;
   }
-  if (!["inspect", "observe", "discover", "preflight"].includes(command ?? "")) {
+  if (
+    !["inspect", "observe", "discover", "preflight"].includes(command ?? "")
+  ) {
     throw new Error(
       "Usage: npm run demo | npm run discover -- [1-64] | npm run inspect -- <tokenId> | npm run observe -- <tokenId> | npm run preflight -- <tokenId>",
     );
@@ -145,26 +169,69 @@ async function main() {
   );
   let decision: unknown = "NOT_EVALUATED";
   let plan: unknown = null;
-  let reason = "A single snapshot does not establish persistence. Live cost and opportunity-cost assumptions are also required.";
+  let reason =
+    "A single snapshot does not establish persistence. Live cost and opportunity-cost assumptions are also required.";
   if (command === "observe") {
     const { Journal } = await import("./state/journal.js");
     const journal = new Journal(resolve("artifacts", "rangepark.sqlite"));
-    try { observation = journal.recordObservation(position, defaultPolicy.maxObservationGapSeconds); }
-    finally { journal.close(); }
-    reason = "Observation saved durably. Provide a current economic quote to evaluate the live policy.";
+    try {
+      observation = journal.recordObservation(
+        position,
+        defaultPolicy.maxObservationGapSeconds,
+      );
+    } finally {
+      journal.close();
+    }
+    reason =
+      "Observation saved durably. Provide a current economic quote to evaluate the live policy.";
     if (process.env.RANGEPARK_ECONOMICS_FILE && supported && market) {
-      const quote = z.object({
-        chainId: z.literal(8453), asset: z.string().regex(/^0x[0-9a-fA-F]{40}$/),
-        roundTripCost: z.string().regex(/^[0-9]+$/), foregoneLpFees: z.string().regex(/^[0-9]+$/),
-        source: z.string().min(1), quotedAt: z.number().int(), expiresAt: z.number().int(),
-        lastActionAt: z.number().int().nullable(),
-      }).strict().parse(JSON.parse(await readFile(process.env.RANGEPARK_ECONOMICS_FILE,"utf8")));
-      const now = Math.floor(Date.now()/1000);
-      if (!isAddressEqual(quote.asset as `0x${string}`,asset.address) || quote.quotedAt>now || quote.expiresAt<=now || quote.expiresAt-quote.quotedAt>120 || (quote.lastActionAt!==null&&quote.lastActionAt>now)) throw new Error("Economic quote is expired, future-dated, or for another asset");
-      const input = {position,market,observation,policy:defaultPolicy,economics:{roundTripCost:BigInt(quote.roundTripCost),foregoneLpFees:BigInt(quote.foregoneLpFees),source:quote.source},now,lastActionAt:quote.lastActionAt};
-      const receipt=decidePark(input);decision=receipt;
-      if(receipt.action==='PARK')plan=buildParkPlan(input,position.owner);
-      reason="Live policy evaluated using the supplied economic quote. No execution was authorized or submitted.";
+      const quote = z
+        .object({
+          chainId: z.literal(8453),
+          asset: z.string().regex(/^0x[0-9a-fA-F]{40}$/),
+          roundTripCost: z.string().regex(/^[0-9]+$/),
+          foregoneLpFees: z.string().regex(/^[0-9]+$/),
+          source: z.string().min(1),
+          quotedAt: z.number().int(),
+          expiresAt: z.number().int(),
+          lastActionAt: z.number().int().nullable(),
+        })
+        .strict()
+        .parse(
+          JSON.parse(
+            await readFile(process.env.RANGEPARK_ECONOMICS_FILE, "utf8"),
+          ),
+        );
+      const now = Math.floor(Date.now() / 1000);
+      if (
+        !isAddressEqual(quote.asset as `0x${string}`, asset.address) ||
+        quote.quotedAt > now ||
+        quote.expiresAt <= now ||
+        quote.expiresAt - quote.quotedAt > 120 ||
+        (quote.lastActionAt !== null && quote.lastActionAt > now)
+      )
+        throw new Error(
+          "Economic quote is expired, future-dated, or for another asset",
+        );
+      const input = {
+        position,
+        market,
+        observation,
+        policy: defaultPolicy,
+        economics: {
+          roundTripCost: BigInt(quote.roundTripCost),
+          foregoneLpFees: BigInt(quote.foregoneLpFees),
+          source: quote.source,
+        },
+        now,
+        lastActionAt: quote.lastActionAt,
+      };
+      const receipt = decidePark(input);
+      decision = receipt;
+      if (receipt.action === "PARK")
+        plan = buildParkPlan(input, position.owner);
+      reason =
+        "Live policy evaluated using the supplied economic quote. No execution was authorized or submitted.";
     }
   }
   const path = await save(`position-${position.tokenId}.json`, {
@@ -172,7 +239,9 @@ async function main() {
     position,
     aaveMarkets,
     observation,
-    decision, plan, reason,
+    decision,
+    plan,
+    reason,
   });
   console.log(
     json({
@@ -202,7 +271,9 @@ async function main() {
         paused: m.paused,
       })),
       block,
-      observation, decision, reason,
+      observation,
+      decision,
+      reason,
       artifact: path,
     }),
   );

@@ -26,6 +26,16 @@ KeeperHub API transport is implemented and mocked tests pass. **No authenticated
 
 ## Next delivery gates
 
+### Connection update — 8 September
+
+The user signed into KeeperHub. Organization settings confirm an EVM signer with no Safe accounts. A same-block public Base read of that signer found zero ETH, WETH, USDC and Uniswap V3 NFTs. Exact account details and block evidence stay in local ignored artifacts.
+
+The read-only API key form is prepared. KeeperHub requires an email code and authenticator verification before minting the key; user completion is pending. No key has been created or received and no authenticated probe has been claimed successful.
+
+The new connection command checks wallet readiness and, once a key is configured, simulates a balance read and zero-amount approval with strict expected-sender checking. Three focused tests passed for simulation-only payloads, scope failures and wrong-organization rejection. The earlier 56-test suite passed before this addition.
+
+### Remaining gates
+
 1. Authenticate the KeeperHub organization and establish its execution-wallet identity and EOA routing.
 2. Add a production step executor with fresh chain guards, sender/target checks, durable submission records, and verified receipt/delta reconciliation. Use strategy-attributable share accounting when the owner already has Aave deposits.
 3. Produce current execution-cost and foregone-fee inputs; reserve the original range and apply return persistence/cooldown before starting a return.

@@ -74,6 +74,10 @@ It mints a locally funded out-of-range position, observes persistence, releases 
 
 ### KeeperHub preflight
 
+`npm run connection` reads the verified execution EOA's Base ETH/WETH/USDC balances and its Uniswap NFTs. Configure `KEEPERHUB_EXPECTED_SENDER` from the organization's Wallets page. Without an API key, it explicitly reports `NOT_AUTHENTICATED`; with one, it simulates a USDC balance read and a zero-amount WETH approval. Neither probe broadcasts or grants an allowance. The report is saved locally as `artifacts/keeperhub-connection.json`.
+
+Use a key scoped to **`mcp:read` only** for these checks. KeeperHub's [current direct-execution reference](https://docs.keeperhub.com/api/direct-execution) permits `simulate: true` with read scope and requires write scope for broadcasting. No write/admin credential is needed for the connection probe.
+
 Copy `.env.example` to `.env` and set the organization API key locally. Never commit it or put it in a frontend bundle. The CLI loads `.env` automatically; existing environment variables take precedence.
 
 ```sh
