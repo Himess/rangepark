@@ -1,10 +1,10 @@
-"use client";
-import Link from "next/link";
-import { ArrowDownRight, ArrowRight, Layers } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { PositionView } from "@/components/position-view";
-import { DecisionLab } from "@/components/decision-lab";
-import { EvidenceView } from "@/components/evidence-view";
+'use client';
+import Link from 'next/link';
+import { ArrowDownRight, ArrowRight, Layers } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { PositionView } from '@/components/position-view';
+import { DecisionLab } from '@/components/decision-lab';
+import { EvidenceView } from '@/components/evidence-view';
 
 export default function Dashboard() {
   return (
@@ -18,7 +18,7 @@ export default function Dashboard() {
         </Link>
         <div className="header-right">
           <span className="network">
-            <i /> Base
+            <i /> Base / Base Sepolia
           </span>
           <span className="mode">READ & REVIEW</span>
         </div>
@@ -39,7 +39,7 @@ export default function Dashboard() {
           <Layers size={16} /> KeeperHub integration
         </span>
       </div>
-      <Tabs defaultValue="position" className="main-tabs">
+      <Tabs defaultValue="evidence" className="main-tabs">
         <TabsList variant="line" aria-label="Workspace views">
           <TabsTrigger value="position">Position</TabsTrigger>
           <TabsTrigger value="lab">Decision lab</TabsTrigger>
@@ -58,7 +58,7 @@ export default function Dashboard() {
       <footer>
         <span>RangePark · Same asset. A different job.</span>
         <span>
-          Read-only mainnet access · Reviewed plans · No funds moved by this
+          Mainnet reads · Verified testnet evidence · No funds moved by this
           site
         </span>
       </footer>

@@ -1,0 +1,15 @@
+import {readFileSync,writeFileSync} from "node:fs";
+import {resolve} from "node:path";
+const root=resolve(import.meta.dirname,"..");
+const read=name=>JSON.parse(readFileSync(resolve(root,"docs/evidence",name),"utf8"));
+const deposit=read("testnet-deposit.json"),park=read("testnet-park.json"),restore=read("testnet-restore.json");
+if(!park.complete||!restore.complete||[deposit,park,restore].some(r=>r.chainId!==84532||r.keeperhubExecution!==true))throw new Error("Complete Base Sepolia evidence required");
+const mint=park.steps.find(s=>s.id==="mint");const end=restore.steps.at(-1);
+if(mint.meta.tokenId!==restore.tokenId||BigInt(end.after.liquidity)<=0n)throw new Error("Original NFT restoration is not verified");
+const transaction=(id,e)=>({id,executionId:e.executionId,hash:e.transactionHash,url:e.explorerUrl,sponsored:e.sponsored??e.keeperhubStatus.sponsored,block:String(e.after?.block??e.after?.blockNumber??e.after?.block??e.blockNumber)});
+const transactions=[transaction("wrap",deposit),...park.steps.map(s=>transaction(s.id,s)),...restore.steps.map(s=>transaction(s.id,s))];
+if(transactions.length!==9||new Set(transactions.map(t=>t.hash)).size!==9||transactions.some(t=>!/^0x[0-9a-f]{64}$/i.test(t.hash)||t.url!==`https://sepolia.basescan.org/tx/${t.hash}`))throw new Error("Invalid transaction evidence");
+const summary={chainId:84532,network:"Base Sepolia",mode:"MANUAL_CONTRACT_REHEARSAL",policyDecision:false,rangeTriggeredReturn:false,owner:restore.owner,tokenId:restore.tokenId,range:restore.originalRange,principal:restore.principalRestored,liquidityBefore:mint.meta.liquidity,liquidityAfter:end.after.liquidity,residualAaveClaim:end.after.aToken,wethDust:end.after.weth,currentTickAtRestore:end.after.tick,completedAt:new Date(end.after.timestamp*1000).toISOString(),transactions};
+writeFileSync(resolve(root,"apps/web/lib/testnet-evidence.json"),JSON.stringify(summary,null,2)+"\n");
+writeFileSync(resolve(root,"apps/web/public/evidence/testnet-lifecycle.json"),JSON.stringify({summary,deposit,park,restore},null,2)+"\n");
+console.log("Synced nine verified Base Sepolia receipts; manual rehearsal labels retained.");

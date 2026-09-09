@@ -80,7 +80,6 @@ try {
   ]);
   if (
     !isAddressEqual(nftOwner, owner) ||
-    position[7] !== 0n ||
     position[5] !== Number(mint.meta.lower) ||
     position[6] !== Number(mint.meta.upper) ||
     !isAddressEqual(position[2], config.weth) ||
@@ -103,6 +102,36 @@ try {
       blockNumber: block.number,
     }),
   ]);
+  if (position[7] > 0n) {
+    if ((await c.getBlock({ blockNumber: block.number })).hash !== block.hash)
+      throw new Error("Snapshot reorged");
+    const report = {
+      mode: "BASE_SEPOLIA_RETURN_READ_ONLY",
+      chainId: 84532,
+      owner,
+      tokenId,
+      block: {
+        number: block.number,
+        hash: block.hash,
+        timestamp: block.timestamp,
+      },
+      range: {
+        lower: position[5],
+        upper: position[6],
+        currentTick: slot[1],
+        inRange: slot[1] >= position[5] && slot[1] < position[6],
+      },
+      liquidity: position[7],
+      aTokenBalance: balance,
+      rangeState: "ORIGINAL_NFT_HAS_LIQUIDITY",
+      automaticReturnReady: false,
+      withdrawalSimulation: null,
+      transactions: [],
+    };
+    await writeFile("artifacts/testnet-return-check.json", json(report));
+    console.log(json(report));
+    process.exit(0);
+  }
   if (balance < principal - 2n)
     throw new Error("Aave claim below expected principal");
   const response = await fetch(

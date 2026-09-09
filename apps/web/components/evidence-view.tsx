@@ -1,23 +1,25 @@
-import { CircleCheck, Download, ShieldCheck } from "lucide-react";
-import evidence from "@/lib/fork-evidence.json";
+import { CircleCheck, Download, ShieldCheck } from 'lucide-react';
+import evidence from '@/lib/fork-evidence.json';
+import { TestnetEvidence } from '@/components/testnet-evidence';
 const labels: Record<string, string> = {
-  release: "Exit original LP",
-  approve: "Approve parked amount",
-  supply: "Supply WETH to Aave",
-  withdraw: "Withdraw from Aave",
-  "approve-swap": "Approve ratio swap",
-  swap: "Swap into range ratio",
-  "approve-lp0": "Approve WETH for LP",
-  "approve-lp1": "Approve USDC for LP",
-  increase: "Restore original NFT",
-  recovery: "Recover the original receipt",
+  release: 'Exit original LP',
+  approve: 'Approve parked amount',
+  supply: 'Supply WETH to Aave',
+  withdraw: 'Withdraw from Aave',
+  'approve-swap': 'Approve ratio swap',
+  swap: 'Swap into range ratio',
+  'approve-lp0': 'Approve WETH for LP',
+  'approve-lp1': 'Approve USDC for LP',
+  increase: 'Restore original NFT',
+  recovery: 'Recover the original receipt',
 };
 export function EvidenceView() {
   return (
     <>
-      <section className="panel evidence-panel">
+      <TestnetEvidence />
+      <section className="panel evidence-panel" style={{ marginTop: 24 }}>
         <p className="eyebrow">SHOW THE WORK</p>
-        <h2>One position. The complete round trip.</h2>
+        <h2>Local fork: in-range return and recovery.</h2>
         <p className="muted">
           Verified against real Uniswap and Aave contracts on a local copy of
           Base.
@@ -29,12 +31,12 @@ export function EvidenceView() {
           </div>
           <div>
             <span>Same tick range</span>
-            <strong>{evidence.originalRange.join(" → ")}</strong>
+            <strong>{evidence.originalRange.join(' → ')}</strong>
           </div>
           <div>
             <span>Transaction receipts</span>
             <strong>
-              {evidence.events.filter((e) => "transactionHash" in e).length}{" "}
+              {evidence.events.filter((e) => 'transactionHash' in e).length}{' '}
               confirmed
             </strong>
           </div>
@@ -48,11 +50,11 @@ export function EvidenceView() {
               </span>
               <div>
                 <strong>{labels[event.step] ?? event.step}</strong>
-                {"transactionHash" in event ? (
+                {'transactionHash' in event ? (
                   <p>
                     <code>{event.transactionHash}</code>
                     <span>
-                      Gas used: {Number(event.gasUsed).toLocaleString("en-US")}
+                      Gas used: {Number(event.gasUsed).toLocaleString('en-US')}
                     </span>
                   </p>
                 ) : (
@@ -112,11 +114,11 @@ export function EvidenceView() {
             <ShieldCheck />
             <h3>KeeperHub execution</h3>
             <p>
-              Exact contract-call plans and single-call simulation transport are
-              implemented. An authenticated value-movement transaction has not
-              been run.
+              Nine public Base Sepolia receipts verify funding, Uniswap exit,
+              Aave supply and manual principal restoration to the same NFT.
+              Automated range-triggered RETURN is still pending.
             </p>
-            <span className="pill warning">Pending connection</span>
+            <span className="pill good">Testnet rehearsal verified</span>
           </article>
         </div>
       </section>

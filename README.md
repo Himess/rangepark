@@ -4,7 +4,7 @@
 
 RangePark is a KeeperHub hackathon project for parking fee-idle Uniswap V3 capital in the same underlying asset on Aave V3, then returning it to its original range.
 
-## Current milestone: verified KeeperHub PARK on Base Sepolia
+## Current milestone: verified KeeperHub testnet round trip
 
 Implemented:
 
@@ -21,10 +21,11 @@ Implemented:
 - Full lifecycle verified with nine transaction receipts on an Anvil fork of Base. Evidence is bundled in the console and explicitly labelled local.
 - Web console in `apps/web`: public NFT reads, D1 observation history, synthetic decision lab, and downloadable execution evidence.
 - Real KeeperHub Base Sepolia PARK rehearsal: mint owned NFT `82083`, atomically release its liquidity, and supply the same WETH to Aave. Five additional transactions have verified receipts and balance deltas; the original NFT and range are preserved.
+- Manual principal restoration: withdraw the supplied WETH from Aave, approve the exact amount and restore liquidity to NFT `82083` in its original range. Nine public testnet receipts cover funding, PARK and restoration; the console includes a separate timeline and downloadable proof.
 
-**Not implemented yet:** the public testnet RETURN executor, a production strategy executor, automatic gas/opportunity-cost quotes, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. RETURN plans are review drafts; they require fresh chain checks before execution.
+**Not implemented yet:** an automatic in-range testnet RETURN executor with ratio swapping, a production strategy executor, automatic gas/opportunity-cost quotes, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. Strategy RETURN plans are review drafts; they require fresh chain checks before execution.
 
-KeeperHub has now executed the initial **0.001 test ETH wrap** and the subsequent **Uniswap NFT → Aave PARK** on Base Sepolia. [Aave supply proof](https://sepolia.basescan.org/tx/0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8) and [execution boundaries](docs/testnet.md) distinguish this manually staged contract rehearsal from an autonomous profitable strategy. The generated decision demo remains synthetic. The full public RETURN lifecycle and hackathon eligibility checks are pending.
+KeeperHub has now executed **0.001 test ETH → Uniswap NFT → Aave → the same NFT** on Base Sepolia. [Original-NFT restoration proof](https://sepolia.basescan.org/tx/0x309437e32585b8901531db3736c15f6d708175fa716f873ec6a1dae0b3d4ccc2) and [execution boundaries](docs/testnet.md) document the manual contract rehearsal. Price remained below the original range; this is not an automatic range-triggered RETURN or a profitable strategy claim. Interest remains in Aave as test tokens. The generated decision demo remains synthetic. Automatic RETURN and hackathon eligibility checks are pending.
 
 ## Run locally
 
@@ -77,7 +78,7 @@ It mints a locally funded out-of-range position, observes persistence, releases 
 
 The next onchain rehearsal is restricted to **Base Sepolia (84532)**. Run `npm run testnet:check` for wallet/contracts/markets and `npm run testnet:preflight` for a fixed **0.001 test ETH** wrap simulation through KeeperHub. Both commands are non-broadcasting. The existing organization wallet already has test ETH; no private-key export is needed. See [testnet evidence and execution boundaries](docs/testnet.md), including the difference between Aave test USDC and Circle test USDC.
 
-`npm run testnet:park -- mint` and `npm run testnet:park -- park` are explicit broadcast commands for the one-time rehearsal; its funding and PARK steps are already complete. `npm run testnet:park -- reconcile` reads the recorded executions without sending them again. `npm run testnet:return-check` reads the original NFT/range and simulates principal withdrawal only; it never broadcasts or claims that the complete RETURN policy is ready.
+The one-time funding, PARK and manual restoration steps are complete. `npm run testnet:park -- reconcile` and `npm run testnet:restore -- reconcile` read their recorded executions without sending them again. `npm run testnet:return-check` reads the original NFT/range; after restoration it reports existing liquidity and skips withdrawal simulation. It never broadcasts or claims that the complete RETURN policy is ready. See the [testnet command boundaries](docs/testnet.md) before invoking any execution command.
 
 ### Base mainnet read-only preflight
 

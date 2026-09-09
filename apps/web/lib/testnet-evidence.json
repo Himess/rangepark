@@ -1,0 +1,94 @@
+{
+  "chainId": 84532,
+  "network": "Base Sepolia",
+  "mode": "MANUAL_CONTRACT_REHEARSAL",
+  "policyDecision": false,
+  "rangeTriggeredReturn": false,
+  "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+  "tokenId": "82083",
+  "range": {
+    "lower": -196230,
+    "upper": -196170
+  },
+  "principal": "999999999999984",
+  "liquidityBefore": "18309835226607",
+  "liquidityAfter": "18309835226606",
+  "residualAaveClaim": "79016983023",
+  "wethDust": "68",
+  "currentTickAtRestore": -196257,
+  "completedAt": "2026-09-09T01:30:32.000Z",
+  "transactions": [
+    {
+      "id": "wrap",
+      "executionId": "chodgtho78elwzx45xc28",
+      "hash": "0x9bcc5690cf3c0261c6d1733d07efd7f32cc4731b999dfc81e80b0696c762e4ae",
+      "url": "https://sepolia.basescan.org/tx/0x9bcc5690cf3c0261c6d1733d07efd7f32cc4731b999dfc81e80b0696c762e4ae",
+      "sponsored": true,
+      "block": "46565630"
+    },
+    {
+      "id": "approve-position",
+      "executionId": "agb0u227x9othejimvrr8",
+      "hash": "0x7490fb0c3a95a7d93395bf9ddc085ad8a8e3b9bf138a3c0a9f5a30d1a1dc5f34",
+      "url": "https://sepolia.basescan.org/tx/0x7490fb0c3a95a7d93395bf9ddc085ad8a8e3b9bf138a3c0a9f5a30d1a1dc5f34",
+      "sponsored": true,
+      "block": "46566675"
+    },
+    {
+      "id": "mint",
+      "executionId": "hecfjfpf2uvv9i2mee5af",
+      "hash": "0xa26a6863cc240742a710bafc2b0bf425c18d71a77a2ca2b6053c5fe2ebce0d86",
+      "url": "https://sepolia.basescan.org/tx/0xa26a6863cc240742a710bafc2b0bf425c18d71a77a2ca2b6053c5fe2ebce0d86",
+      "sponsored": true,
+      "block": "46566681"
+    },
+    {
+      "id": "release",
+      "executionId": "vekqekxbefd5vqd53sqcc",
+      "hash": "0xb038fc5a00e2a20a3f1f86af9655f71e88ae10c3c489e2d9af9a88602982281e",
+      "url": "https://sepolia.basescan.org/tx/0xb038fc5a00e2a20a3f1f86af9655f71e88ae10c3c489e2d9af9a88602982281e",
+      "sponsored": true,
+      "block": "46566698"
+    },
+    {
+      "id": "approve-aave",
+      "executionId": "cxizlkarzt7f26duqafu4",
+      "hash": "0x0c254dcabf9f59b006b7cd6e07258690962382bd76dbea74e7a43b4e96eae52a",
+      "url": "https://sepolia.basescan.org/tx/0x0c254dcabf9f59b006b7cd6e07258690962382bd76dbea74e7a43b4e96eae52a",
+      "sponsored": true,
+      "block": "46566702"
+    },
+    {
+      "id": "supply",
+      "executionId": "ahrs383aubik7myiv1kgz",
+      "hash": "0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8",
+      "url": "https://sepolia.basescan.org/tx/0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8",
+      "sponsored": true,
+      "block": "46566708"
+    },
+    {
+      "id": "withdraw-principal",
+      "executionId": "n2i3oodlzb5h23bx1oque",
+      "hash": "0xfb7a7fc24ddae4e6689a31407e88781cb2336842e8bf8955bce91a49f06bcf49",
+      "url": "https://sepolia.basescan.org/tx/0xfb7a7fc24ddae4e6689a31407e88781cb2336842e8bf8955bce91a49f06bcf49",
+      "sponsored": true,
+      "block": "46574560"
+    },
+    {
+      "id": "approve-restore",
+      "executionId": "6irx96v4858v70qw4r6z2",
+      "hash": "0x615c423d6527e960333db81c5c2b6b6f5fcf92acd379a7f41cf297f28f24165e",
+      "url": "https://sepolia.basescan.org/tx/0x615c423d6527e960333db81c5c2b6b6f5fcf92acd379a7f41cf297f28f24165e",
+      "sponsored": true,
+      "block": "46574566"
+    },
+    {
+      "id": "restore-original-nft",
+      "executionId": "kql1frys5l9bs8bh0p76b",
+      "hash": "0x309437e32585b8901531db3736c15f6d708175fa716f873ec6a1dae0b3d4ccc2",
+      "url": "https://sepolia.basescan.org/tx/0x309437e32585b8901531db3736c15f6d708175fa716f873ec6a1dae0b3d4ccc2",
+      "sponsored": true,
+      "block": "46574572"
+    }
+  ]
+}

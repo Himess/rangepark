@@ -1,0 +1,177 @@
+{
+  "mode": "MANUAL_BASE_SEPOLIA_PRINCIPAL_RESTORATION",
+  "chainId": 84532,
+  "keeperhubExecution": true,
+  "policyDecision": false,
+  "rangeTriggeredReturn": false,
+  "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+  "tokenId": "82083",
+  "originalRange": {
+    "lower": -196230,
+    "upper": -196170
+  },
+  "principalRestored": "999999999999984",
+  "interestHandling": "Accrued Aave claim remains in the owner's wallet; only supplied principal is restored",
+  "steps": [
+    {
+      "id": "withdraw-principal",
+      "executionId": "n2i3oodlzb5h23bx1oque",
+      "transactionHash": "0xfb7a7fc24ddae4e6689a31407e88781cb2336842e8bf8955bce91a49f06bcf49",
+      "explorerUrl": "https://sepolia.basescan.org/tx/0xfb7a7fc24ddae4e6689a31407e88781cb2336842e8bf8955bce91a49f06bcf49",
+      "sponsored": true,
+      "baseline": {
+        "state": {
+          "block": "46574557",
+          "hash": "0x7077ea91492265439df7de9763b8deb8470d52ec4d2c58aa9a0165e1ad7b9d46",
+          "timestamp": 1788917402,
+          "tick": -196257,
+          "weth": "15",
+          "usdc": "0",
+          "aToken": "1000078986783586",
+          "nftCount": "1",
+          "liquidity": "0"
+        },
+        "context": {
+          "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+          "tokenId": "82083",
+          "principal": "999999999999984",
+          "lower": -196230,
+          "upper": -196170,
+          "tick": -196257,
+          "now": 1788917402,
+          "manualRehearsal": true
+        },
+        "step": {
+          "id": "withdraw-principal",
+          "request": {
+            "chainId": 84532,
+            "contractAddress": "0x8bAB6d1b75f19e9eD9fCe8b9BD338844fF79aE27",
+            "functionName": "withdraw",
+            "functionArgs": "[\n  \"0x4200000000000000000000000000000000000006\",\n  \"999999999999984\",\n  \"0x7109C8e3B56C0A94729F3f538105b6916EF5934B\"\n]",
+            "abi": "[{\"name\":\"supply\",\"type\":\"function\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"type\":\"address\",\"name\":\"asset\"},{\"type\":\"uint256\",\"name\":\"amount\"},{\"type\":\"address\",\"name\":\"onBehalfOf\"},{\"type\":\"uint16\",\"name\":\"referralCode\"}],\"outputs\":[]},{\"name\":\"withdraw\",\"type\":\"function\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"type\":\"address\",\"name\":\"asset\"},{\"type\":\"uint256\",\"name\":\"amount\"},{\"type\":\"address\",\"name\":\"to\"}],\"outputs\":[{\"type\":\"uint256\"}]}]",
+            "value": "0"
+          },
+          "calldata": "0x69328dec000000000000000000000000420000000000000000000000000000000000000600000000000000000000000000000000000000000000000000038d7ea4c67ff00000000000000000000000007109c8e3b56c0a94729f3f538105b6916ef5934b"
+        }
+      },
+      "after": {
+        "block": "46574560",
+        "hash": "0x3fdf48c3dfad17c0dd7211dd927b42272df207883ecd7e12b8e519eefd54af19",
+        "timestamp": 1788917408,
+        "tick": -196257,
+        "weth": "999999999999999",
+        "usdc": "0",
+        "aToken": "79016973479",
+        "nftCount": "1",
+        "liquidity": "0"
+      }
+    },
+    {
+      "id": "approve-restore",
+      "executionId": "6irx96v4858v70qw4r6z2",
+      "transactionHash": "0x615c423d6527e960333db81c5c2b6b6f5fcf92acd379a7f41cf297f28f24165e",
+      "explorerUrl": "https://sepolia.basescan.org/tx/0x615c423d6527e960333db81c5c2b6b6f5fcf92acd379a7f41cf297f28f24165e",
+      "sponsored": true,
+      "baseline": {
+        "state": {
+          "block": "46574562",
+          "hash": "0xe685bdefbc9a6f1662df2e63f9a3f5b289aff722761e81d963fd69a68d571633",
+          "timestamp": 1788917412,
+          "tick": -196257,
+          "weth": "999999999999999",
+          "usdc": "0",
+          "aToken": "79016975069",
+          "nftCount": "1",
+          "liquidity": "0"
+        },
+        "context": {
+          "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+          "tokenId": "82083",
+          "principal": "999999999999984",
+          "lower": -196230,
+          "upper": -196170,
+          "tick": -196257,
+          "now": 1788917412,
+          "manualRehearsal": true
+        },
+        "step": {
+          "id": "approve-restore",
+          "request": {
+            "chainId": 84532,
+            "contractAddress": "0x4200000000000000000000000000000000000006",
+            "functionName": "approve",
+            "functionArgs": "[\n  \"0x27F971cb582BF9E50F397e4d29a5C7A34f11faA2\",\n  \"999999999999984\"\n]",
+            "abi": "[{\"type\":\"event\",\"name\":\"Approval\",\"inputs\":[{\"indexed\":true,\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}]},{\"type\":\"event\",\"name\":\"Transfer\",\"inputs\":[{\"indexed\":true,\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"allowance\",\"stateMutability\":\"view\",\"inputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"spender\",\"type\":\"address\"}],\"outputs\":[{\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"approve\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"name\":\"spender\",\"type\":\"address\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"outputs\":[{\"type\":\"bool\"}]},{\"type\":\"function\",\"name\":\"balanceOf\",\"stateMutability\":\"view\",\"inputs\":[{\"name\":\"account\",\"type\":\"address\"}],\"outputs\":[{\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"decimals\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"uint8\"}]},{\"type\":\"function\",\"name\":\"name\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"string\"}]},{\"type\":\"function\",\"name\":\"symbol\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"string\"}]},{\"type\":\"function\",\"name\":\"totalSupply\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"uint256\"}]},{\"type\":\"function\",\"name\":\"transfer\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"name\":\"recipient\",\"type\":\"address\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"outputs\":[{\"type\":\"bool\"}]},{\"type\":\"function\",\"name\":\"transferFrom\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"name\":\"sender\",\"type\":\"address\"},{\"name\":\"recipient\",\"type\":\"address\"},{\"name\":\"amount\",\"type\":\"uint256\"}],\"outputs\":[{\"type\":\"bool\"}]}]",
+            "value": "0"
+          },
+          "calldata": "0x095ea7b300000000000000000000000027f971cb582bf9e50f397e4d29a5c7a34f11faa200000000000000000000000000000000000000000000000000038d7ea4c67ff0"
+        }
+      },
+      "after": {
+        "block": "46574566",
+        "hash": "0x453dbaf3a876aa500e6b06dac94c2129b70fbcbf3ccdb11d57d30d406e4b6101",
+        "timestamp": 1788917420,
+        "tick": -196257,
+        "weth": "999999999999999",
+        "usdc": "0",
+        "aToken": "79016978251",
+        "nftCount": "1",
+        "liquidity": "0"
+      }
+    },
+    {
+      "id": "restore-original-nft",
+      "executionId": "kql1frys5l9bs8bh0p76b",
+      "transactionHash": "0x309437e32585b8901531db3736c15f6d708175fa716f873ec6a1dae0b3d4ccc2",
+      "explorerUrl": "https://sepolia.basescan.org/tx/0x309437e32585b8901531db3736c15f6d708175fa716f873ec6a1dae0b3d4ccc2",
+      "sponsored": true,
+      "baseline": {
+        "state": {
+          "block": "46574568",
+          "hash": "0x28a6b165f501187fb96fbb16557522778bb8065d8516f573988a70253d1ae1b9",
+          "timestamp": 1788917424,
+          "tick": -196257,
+          "weth": "999999999999999",
+          "usdc": "0",
+          "aToken": "79016979841",
+          "nftCount": "1",
+          "liquidity": "0"
+        },
+        "context": {
+          "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+          "tokenId": "82083",
+          "principal": "999999999999984",
+          "lower": -196230,
+          "upper": -196170,
+          "tick": -196257,
+          "now": 1788917424,
+          "manualRehearsal": true
+        },
+        "step": {
+          "id": "restore-original-nft",
+          "request": {
+            "chainId": 84532,
+            "contractAddress": "0x27F971cb582BF9E50F397e4d29a5C7A34f11faA2",
+            "functionName": "increaseLiquidity",
+            "functionArgs": "[\n  {\n    \"tokenId\": \"82083\",\n    \"amount0Desired\": \"999999999999984\",\n    \"amount1Desired\": \"0\",\n    \"amount0Min\": \"996999999999984\",\n    \"amount1Min\": \"0\",\n    \"deadline\": \"1788917544\"\n  }\n]",
+            "abi": "[{\"name\":\"positions\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[{\"type\":\"uint256\",\"name\":\"tokenId\"}],\"outputs\":[{\"type\":\"uint96\",\"name\":\"nonce\"},{\"type\":\"address\",\"name\":\"operator\"},{\"type\":\"address\",\"name\":\"token0\"},{\"type\":\"address\",\"name\":\"token1\"},{\"type\":\"uint24\",\"name\":\"fee\"},{\"type\":\"int24\",\"name\":\"tickLower\"},{\"type\":\"int24\",\"name\":\"tickUpper\"},{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"feeGrowthInside0LastX128\"},{\"type\":\"uint256\",\"name\":\"feeGrowthInside1LastX128\"},{\"type\":\"uint128\",\"name\":\"tokensOwed0\"},{\"type\":\"uint128\",\"name\":\"tokensOwed1\"}]},{\"name\":\"ownerOf\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[{\"type\":\"uint256\",\"name\":\"tokenId\"}],\"outputs\":[{\"type\":\"address\"}]},{\"name\":\"totalSupply\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[],\"outputs\":[{\"type\":\"uint256\"}]},{\"name\":\"tokenByIndex\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[{\"type\":\"uint256\",\"name\":\"index\"}],\"outputs\":[{\"type\":\"uint256\"}]},{\"name\":\"decreaseLiquidity\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"amount0Min\"},{\"type\":\"uint256\",\"name\":\"amount1Min\"},{\"type\":\"uint256\",\"name\":\"deadline\"}]}],\"outputs\":[{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]},{\"name\":\"collect\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"address\",\"name\":\"recipient\"},{\"type\":\"uint128\",\"name\":\"amount0Max\"},{\"type\":\"uint128\",\"name\":\"amount1Max\"}]}],\"outputs\":[{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]},{\"name\":\"multicall\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"bytes[]\",\"name\":\"data\"}],\"outputs\":[{\"type\":\"bytes[]\",\"name\":\"results\"}]},{\"name\":\"mint\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"address\",\"name\":\"token0\"},{\"type\":\"address\",\"name\":\"token1\"},{\"type\":\"uint24\",\"name\":\"fee\"},{\"type\":\"int24\",\"name\":\"tickLower\"},{\"type\":\"int24\",\"name\":\"tickUpper\"},{\"type\":\"uint256\",\"name\":\"amount0Desired\"},{\"type\":\"uint256\",\"name\":\"amount1Desired\"},{\"type\":\"uint256\",\"name\":\"amount0Min\"},{\"type\":\"uint256\",\"name\":\"amount1Min\"},{\"type\":\"address\",\"name\":\"recipient\"},{\"type\":\"uint256\",\"name\":\"deadline\"}]}],\"outputs\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]},{\"name\":\"increaseLiquidity\",\"type\":\"function\",\"stateMutability\":\"payable\",\"inputs\":[{\"type\":\"tuple\",\"name\":\"params\",\"components\":[{\"type\":\"uint256\",\"name\":\"tokenId\"},{\"type\":\"uint256\",\"name\":\"amount0Desired\"},{\"type\":\"uint256\",\"name\":\"amount1Desired\"},{\"type\":\"uint256\",\"name\":\"amount0Min\"},{\"type\":\"uint256\",\"name\":\"amount1Min\"},{\"type\":\"uint256\",\"name\":\"deadline\"}]}],\"outputs\":[{\"type\":\"uint128\",\"name\":\"liquidity\"},{\"type\":\"uint256\",\"name\":\"amount0\"},{\"type\":\"uint256\",\"name\":\"amount1\"}]}]",
+            "value": "0"
+          },
+          "calldata": "0x219f5d1700000000000000000000000000000000000000000000000000000000000140a300000000000000000000000000000000000000000000000000038d7ea4c67ff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000038ac426d74ff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006aa0b728"
+        }
+      },
+      "after": {
+        "block": "46574572",
+        "hash": "0xedcfbf3c163965a94a8b905ced2487081fc13f43a5448e80075cf431e67307d6",
+        "timestamp": 1788917432,
+        "tick": -196257,
+        "weth": "68",
+        "usdc": "0",
+        "aToken": "79016983023",
+        "nftCount": "1",
+        "liquidity": "18309835226606"
+      }
+    }
+  ],
+  "complete": true
+}

@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 @custom-variant dark (&:is(.dark *));
 .page-heading .eyebrow {
   display: flex;
@@ -20,7 +20,7 @@
 .main-tabs {
   gap: 25px !important;
 }
-.main-tabs > [data-slot="tabs-list"] {
+.main-tabs > [data-slot='tabs-list'] {
   gap: 27px !important;
   height: 44px !important;
   border-bottom: 1px solid var(--border);
@@ -28,12 +28,12 @@
   justify-content: flex-start !important;
   border-radius: 0;
 }
-.main-tabs [data-slot="tabs-trigger"] {
+.main-tabs [data-slot='tabs-trigger'] {
   flex: 0 0 auto !important;
   padding: 0 0 15px !important;
   font-size: 14px !important;
 }
-.main-tabs [data-slot="tabs-content"] {
+.main-tabs [data-slot='tabs-content'] {
   min-width: 0;
 }
 .muted {
@@ -277,10 +277,10 @@
   .build-badge {
     display: none;
   }
-  .main-tabs > [data-slot="tabs-list"] {
+  .main-tabs > [data-slot='tabs-list'] {
     gap: 18px !important;
   }
-  .main-tabs [data-slot="tabs-trigger"] {
+  .main-tabs [data-slot='tabs-trigger'] {
     font-size: 12px !important;
   }
   .lab-form,
@@ -1016,6 +1016,62 @@ footer {
   border-radius: 8px;
   margin: 26px 0;
 }
+.proof-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.testnet-proof .fork-summary > div > span {
+  font-size: 14px;
+}
+.testnet-proof .fork-timeline p {
+  font-size: 14px;
+}
+.testnet-proof .fork-timeline p span {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.testnet-proof .fork-timeline a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #24684d;
+}
+.testnet-proof .evidence-download a {
+  font-size: 14px;
+}
+.testnet-proof .evidence-download > span {
+  font-size: 12px;
+}
+.proof-outcome {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px 24px;
+  padding: 22px 0 12px;
+  font-size: 14px;
+}
+.proof-outcome strong {
+  font-weight: 500;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+.proof-recorded {
+  font-size: 12px;
+  color: #6c8174;
+  margin-bottom: 14px;
+}
+@media (max-width: 560px) {
+  .proof-outcome {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .proof-outcome strong {
+    text-align: left;
+    margin-bottom: 8px;
+  }
+}
 .fork-summary > div > span {
   display: block;
   font-size: 12px;
@@ -1041,7 +1097,7 @@ footer {
   padding-top: 2px;
 }
 .fork-timeline > div:not(:last-child):after {
-  content: "";
+  content: '';
   width: 1px;
   background: #dbe9df;
   position: absolute;

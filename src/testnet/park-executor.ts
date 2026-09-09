@@ -136,7 +136,7 @@ export function verifyParkTransaction(
     value: bigint;
   },
   owner: Address,
-  step: TestnetStep,
+  step: Pick<TestnetStep, "request" | "calldata">,
   sponsored: boolean,
 ) {
   requireTestnetChain(tx.chainId ?? 0);

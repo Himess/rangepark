@@ -19,6 +19,7 @@
     "testnet:deposit": "tsx scripts/execute-testnet-deposit.ts",
     "testnet:park": "tsx scripts/testnet-park.ts",
     "testnet:return-check": "tsx scripts/testnet-return-check.ts",
+    "testnet:restore": "tsx scripts/testnet-restore.ts",
     "test:fork": "tsx scripts/fork-lifecycle.ts",
     "sync:web": "node scripts/sync-web-core.mjs",
     "typecheck": "tsc --noEmit",
