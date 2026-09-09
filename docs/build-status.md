@@ -6,7 +6,7 @@ Private console deployed successfully: https://rangepark.semihcvlk53.chatgpt.sit
 
 - Strict TypeScript checks pass, including the fork harness.
 - The test command now uses one worker. The host had under 1 GB free RAM and the default parallel run exhausted memory; the complete serial suite passed without reducing coverage.
-- 117 offline tests pass: policy, transport, connection response handling, frozen calls, journal recovery, same-NFT return, testnet chain/simulation boundaries, single-submission protection, PARK/restoration step dependencies, budget/beneficiary validation and sponsored receipt verification. Three optional live tests are skipped in the offline suite; they passed separately during the initial read milestone.
+- 170 offline tests pass, including 53 new RETURN observation, decision and preflight cases. Coverage includes policy, transport, frozen calls, journal recovery, same-NFT return, testnet chain boundaries, single-submission protection, step dependencies, budget/beneficiary validation and sponsored receipt verification. Three optional live tests are skipped in the offline suite; they passed separately during the initial read milestone.
 - Real Base Sepolia PARK via KeeperHub: project-owned NFT `82083`, original range `[-196230,-196170)`, initial principal 0.001 test WETH. Mint, atomic release/collect, exact approvals and Aave supply all have verified sponsored receipts. Supplied `999999999999984` wei WETH; aToken mint delta `999999999999983` wei. At PARK completion the NFT was empty and 15 wei WETH remained in the wallet. See [complete PARK evidence](evidence/testnet-park.json).
 - Manual principal restoration completed in three further KeeperHub transactions. The original NFT now has liquidity `18309835226606` in the unchanged range; 68 wei WETH remained in the wallet and an aToken claim of `79016983023` wei remained in Aave at block `46574572`. Price was still below range. [Restoration evidence](evidence/testnet-restore.json) explicitly sets `rangeTriggeredReturn:false`; automatic in-range RETURN and its policy guards remain pending.
 - Full PARK → withdrawal → reentry passed against real Uniswap/Aave contracts on a local Base fork: nine successful strategy transactions, original NFT `5950160` restored to `[-198060, -197940)`.
@@ -18,6 +18,8 @@ Private console deployed successfully: https://rangepark.semihcvlk53.chatgpt.sit
 - HTTP checks passed for all five decision branches, invalid inputs, and saved D1 reads. Browser visual QA was not requested or performed. WebMCP registration is implemented but its browser contract has not been validated.
 - Application TypeScript, authored-code lint and production build pass. Untouched generated shadcn components and its mobile hook are excluded from lint because the starter's own baseline conflicts with its configured rules.
 - CLI `observe` persists actual observations in SQLite across processes. Live policy requires an explicit, current economic quote; no costs are invented.
+- Testnet `return-observe` now persists a separate RETURN eligibility streak, with a five-minute TWAP and spot inside a 10-tick buffered original range. Gaps, bad TWAP, changed cycles/policy, stale data and detected reorgs reset eligibility. The withdrawal draft/preflight requires a passing cost and account policy; it cannot broadcast.
+- Live RETURN evaluation at Base Sepolia block `46590109` correctly returned HOLD for the restored NFT, out-of-band spot/TWAP and missing economics. No draft, KeeperHub simulation or transaction was created. [Recorded policy evidence](evidence/testnet-return-policy.json) is distinct from the earlier real transaction receipts.
 
 ## Evidence boundaries
 
@@ -43,7 +45,7 @@ The live API revealed that view functions return `{result}` even with `simulate:
 
 1. The user authorized Read + Write access; funding, NFT creation, Aave parking and manual principal restoration are complete on Base Sepolia (84532). Implement guarded automatic in-range withdrawal/ratio-swap/reentry for the same NFT. No additional initial funding is needed or mainnet funding/execution authorized.
 2. Add a production step executor with fresh chain guards, sender/target checks, durable submission records, and verified receipt/delta reconciliation. Use strategy-attributable share accounting when the owner already has Aave deposits.
-3. Produce current execution-cost and foregone-fee inputs; reserve the original range and apply return persistence/cooldown before starting a return.
+3. Produce current execution-cost and expected LP-fee inputs. RETURN persistence, buffered spot/TWAP agreement and cooldown are implemented in the read-only testnet gate; integrate that gate with a complete staged executor and scheduling.
 4. Complete automatic public testnet RETURN with KeeperHub execution IDs and verified explorer receipts. The manual rehearsal proof is integrated into the console. Determine submission network requirements before considering any separately authorized mainnet demonstration.
 5. Add Compound comparison only after the primary flow is operational; keep Morpho and wider strategy modes out of the critical path.
 6. Prepare the narrow upstream Uniswap position-management contribution, final README, short demo video and submission proof.

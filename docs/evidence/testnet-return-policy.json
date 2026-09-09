@@ -1,0 +1,142 @@
+{
+  "mode": "BASE_SEPOLIA_RETURN_POLICY_READ_ONLY",
+  "broadcastEnabled": false,
+  "snapshot": {
+    "lot": {
+      "cycleId": "0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8",
+      "chainId": 84532,
+      "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+      "tokenId": "82083",
+      "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+      "token0": "0x4200000000000000000000000000000000000006",
+      "token1": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
+      "fee": 500,
+      "lower": -196230,
+      "upper": -196170,
+      "asset": "0x4200000000000000000000000000000000000006",
+      "principal": "999999999999984",
+      "parkedAt": 1788901704,
+      "status": "RESTORED"
+    },
+    "aTokenBalance": "79030025478",
+    "totalDebtBase": "0",
+    "position": {
+      "chainId": 84532,
+      "tokenId": "82083",
+      "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+      "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+      "token0": {
+        "address": "0x4200000000000000000000000000000000000006",
+        "decimals": 18,
+        "symbol": "testWETH"
+      },
+      "token1": {
+        "address": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
+        "decimals": 6,
+        "symbol": "Aave testUSDC"
+      },
+      "fee": 500,
+      "tickLower": -196230,
+      "tickUpper": -196170,
+      "currentTick": -196257,
+      "sqrtPriceX96": "4339511079700359205867475",
+      "liquidity": "18309835226606",
+      "principal0": "999999999999930",
+      "principal1": "0",
+      "checkpointOwed0": "0",
+      "checkpointOwed1": "0",
+      "twapTick": -196257,
+      "twapWindowSeconds": 300,
+      "block": {
+        "number": "46590109",
+        "hash": "0x4ec52f3c7a665e54d1fb6a6c0c308a36cbd7b8f0dc73924e57ca1f011f309689",
+        "timestamp": 1788948506
+      }
+    },
+    "market": {
+      "chainId": 84532,
+      "protocol": "aave-v3",
+      "pool": "0x8bAB6d1b75f19e9eD9fCe8b9BD338844fF79aE27",
+      "asset": {
+        "address": "0x4200000000000000000000000000000000000006",
+        "decimals": 18,
+        "symbol": "testWETH"
+      },
+      "aToken": "0x73a5bB60b0B0fc35710DDc0ea9c407031E31Bdbb",
+      "supplyAprRay": "171221068365651121618496187",
+      "availableLiquidity": "175477854672075301108",
+      "supplyCapRemaining": "1473948407184888494258",
+      "active": true,
+      "frozen": false,
+      "paused": false,
+      "block": {
+        "number": "46590109",
+        "hash": "0x4ec52f3c7a665e54d1fb6a6c0c308a36cbd7b8f0dc73924e57ca1f011f309689",
+        "timestamp": 1788948506
+      }
+    }
+  },
+  "observation": {
+    "contextHash": "0x754a04747142a2996358acac39ccf8f3e027548adaa9edc6dad5e9615c1d8a2e",
+    "since": null,
+    "samples": 0,
+    "block": {
+      "number": "46590109",
+      "hash": "0x4ec52f3c7a665e54d1fb6a6c0c308a36cbd7b8f0dc73924e57ca1f011f309689",
+      "timestamp": 1788948506
+    }
+  },
+  "previousIsCanonical": true,
+  "policy": {
+    "persistenceSeconds": 300,
+    "maxGapSeconds": 120,
+    "maxAgeSeconds": 60,
+    "twapSeconds": 300,
+    "edgeBufferTicks": 10,
+    "maxSpotTwapDeviation": 100,
+    "cooldownSeconds": 3600,
+    "horizonSeconds": 3600,
+    "feeHaircutBps": 2000,
+    "costMultiplier": 3,
+    "ttlSeconds": 120
+  },
+  "economics": null,
+  "decision": {
+    "action": "HOLD",
+    "mode": "REVIEW_ONLY",
+    "reasons": [
+      "LOT_NOT_PARKED",
+      "ORIGINAL_NFT_NOT_EMPTY",
+      "SPOT_OUTSIDE_RETURN_BAND",
+      "TWAP_OUTSIDE_RETURN_BAND",
+      "PRINCIPAL_UNAVAILABLE",
+      "RETURN_PERSISTENCE_NOT_MET",
+      "RETURN_ECONOMICS_MISSING"
+    ],
+    "chainId": 84532,
+    "cycleId": "0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8",
+    "tokenId": "82083",
+    "principal": "999999999999984",
+    "expectedFees": "0",
+    "requiredBenefit": "0",
+    "foregoneAaveYield": "19545784061",
+    "policyHash": "0xad74bc85610ae73f4f49ba50bc68b7d653de89ee0ac650d24632fea79bc2c09a",
+    "inputHash": "0x8a60e41b4ed8f889f4adbac66cc417137ab98b942c2abb2347e9b70d7368c1b0",
+    "observedBlock": {
+      "number": "46590109",
+      "hash": "0x4ec52f3c7a665e54d1fb6a6c0c308a36cbd7b8f0dc73924e57ca1f011f309689",
+      "timestamp": 1788948506
+    },
+    "createdAt": 1788948507,
+    "expiresAt": 1788948566,
+    "simulation": "NOT_RUN",
+    "decisionHash": "0x77f62c8a0a70da311feaf22b12d741d05cc3ebddd519e167c8f28664b8022b1f"
+  },
+  "withdrawalDraft": null,
+  "preflight": null,
+  "remainingExecutionGates": [
+    "Fresh next-step simulation and contract-enforced bounds",
+    "Confirmed withdrawal then fresh ratio swap and original-NFT reentry"
+  ],
+  "transactions": []
+}

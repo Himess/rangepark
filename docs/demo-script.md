@@ -22,21 +22,23 @@ Raise the cost or choose Paused lending reserve. Evaluate again and show HOLD. R
 
 “The parameters are frozen. The plan cannot quietly change between review and execution.”
 
-## 1:20–2:10 — The round trip and recovery
+## 1:20–2:10 — Real KeeperHub round trip
 
-Show Execution evidence. Walk through release → exact approval → Aave supply → withdrawal → ratio swap → increase of the original NFT. Show the unchanged tick range and the local receipt list.
+Show the Base Sepolia section of Execution evidence. Walk through the nine linked transactions: 0.001 test ETH wrap, owned NFT creation, atomic release, Aave supply, principal withdrawal and increase of the original NFT. Show NFT 82083 and the unchanged range [-196230,-196170).
 
-Show the injected response timeout and the recovered original receipt.
+“KeeperHub executed these transactions on Base Sepolia and sponsored the gas. The principal came back to the same NFT. Accrued test-token interest remained in Aave.”
 
-“A missing response does not mean an operation failed. We reconcile the existing transaction instead of sending the funds again.”
+Explicitly state: “This was a manual contract rehearsal while price stayed below range. It proves the integrations; it is not an automatic profitable RETURN.” Do not claim LP fee earning resumed or that a ratio swap occurred on this public testnet run.
 
-In the current build explicitly say: “This complete lifecycle was verified on a local Base fork using the real protocol contracts.” Do not suggest KeeperHub executed these local transactions.
+Open a supply or restoration transaction and show its execution ID, receipt and balance evidence. These are the actual 0.001 test ETH-scale amounts; do not substitute the synthetic Decision lab capital.
 
-## 2:10–2:35 — KeeperHub proof, required before submission
+## 2:10–2:35 — In-range logic and recovery
 
-Replace this placeholder only after a real, authorized KeeperHub value-movement execution exists. Show its execution ID, transaction link, relevant token delta and final state. Identify the actual demonstration amount; do not use synthetic capital figures here.
+Show the separate local-fork evidence: in-range ratio swap, original-NFT increase and an injected response timeout reconciled to its original receipt. Explicitly identify it as a local Base fork, not a KeeperHub public transaction.
 
-If the execution is still missing, this section is a blocker for a qualifying final recording. API schema tests and local fork receipts do not substitute for the requested KeeperHub proof.
+“A missing response does not mean the transaction failed. RangePark reconciles the existing transaction rather than submitting another one. The new RETURN gate also requires sustained spot/TWAP agreement and current cost inputs. Automatic public execution is the next gate.”
+
+If showing `testnet:return-observe`, show its actual HOLD result for the already restored NFT. Do not present the command as a continuously running scheduler. Confirm the event's accepted network and final requirements before recording the submission; testnet evidence alone does not establish eligibility.
 
 ## 2:35–2:45 — Close
 

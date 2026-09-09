@@ -14,7 +14,7 @@ The [direct execution API](https://docs.keeperhub.com/api/direct-execution) supp
 
 Independent calls against the same original chain state cannot simulate a dependency chain such as approve followed by supply. We will simulate the next step only after the previous transaction is confirmed, and use a local fork for full lifecycle testing. A successful simulation never proves future inclusion or successful execution.
 
-The simulation client intentionally has no broadcast method. Authentication has not been exercised against a user's KeeperHub organization.
+The core simulation client intentionally has no broadcast method. Authentication was subsequently verified against the user's KeeperHub organization, and the separate bounded Base Sepolia rehearsal executors completed nine transactions. See [testnet evidence](testnet.md).
 
 ## 3. PARK freezes a conservative principal amount
 

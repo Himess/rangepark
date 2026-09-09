@@ -68,11 +68,14 @@ npm run testnet:preflight
 npm run testnet:park -- reconcile
 npm run testnet:restore -- reconcile
 npm run testnet:return-check
+npm run testnet:return-observe
 ```
 
 These commands load the ignored local `.env`. They need the verified organization sender; authenticated reads and simulations additionally need the appropriate local API key. Use read scope for simulations. Outputs are ignored local artifacts. The preflight is a fixed 0.001 ETH deposit simulation, not an arbitrary contract executor. After restoration, `testnet:return-check` detects existing NFT liquidity and skips withdrawal simulation.
 
 The one-time restoration was executed with `node --import tsx scripts/testnet-restore.ts execute --manual-rehearsal`. The explicit flag is required; invoke Node directly because npm on this Windows host dropped the forwarded flag. Restoration is already complete: use the reconcile command above to inspect it. Do not clear the journal to repeat it. `node scripts/sync-testnet-evidence.mjs` copies verified public reports into the web console without copying credentials.
+
+The new [RETURN policy observer](return-policy.md) checks durable persistence, buffered spot/TWAP agreement, the original cycle, cooldown, Aave debt/liquidity and fresh economics. It creates a fixed withdrawal draft only for a passing decision. Its optional `preflight` subcommand remains simulation-only; the restored NFT correctly holds. This does not yet implement the full automatic withdrawal/swap/reentry executor.
 
 The separate `npm run testnet:deposit -- submit` command can broadcast the fixed deposit using `KEEPERHUB_TESTNET_WRITE_KEY`. It writes the exact request, baseline and stable idempotency key to SQLite before the HTTP request. A unique permanent wallet intent blocks a second principal allocation even after the server's 24-hour replay window. Following any interrupted or completed submission, use `npm run testnet:deposit -- reconcile`; it only reads the recorded execution and chain proof. Do not delete the execution database to retry. The initial deposit is already complete and must not be submitted again.
 
