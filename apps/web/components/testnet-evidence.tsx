@@ -48,8 +48,8 @@ export function TestnetEvidence() {
       <div className="policy-note">
         <strong>Manual rehearsal, not an automated RETURN.</strong> Price
         remained below the original range. Principal restoration was explicitly
-        staged to verify the contract path; a range-triggered return with ratio
-        swap and profitability checks is still pending.
+        staged to verify the contract path. The guarded RETURN runner is now
+        tested locally; its public testnet execution is still pending.
       </div>
       <div className="proof-outcome">
         <span>Position liquidity restored</span>

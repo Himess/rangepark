@@ -1,0 +1,55 @@
+# Guarded testnet RETURN runner
+
+Implemented and tested on 9 September 2026. The six-stage runner uses actual Uniswap V3 and Aave V3 contracts on a **local Base Sepolia fork**. Public KeeperHub execution of this automatic path is still pending. The nine existing public receipts prove the separate manual rehearsal.
+
+## Execution boundaries
+
+Only Base Sepolia (84532), the recorded owner and NFT, WETH/Aave test USDC, fee 500 and up to 0.001 test WETH principal are accepted. A confirmed PARK allocation and a passing [RETURN policy](return-policy.md) are required. The currently recorded public allocation is already RESTORED and correctly produces HOLD.
+
+The ordered steps are withdrawal, exact swap approval, ratio swap, exact WETH approval, exact USDC approval and increase of the original NFT. Every stage uses a fresh pinned snapshot. Simulation runs before submission, followed by another freshness check. Known ABIs, recipient, target, chain and attributable principal are reconstructed and validated independently of the plan hash.
+
+The swap amount is solved using up to 14 same-block Quoter calls and the quoted post-swap price. This accounts for the swap's price impact on the required position ratio. A nonzero minimum output, an inner-range square-root price limit and a short deadline bound the swap. Reentry has nonzero minimum amounts for both tokens and preserves the NFT ID and original range. Price movement may still leave a remainder; the journal tracks it explicitly.
+
+Only confirmed withdrawal and swap balance deltas become spendable strategy capital. Existing wallet balances are not silently allocated. Receipt checks cover actual call data, sender, target, chain, events, pinned before/after balances, the unchanged NFT and two confirmations. The verifier supports KeeperHub's previously observed sponsored EIP-7702 envelope, but this new runner's local test exercises direct transactions through an emulated transport.
+
+SQLite freezes each phase and claims every step before the write request. A timeout cannot trigger a new submission. Reconciliation reads the existing execution and receipt; it never resends a call. Pauses remain active after reconciliation.
+
+## Commands
+
+```sh
+npm run testnet:return-run
+npm run testnet:return-run -- reconcile
+npm run testnet:return-run -- pause
+```
+
+The default status command reads chain state and updates local observation history without broadcasting. Reconcile requires an existing run and only reads already submitted steps. Pause changes the local journal. All use the ignored local environment and journals under `artifacts/`.
+
+The broadcasting command is `node --import tsx scripts/testnet-return-run.ts run --execute`; use Node directly to preserve the explicit flag on this Windows host. It requires the local testnet write credential and every policy gate. It has **not** been invoked on the public network for this milestone. Never delete journals or bypass a RESTORED/PAUSED state to replay a cycle.
+
+## Reproducible local contract proof
+
+Start Anvil on port 8546 with chain ID 84532, forking Base Sepolia at block 46566708, then run `npm run test:fork-return`. The harness rejects non-loopback endpoints and non-Anvil clients, takes a snapshot and reverts it on completion.
+
+The fixture locally impersonates accounts, clears the owner's delegation code for direct transactions, supplies test funding, expands oracle history, moves price and advances time. Fee/cost inputs are synthetic. Its KeeperHub-shaped transport sends transactions only to localhost; it does not contact KeeperHub or create public execution IDs.
+
+[Committed proof](evidence/testnet-return-fork.json) records six successful local contract transactions, five minutes of eligible observations and final state:
+
+| Result | Verified value |
+| --- | --- |
+| Original NFT | 82083 |
+| Original range | [-196230, -196170) |
+| Final tick | -196205 |
+| Final liquidity | 18317553864450 |
+| Unallocated WETH | 30 wei |
+| Unallocated Aave test USDC | 153 atomic units (0.000153 test USDC) |
+
+The harness also requires the residual's WETH equivalent to be below 1% of the supplied principal in this controlled scenario. This is capital allocation evidence, not a yield or profitability claim. Local transaction hashes have no public explorer links.
+
+The first contract run exposed a one-observation oracle: a swap overwrote the history required for the next TWAP check. The policy now requires both current and next oracle capacity to be at least two before withdrawal. The local fixture uses 16. Actual five-minute history must still be readable; capacity alone is insufficient.
+
+## Remaining limitations
+
+- No continuous scheduler or live LP-fee/execution-cost estimator. Initial economics must be current before withdrawal; subsequent steps enforce price/account/capital guards rather than forecasting profitability again.
+- Any pending receipt, expired phase or verification error stops and pauses execution. A later reconcile can confirm an existing transaction, but there is no resume or phase replacement command yet. Capital may remain in the wallet after a partial return. Controlled recovery must be implemented before unattended use.
+- No new PARK-cycle creation or strategy share accounting across arbitrary existing Aave deposits.
+- Public automatic KeeperHub swap/reentry, oracle readiness and event eligibility remain to be verified. No mainnet execution is authorized or claimed.

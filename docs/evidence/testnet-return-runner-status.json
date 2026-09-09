@@ -1,0 +1,41 @@
+{
+  "mode": "BASE_SEPOLIA_RETURN_RUNNER_STATUS",
+  "lotStatus": "RESTORED",
+  "cycleId": "0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8",
+  "decision": {
+    "action": "HOLD",
+    "mode": "REVIEW_ONLY",
+    "reasons": [
+      "LOT_NOT_PARKED",
+      "ORIGINAL_NFT_NOT_EMPTY",
+      "STALE_DATA",
+      "ORACLE_HISTORY_CAPACITY",
+      "SPOT_OUTSIDE_RETURN_BAND",
+      "TWAP_OUTSIDE_RETURN_BAND",
+      "PRINCIPAL_UNAVAILABLE",
+      "RETURN_PERSISTENCE_NOT_MET",
+      "RETURN_ECONOMICS_MISSING"
+    ],
+    "chainId": 84532,
+    "cycleId": "0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8",
+    "tokenId": "82083",
+    "principal": "999999999999984",
+    "expectedFees": "0",
+    "requiredBenefit": "0",
+    "foregoneAaveYield": "19545784061",
+    "policyHash": "0xad74bc85610ae73f4f49ba50bc68b7d653de89ee0ac650d24632fea79bc2c09a",
+    "inputHash": "0x45235c049a845ddd282a8b8e98eb483239d11eae19f9456b6e913c4abdb983e8",
+    "observedBlock": {
+      "number": "46604607",
+      "hash": "0x9faa8530a6b6fd21abdc3a6a7d529d7fed17f22f19ffb8e40d534ab92909674c",
+      "timestamp": 1788977502
+    },
+    "createdAt": 1788977501,
+    "expiresAt": 1788977562,
+    "simulation": "NOT_RUN",
+    "decisionHash": "0xcab4bfc7488aba86a16b72b79f5cd3c2b71cf8beba4b9880e9cb8bc26122bd6e"
+  },
+  "runStatus": "NOT_STARTED",
+  "steps": [],
+  "transactions": []
+}

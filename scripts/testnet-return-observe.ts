@@ -1,91 +1,23 @@
 import { existsSync } from "node:fs";
-import { readFile, writeFile } from "node:fs/promises";
-import { isAddress, type Address, type Hex } from "viem";
-import { z } from "zod";
-import { TestnetDepositStore } from "../src/testnet/execution.js";
-import { parkIntent } from "../src/testnet/park-executor.js";
-import { restoreIntent } from "../src/testnet/restore-executor.js";
-import { RESTORE_STEPS } from "../src/testnet/restore-plan.js";
-import { BASE_SEPOLIA as config } from "../src/testnet/config.js";
-import {
-  decideReturn,
-  defaultReturnPolicy,
-  type ParkedLot,
-  type ReturnEconomics,
-} from "../src/testnet/return-policy.js";
+import { writeFile } from "node:fs/promises";
+import { isAddress } from "viem";
+import { decideReturn, defaultReturnPolicy } from "../src/testnet/return-policy.js";
+import { readRecordedReturnLot, readReturnEconomics } from "../src/testnet/return-context.js";
 import { readReturnSnapshot, testnetReturnClient } from "../src/testnet/return-reader.js";
 import { ReturnObservationStore } from "../src/state/return-observations.js";
 import { json } from "../src/core/serialization.js";
 import { buildReturnWithdrawDraft, preflightReturnWithdrawal } from "../src/testnet/return-plan.js";
 
-const quoteSchema = z
-  .object({
-    chainId: z.literal(84532),
-    cycleId: z.string().regex(/^0x[0-9a-fA-F]{64}$/),
-    asset: z.string().refine(isAddress),
-    horizonSeconds: z.number().int().positive(),
-    quotedAt: z.number().int().positive(),
-    expiresAt: z.number().int().positive(),
-    expectedLpFees: z.string().regex(/^\d+$/),
-    executionCost: z.string().regex(/^\d+$/),
-    source: z.string().min(1),
-  })
-  .strict();
 if (existsSync(".env")) process.loadEnvFile(".env");
-let parkDb: TestnetDepositStore | undefined,
-  restoreDb: TestnetDepositStore | undefined,
-  history: ReturnObservationStore | undefined;
+let history: ReturnObservationStore | undefined;
 try {
   const mode = process.argv[2] ?? "observe";
   if (mode !== "observe" && mode !== "preflight")
     throw new Error("Choose observe or preflight; neither broadcasts");
   const owner = process.env.KEEPERHUB_EXPECTED_SENDER;
   if (!owner || !isAddress(owner)) throw new Error("Verified testnet owner required");
-  if (!existsSync("artifacts/testnet-park.sqlite"))
-    throw new Error("Confirmed PARK journal required");
-  parkDb = new TestnetDepositStore("artifacts/testnet-park.sqlite");
-  const mintRow = parkDb.get(parkIntent(owner, "mint"));
-  const supplyRow = parkDb.get(parkIntent(owner, "supply"));
-  if (mintRow?.status !== "CONFIRMED" || supplyRow?.status !== "CONFIRMED")
-    throw new Error("Confirmed mint and supply required");
-  const mint = JSON.parse(mintRow.evidence!),
-    supply = JSON.parse(supplyRow.evidence!);
-  let status: ParkedLot["status"] = "PARKED";
-  if (existsSync("artifacts/testnet-restore.sqlite")) {
-    restoreDb = new TestnetDepositStore("artifacts/testnet-restore.sqlite");
-    const rows = RESTORE_STEPS.map((id) => restoreDb!.get(restoreIntent(owner, id)));
-    if (rows.every((row) => row?.status === "CONFIRMED")) status = "RESTORED";
-    else if (rows.some(Boolean)) status = "RECOVERY";
-  }
-  const lot: ParkedLot = {
-    cycleId: supply.transactionHash,
-    chainId: 84532,
-    owner,
-    tokenId: BigInt(mint.meta.tokenId),
-    pool: mint.meta.pool,
-    token0: config.weth,
-    token1: config.aaveUsdc,
-    fee: 500,
-    lower: mint.meta.lower,
-    upper: mint.meta.upper,
-    asset: config.weth,
-    principal: BigInt(supply.meta.amount),
-    parkedAt: supply.after.timestamp,
-    status,
-  };
-  let economics: ReturnEconomics | null = null;
-  if (process.env.RANGEPARK_RETURN_ECONOMICS_FILE) {
-    const q = quoteSchema.parse(
-      JSON.parse(await readFile(process.env.RANGEPARK_RETURN_ECONOMICS_FILE, "utf8")),
-    );
-    economics = {
-      ...q,
-      cycleId: q.cycleId as Hex,
-      asset: q.asset as Address,
-      expectedLpFees: BigInt(q.expectedLpFees),
-      executionCost: BigInt(q.executionCost),
-    };
-  }
+  const lot = readRecordedReturnLot(owner);
+  const economics = await readReturnEconomics();
   const policy = defaultReturnPolicy,
     client = testnetReturnClient();
   const snapshot = await readReturnSnapshot(client, lot, policy);
@@ -120,8 +52,8 @@ try {
     withdrawalDraft,
     preflight,
     remainingExecutionGates: [
-      "Fresh next-step simulation and contract-enforced bounds",
-      "Confirmed withdrawal then fresh ratio swap and original-NFT reentry",
+      "Live fee/cost estimate and eligible parked cycle",
+      "Public testnet validation of the staged RETURN runner",
     ],
     transactions: [],
   };
@@ -131,7 +63,7 @@ try {
       mode: report.mode,
       broadcastEnabled: false,
       tokenId: lot.tokenId,
-      lotStatus: status,
+      lotStatus: lot.status,
       spot: snapshot.position.currentTick,
       twap: snapshot.position.twapTick,
       observation,
@@ -147,7 +79,5 @@ try {
   );
   process.exitCode = 1;
 } finally {
-  parkDb?.close();
-  restoreDb?.close();
   history?.close();
 }

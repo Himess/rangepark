@@ -57,6 +57,7 @@ export type ReturnSnapshot = {
   market: AaveMarket;
   aTokenBalance: bigint;
   totalDebtBase: bigint;
+  oracle: { cardinality: number; cardinalityNext: number };
 };
 export type ReturnObservation = {
   contextHash: Hex;
@@ -98,7 +99,12 @@ export function returnContextHash(snapshot: ReturnSnapshot, policy: ReturnPolicy
     },
   });
 }
-function snapshotReasons(s: ReturnSnapshot, policy: ReturnPolicy, now: number) {
+export function returnSnapshotReasons(
+  s: ReturnSnapshot,
+  policy: ReturnPolicy,
+  now: number,
+  phase: "WITHDRAW" | "REENTRY" = "WITHDRAW",
+) {
   const { position: p, market: m, lot } = s;
   if (!Number.isSafeInteger(now) || now <= 0) throw new Error("Invalid decision time");
   if (
@@ -146,6 +152,16 @@ function snapshotReasons(s: ReturnSnapshot, policy: ReturnPolicy, now: number) {
   )
     reasons.push("STALE_DATA");
   if (!sameBlock(p.block, m.block)) reasons.push("MIXED_BLOCKS");
+  // A swap writes an observation. With a one-slot oracle it can erase the only
+  // pre-swap point, making the next phase's five-minute TWAP unavailable.
+  if (
+    !s.oracle ||
+    !Number.isInteger(s.oracle.cardinality) ||
+    !Number.isInteger(s.oracle.cardinalityNext) ||
+    s.oracle.cardinality < 2 ||
+    s.oracle.cardinalityNext < 2
+  )
+    reasons.push("ORACLE_HISTORY_CAPACITY");
   const lower = p.tickLower + policy.edgeBufferTicks;
   const upper = p.tickUpper - policy.edgeBufferTicks;
   if (lower >= upper || p.currentTick < lower || p.currentTick >= upper)
@@ -171,9 +187,11 @@ function snapshotReasons(s: ReturnSnapshot, policy: ReturnPolicy, now: number) {
   )
     reasons.push("WITHDRAWAL_VENUE_MISMATCH");
   // Aave freeze blocks new supply, not withdrawal. Pause/inactive still blocks it.
-  if (!m.active || m.paused) reasons.push("WITHDRAWAL_UNAVAILABLE");
-  if (m.availableLiquidity < lot.principal) reasons.push("INSUFFICIENT_RESERVE_LIQUIDITY");
-  if (s.aTokenBalance < lot.principal) reasons.push("PRINCIPAL_UNAVAILABLE");
+  if (phase === "WITHDRAW") {
+    if (!m.active || m.paused) reasons.push("WITHDRAWAL_UNAVAILABLE");
+    if (m.availableLiquidity < lot.principal) reasons.push("INSUFFICIENT_RESERVE_LIQUIDITY");
+    if (s.aTokenBalance < lot.principal) reasons.push("PRINCIPAL_UNAVAILABLE");
+  }
   // Initial scope excludes indebted accounts; do not infer safe collateral withdrawal.
   if (s.totalDebtBase !== 0n) reasons.push("ACCOUNT_HAS_DEBT");
   return reasons;
@@ -188,7 +206,7 @@ export function observeReturn(
 ): ReturnObservation {
   const policy = returnPolicySchema.parse(rawPolicy);
   const contextHash = returnContextHash(s, policy);
-  const eligible = snapshotReasons(s, policy, now).length === 0;
+  const eligible = returnSnapshotReasons(s, policy, now).length === 0;
   const next: ReturnObservation = {
     contextHash,
     since: eligible ? s.position.block.timestamp : null,
@@ -227,7 +245,7 @@ export type ReturnDecisionInput = ReturnSnapshot & {
 export function decideReturn(input: ReturnDecisionInput) {
   const { position: p, lot, market: m, economics: e, observation: o, now } = input;
   const policy = returnPolicySchema.parse(input.policy);
-  const reasons = snapshotReasons(input, policy, now);
+  const reasons = returnSnapshotReasons(input, policy, now);
   if (
     !o ||
     o.contextHash !== returnContextHash(input, policy) ||

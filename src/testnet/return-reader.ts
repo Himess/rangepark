@@ -22,10 +22,11 @@ export async function readReturnSnapshot(
   client: TestnetReturnClient,
   lot: ParkedLot,
   policy: ReturnPolicy,
+  blockNumber?: bigint,
 ): Promise<ReturnSnapshot> {
   requireTestnetChain(lot.chainId);
   requireTestnetChain(await client.getChainId());
-  const rawBlock = await client.getBlock();
+  const rawBlock = await client.getBlock(blockNumber === undefined ? {} : { blockNumber });
   const block = {
     number: rawBlock.number,
     hash: rawBlock.hash,
@@ -151,6 +152,7 @@ export async function readReturnSnapshot(
     lot,
     aTokenBalance,
     totalDebtBase: account[1],
+    oracle: { cardinality: slot[3], cardinalityNext: slot[4] },
     position: {
       chainId: 84532,
       tokenId: lot.tokenId,

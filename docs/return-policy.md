@@ -17,6 +17,7 @@ Default conditions:
 | Freshness | Snapshot less than 60 seconds old; future timestamps hold |
 | Price disagreement | Spot/TWAP difference at most 100 ticks, in addition to the buffered range |
 | Cooldown | At least one hour after the recorded PARK |
+| Oracle capacity | Current and next observation capacity at least two, plus readable five-minute history |
 | Withdrawal | Active, unpaused Aave reserve, enough underlying liquidity and principal claim |
 | Account | No Aave debt; collateral-dependent withdrawals are outside this scope |
 | Economics | Current, correctly scoped estimate with positive conservative benefit |
@@ -65,4 +66,4 @@ At block `46590109`, NFT 82083 was already restored, spot/TWAP were both -196257
 
 ## Remaining work
 
-Implement the staged broadcast runner with fresh guards at each step, confirmed withdrawal balance attribution, a fresh ratio quote, separate frozen swap/increase calls, onchain minimums/deadlines and receipt reconciliation. The existing Base mainnet draft/fork path and manual testnet restoration do not substitute for that runner. Live fee/cost estimation, recurring monitoring and execution authorization also remain outside this read-only gate.
+The [six-stage broadcast runner](return-runner.md) now consumes this gate and has passed actual contract execution on a local Base Sepolia fork. It adds fresh per-step guards, verified capital attribution, a ratio quote based on post-swap price, frozen phases, onchain minimums/deadlines and receipt reconciliation. Public automatic execution, controlled pause recovery, live fee/cost estimation and recurring monitoring remain pending. The observer itself remains non-broadcasting.

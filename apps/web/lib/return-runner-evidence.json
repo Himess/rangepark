@@ -1,0 +1,53 @@
+{
+  "mode": "LOCAL_BASE_SEPOLIA_FORK",
+  "keeperhubExecution": false,
+  "tokenId": "82083",
+  "range": [
+    -196230,
+    -196170
+  ],
+  "tick": -196205,
+  "liquidity": "18317553864450",
+  "residual": {
+    "amount0": "30",
+    "amount1": "153"
+  },
+  "sourceBlock": "46566708",
+  "policy": {
+    "persistenceSeconds": 300,
+    "twapSeconds": 300,
+    "oracleCapacity": 16
+  },
+  "steps": [
+    {
+      "id": "withdraw",
+      "hash": "0x54aeeb4a751ec98eb21d0e703a968970a3d0227cd595888dd5da3fab3bd603cc",
+      "block": "46566723"
+    },
+    {
+      "id": "approve-swap",
+      "hash": "0xb4ea288c681ac54f3bf034b90fde44c21bab2de07a9a1c2b367420cf7fb45e98",
+      "block": "46566725"
+    },
+    {
+      "id": "swap",
+      "hash": "0xcee5452099bd799f95564832e738b56730fe07f5288f6a29a24a4dda963096d6",
+      "block": "46566727"
+    },
+    {
+      "id": "approve-lp0",
+      "hash": "0xeaa7b881728ac662e32b5a8ef0fec36da3f3d021beb8a6f3448e46fb3905dd97",
+      "block": "46566729"
+    },
+    {
+      "id": "approve-lp1",
+      "hash": "0x96f9e816fd5b4896865571e2129ab408ce224b7fdf323183f71fc3141e8cc2c4",
+      "block": "46566731"
+    },
+    {
+      "id": "increase",
+      "hash": "0xbb7ff643dd6f8ba7ac5db6ffdb72cde38f31f40f1aa7086c246b3381e176610c",
+      "block": "46566733"
+    }
+  ]
+}

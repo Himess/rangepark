@@ -1,6 +1,7 @@
 import { CircleCheck, Download, ShieldCheck } from 'lucide-react';
 import evidence from '@/lib/fork-evidence.json';
 import { TestnetEvidence } from '@/components/testnet-evidence';
+import { ReturnRunnerEvidence } from '@/components/return-runner-evidence';
 const labels: Record<string, string> = {
   release: 'Exit original LP',
   approve: 'Approve parked amount',
@@ -17,6 +18,7 @@ export function EvidenceView() {
   return (
     <>
       <TestnetEvidence />
+      <ReturnRunnerEvidence />
       <section className="panel evidence-panel" style={{ marginTop: 24 }}>
         <p className="eyebrow">SHOW THE WORK</p>
         <h2>Local fork: in-range return and recovery.</h2>
@@ -115,8 +117,9 @@ export function EvidenceView() {
             <h3>KeeperHub execution</h3>
             <p>
               Nine public Base Sepolia receipts verify funding, Uniswap exit,
-              Aave supply and manual principal restoration to the same NFT.
-              Automated range-triggered RETURN is still pending.
+              Aave supply and manual principal restoration to the same NFT. The
+              guarded RETURN runner also passed a separate local contract test;
+              its public execution is still pending.
             </p>
             <span className="pill good">Testnet rehearsal verified</span>
           </article>

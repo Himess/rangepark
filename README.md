@@ -4,7 +4,7 @@
 
 RangePark is a KeeperHub hackathon project for parking fee-idle Uniswap V3 capital in the same underlying asset on Aave V3, then returning it to its original range.
 
-## Current milestone: verified KeeperHub testnet round trip
+## Current milestone: guarded RETURN verified on a local testnet fork
 
 Implemented:
 
@@ -24,7 +24,9 @@ Implemented:
 - Manual principal restoration: withdraw the supplied WETH from Aave, approve the exact amount and restore liquidity to NFT `82083` in its original range. Nine public testnet receipts cover funding, PARK and restoration; the console includes a separate timeline and downloadable proof.
 - Base Sepolia RETURN decision gate: durable five-minute observations, buffered spot/TWAP agreement, cooldown, current cost estimates, reserve liquidity and debt checks. Only a passing decision can generate an exact withdrawal draft or read-only KeeperHub simulation. Completed and unresolved cycles cannot be treated as parked capital.
 
-**Not implemented yet:** an automatic in-range testnet RETURN executor with ratio swapping, a production strategy executor, automatic gas/opportunity-cost quotes, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. Strategy RETURN plans are review drafts; they require fresh chain checks before execution.
+- Six-stage guarded testnet RETURN runner: confirmed withdrawal, price-impact-aware ratio swap and increase of the original NFT. Actual contracts passed on a local Base Sepolia fork; six local receipts and explicit residual accounting are included in the console. See [runner, proof and recovery limits](docs/return-runner.md).
+
+**Not implemented yet:** public validation of the automatic RETURN runner, resumable recovery after an execution pause, a production strategy executor, automatic gas/opportunity-cost quotes, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. Strategy RETURN plans are review drafts; they require fresh chain checks before execution.
 
 KeeperHub has now executed **0.001 test ETH → Uniswap NFT → Aave → the same NFT** on Base Sepolia. [Original-NFT restoration proof](https://sepolia.basescan.org/tx/0x309437e32585b8901531db3736c15f6d708175fa716f873ec6a1dae0b3d4ccc2) and [execution boundaries](docs/testnet.md) document the manual contract rehearsal. Price remained below the original range; this is not an automatic range-triggered RETURN or a profitable strategy claim. Interest remains in Aave as test tokens. The generated decision demo remains synthetic. Automatic RETURN and hackathon eligibility checks are pending.
 
@@ -81,7 +83,7 @@ The next onchain rehearsal is restricted to **Base Sepolia (84532)**. Run `npm r
 
 The one-time funding, PARK and manual restoration steps are complete. `npm run testnet:park -- reconcile` and `npm run testnet:restore -- reconcile` read their recorded executions without sending them again. `npm run testnet:return-check` reads the original NFT/range; after restoration it reports existing liquidity and skips withdrawal simulation. It never broadcasts or claims that the complete RETURN policy is ready. See the [testnet command boundaries](docs/testnet.md) before invoking any execution command.
 
-`npm run testnet:return-observe` evaluates the new RETURN policy and persists its own observation history across invocations. `npm run testnet:return-observe -- preflight` additionally simulates the fixed withdrawal **only if every policy gate passes**. Both are non-broadcasting. The current restored NFT produces HOLD, no draft and no simulation. See [RETURN policy and quote inputs](docs/return-policy.md). A scheduler, execution authorization and the guarded post-withdrawal swap/reentry runner remain separate work.
+`npm run testnet:return-observe` evaluates the new RETURN policy and persists its own observation history across invocations. `npm run testnet:return-observe -- preflight` additionally simulates the fixed withdrawal **only if every policy gate passes**. Both are non-broadcasting. The current restored NFT produces HOLD, no draft and no simulation. See [RETURN policy and quote inputs](docs/return-policy.md). The guarded post-withdrawal runner is now implemented and locally tested. `npm run testnet:return-run` reports its status without broadcasting. Public execution, controlled recovery and scheduling remain separate gates; see [runner commands and limitations](docs/return-runner.md).
 
 ### Base mainnet read-only preflight
 

@@ -34,9 +34,9 @@ Open a supply or restoration transaction and show its execution ID, receipt and 
 
 ## 2:10–2:35 — In-range logic and recovery
 
-Show the separate local-fork evidence: in-range ratio swap, original-NFT increase and an injected response timeout reconciled to its original receipt. Explicitly identify it as a local Base fork, not a KeeperHub public transaction.
+Show the guarded RETURN local-contract card: five minutes of eligible observations, six confirmed withdrawal/swap/reentry steps and the unchanged NFT/range. Explain that the ratio uses the quoted final price and that tiny wallet remainders are tracked. Explicitly identify controlled price/time, synthetic economics and simulated KeeperHub transport on a local Base Sepolia fork. The older Base-fork proof separately demonstrates an injected response timeout reconciled to its original receipt.
 
-“A missing response does not mean the transaction failed. RangePark reconciles the existing transaction rather than submitting another one. The new RETURN gate also requires sustained spot/TWAP agreement and current cost inputs. Automatic public execution is the next gate.”
+“A missing response does not mean the transaction failed. RangePark reconciles the existing transaction rather than submitting another one. The RETURN runner requires sustained spot/TWAP agreement and current cost inputs, then checks each stage against fresh chain state. Public automatic execution and controlled recovery after a pause are the next gates.”
 
 If showing `testnet:return-observe`, show its actual HOLD result for the already restored NFT. Do not present the command as a continuously running scheduler. Confirm the event's accepted network and final requirements before recording the submission; testnet evidence alone does not establish eligibility.
 
