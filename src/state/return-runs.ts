@@ -65,6 +65,7 @@ export class ReturnRunStore {
       CREATE TABLE IF NOT EXISTS return_runs (cycle_id TEXT PRIMARY KEY, position_key TEXT NOT NULL, status TEXT NOT NULL, input TEXT NOT NULL, capital TEXT NOT NULL);
       CREATE UNIQUE INDEX IF NOT EXISTS one_return_per_position ON return_runs(position_key) WHERE status != 'COMPLETE';
       CREATE TABLE IF NOT EXISTS return_phases (cycle_id TEXT NOT NULL REFERENCES return_runs(cycle_id), phase TEXT NOT NULL, plan TEXT NOT NULL, PRIMARY KEY(cycle_id,phase));
+      CREATE TABLE IF NOT EXISTS return_recoveries (id INTEGER PRIMARY KEY, cycle_id TEXT NOT NULL REFERENCES return_runs(cycle_id), record TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS return_steps (cycle_id TEXT NOT NULL REFERENCES return_runs(cycle_id), id TEXT NOT NULL, ordinal INTEGER NOT NULL, status TEXT NOT NULL,
         call TEXT, baseline TEXT, response TEXT, evidence TEXT, plan_hash TEXT, PRIMARY KEY(cycle_id,id));`);
   }
@@ -209,6 +210,86 @@ export class ReturnRunStore {
       .prepare("UPDATE return_runs SET status='PAUSED' WHERE cycle_id=? AND status='ACTIVE'")
       .run(cycle);
     if (!r.changes) throw new Error("Run is not active");
+  }
+  recoveries(cycle: string): unknown[] {
+    return (
+      this.db
+        .prepare("SELECT record FROM return_recoveries WHERE cycle_id=? ORDER BY id")
+        .all(cycle) as { record: string }[]
+    ).map((row) => decodeRun(row.record));
+  }
+  initialInput(cycle: string): ReturnDecisionInput {
+    const first = this.recoveries(cycle)[0] as { previousInput: ReturnDecisionInput } | undefined;
+    const input = first?.previousInput ?? this.get(cycle)?.input;
+    if (!input) throw new Error("No RETURN run");
+    return input;
+  }
+  recoveryHash(cycle: string) {
+    return hash({
+      run: this.get(cycle),
+      steps: this.steps(cycle),
+      phases: ["WITHDRAW", "SWAP", "INCREASE"].map((p) =>
+        this.phase(cycle, p as StageDraft["phase"]),
+      ),
+      recoveries: this.recoveries(cycle),
+    });
+  }
+  resume(
+    cycle: string,
+    expectedHash: string,
+    plan: StageDraft,
+    input: ReturnDecisionInput,
+    now: number,
+    proof: unknown,
+  ) {
+    verifyStage(plan, now);
+    this.transaction(() => {
+      const run = this.get(cycle),
+        rows = this.steps(cycle);
+      if (!run || run.status !== "PAUSED" || this.recoveryHash(cycle) !== expectedHash)
+        throw new Error("Paused recovery state changed during validation");
+      if (rows.some((s) => s.status === "SUBMITTING" || s.status === "RECONCILE"))
+        throw new Error("Unresolved submission; reconcile without resending");
+      const next = rows.find((s) => s.status !== "CONFIRMED");
+      if (!next || !phaseSteps[plan.phase].includes(next.id))
+        throw new Error("Wrong recovery phase");
+      if (
+        plan.cycleId !== cycle ||
+        plan.tokenId !== run.input.lot.tokenId ||
+        hash(plan.capital) !== hash(run.capital) ||
+        hash(input.lot) !== hash(run.input.lot) ||
+        hash(input.policy) !== hash(run.input.policy) ||
+        hash(plan.calls.map((c) => c.id)) !== hash(phaseSteps[plan.phase])
+      )
+        throw new Error("Recovery changed identity, policy or attributed capital");
+      if (rows.some((s) => s.ordinal < next.ordinal && s.status !== "CONFIRMED"))
+        throw new Error("Recovery dependency unconfirmed");
+      for (const call of plan.calls) {
+        const prior = rows.find((s) => s.id === call.id)!;
+        if (
+          prior.status === "CONFIRMED" &&
+          (!prior.call || hash(decodeRun(prior.call)) !== hash(call))
+        )
+          throw new Error("Recovery cannot change a confirmed call");
+      }
+      if (plan.phase === "WITHDRAW") {
+        if (input.now !== now || buildReturnWithdrawalStage(input).planHash !== plan.planHash)
+          throw new Error("Fresh withdrawal policy required");
+      } else if (hash(input) !== hash(run.input))
+        throw new Error("Recovery cannot rewrite initial economics");
+      const previousPlan = this.phase(cycle, plan.phase);
+      this.db
+        .prepare("INSERT INTO return_recoveries(cycle_id,record) VALUES (?,?)")
+        .run(cycle, encodeRun({ at: now, previousInput: run.input, previousPlan, plan, proof }));
+      this.db
+        .prepare(
+          "INSERT INTO return_phases(cycle_id,phase,plan) VALUES (?,?,?) ON CONFLICT(cycle_id,phase) DO UPDATE SET plan=excluded.plan",
+        )
+        .run(cycle, plan.phase, encodeRun(plan));
+      this.db
+        .prepare("UPDATE return_runs SET status='ACTIVE',input=? WHERE cycle_id=?")
+        .run(encodeRun(input), cycle);
+    });
   }
   intent(cycle: string, id: ReturnStepId) {
     return hash({ namespace: "rangepark-return-testnet-v1", cycle, id });

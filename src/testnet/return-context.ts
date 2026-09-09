@@ -10,7 +10,7 @@ import { ReturnRunStore } from "../state/return-runs.js";
 import { BASE_SEPOLIA as config } from "./config.js";
 import type { ParkedLot, ReturnEconomics } from "./return-policy.js";
 
-export function readRecordedReturnLot(owner: Address): ParkedLot {
+export function readRecordedReturnLot(owner: Address, includeRunnerState = true): ParkedLot {
   if (!existsSync("artifacts/testnet-park.sqlite"))
     throw new Error("Confirmed PARK journal required");
   const db = new TestnetDepositStore("artifacts/testnet-park.sqlite");
@@ -29,7 +29,7 @@ export function readRecordedReturnLot(owner: Address): ParkedLot {
       if (rows.every((row) => row?.status === "CONFIRMED")) status = "RESTORED";
       else if (rows.some(Boolean)) status = "RECOVERY";
     }
-    if (existsSync("artifacts/testnet-return-runs.sqlite")) {
+    if (includeRunnerState && existsSync("artifacts/testnet-return-runs.sqlite")) {
       returns = new ReturnRunStore("artifacts/testnet-return-runs.sqlite");
       const run = returns.get(supply.transactionHash);
       if (run?.status === "COMPLETE") status = "RESTORED";

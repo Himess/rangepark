@@ -33,6 +33,7 @@ import {
 } from "../src/testnet/return-stages.js";
 import { readReturnWalletState, verifyReturnReceipt } from "../src/testnet/return-receipts.js";
 import { stageFor, submitReturnStep } from "../src/testnet/return-executor.js";
+import { resumeReturnRun } from "../src/testnet/return-recovery.js";
 
 // Hard-coded loopback only; never accepts a public RPC for writes.
 const url = "http://127.0.0.1:8546";
@@ -61,6 +62,7 @@ async function send(from: Address, to: Address, data: Hex) {
   return tx;
 }
 async function main() {
+  const recoveryMode = process.argv.includes("--recovery");
   assert.match(String(await rpc("web3_clientVersion")), /anvil/i);
   assert.equal(await client.getChainId(), 84532);
   const forkBlock = await client.getBlock();
@@ -245,6 +247,27 @@ async function main() {
       );
     };
     for (const id of RETURN_STEPS) {
+      if (recoveryMode && (id === "swap" || id === "increase")) {
+        const phaseBefore = db.phase(lot.cycleId, stageFor(id))!;
+        db.pause(lot.cycleId);
+        await rpc("evm_increaseTime", [90]);
+        await rpc("evm_mine");
+        chainClock = Number((await client.getBlock()).timestamp);
+        assert.ok(chainClock > phaseBefore.expiresAt);
+        await resumeReturnRun({
+          store: db,
+          cycleId: lot.cycleId,
+          recordedLot: lot,
+          client,
+          apiKey: "local-transport-no-real-key",
+          clock: () => chainClock,
+          verifyReceipt: (c, row, p, key) => verifyReturnReceipt(c, row, p, key, transport),
+        });
+        assert.notEqual(db.phase(lot.cycleId, stageFor(id))!.planHash, phaseBefore.planHash);
+        console.log(
+          `Local recovery before ${id}: old receipts reverified; expired phase refreshed.`,
+        );
+      }
       const run = db.get(lot.cycleId)!;
       const phase = stageFor(id);
       if (!db.phase(lot.cycleId, phase)) {
@@ -299,7 +322,9 @@ async function main() {
       "At least 99% of principal-equivalent value should be allocated in this controlled fixture",
     );
     await writeFile(
-      "artifacts/testnet-return-fork.json",
+      recoveryMode
+        ? "artifacts/testnet-return-recovery-fork.json"
+        : "artifacts/testnet-return-fork.json",
       json({
         mode: "LOCAL_BASE_SEPOLIA_FORK",
         keeperhubExecution: false,
@@ -318,6 +343,8 @@ async function main() {
         ],
         originalLot: lot,
         initialDecision: decideReturn(input),
+        recoveryMode,
+        recoveries: db.recoveries(lot.cycleId),
         steps: localReceipts,
         final: {
           liquidity: result.position.liquidity,
@@ -328,6 +355,10 @@ async function main() {
         complete: true,
       }),
     );
+    if (recoveryMode) {
+      assert.equal(db.recoveries(lot.cycleId).length, 2);
+      assert.equal(count, 6, "Recovery must not resend confirmed approvals or any other step");
+    }
     console.log("Six real local contract receipts verified; same NFT and range restored.");
   } finally {
     db.close();

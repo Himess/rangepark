@@ -17,7 +17,12 @@ import {
   RETURN_STEPS,
 } from "../src/testnet/return-stages.js";
 import { stageFor, submitReturnStep } from "../src/testnet/return-executor.js";
-import { readReturnWalletState, verifyReturnReceipt } from "../src/testnet/return-receipts.js";
+import {
+  readReturnWalletState,
+  verifyReturnReceipt,
+  pollReturnReceipt,
+} from "../src/testnet/return-receipts.js";
+import { resumeReturnRun } from "../src/testnet/return-recovery.js";
 
 if (existsSync(".env")) process.loadEnvFile(".env");
 let db: ReturnRunStore | undefined,
@@ -25,13 +30,13 @@ let db: ReturnRunStore | undefined,
   activeCycle: string | undefined;
 async function main() {
   const mode = process.argv[2] ?? "status";
-  if (!["status", "run", "reconcile", "pause"].includes(mode))
-    throw new Error("Choose status, run, reconcile or pause");
-  if (mode === "run" && !process.argv.includes("--execute"))
+  if (!["status", "run", "resume", "reconcile", "pause"].includes(mode))
+    throw new Error("Choose status, run, resume, reconcile or pause");
+  if ((mode === "run" || mode === "resume") && !process.argv.includes("--execute"))
     throw new Error("Explicit --execute required for testnet broadcasting");
   const owner = process.env.KEEPERHUB_EXPECTED_SENDER;
   if (!owner || !isAddress(owner)) throw new Error("Verified organization owner required");
-  const lot = readRecordedReturnLot(owner),
+  const lot = readRecordedReturnLot(owner, mode !== "resume"),
     policy = defaultReturnPolicy,
     client = testnetReturnClient();
   db = new ReturnRunStore("artifacts/testnet-return-runs.sqlite");
@@ -84,9 +89,39 @@ async function main() {
   }
   const key = process.env.KEEPERHUB_TESTNET_WRITE_KEY;
   if (!key) throw new Error("KeeperHub credential required for receipt reconciliation");
+  if (mode === "resume") {
+    let withdrawalInput: ReturnDecisionInput | undefined;
+    if (db.steps(lot.cycleId)[0]?.status === "READY") {
+      const snapshot = await readReturnSnapshot(client, lot, run.input.policy);
+      history = new ReturnObservationStore("artifacts/testnet-return-observations.sqlite");
+      const previous = history.get(lot.cycleId);
+      const canonical =
+        !previous ||
+        (await client.getBlock({ blockNumber: previous.block.number })).hash ===
+          previous.block.hash;
+      const now = Math.floor(Date.now() / 1000);
+      withdrawalInput = {
+        ...snapshot,
+        policy: run.input.policy,
+        now,
+        observation: history.record(snapshot, run.input.policy, now, previous, canonical),
+        economics: await readReturnEconomics(),
+      };
+    }
+    await resumeReturnRun({
+      store: db,
+      cycleId: lot.cycleId,
+      recordedLot: lot,
+      client,
+      apiKey: key,
+      withdrawalInput,
+    });
+    run = db.get(lot.cycleId)!;
+    console.log("Confirmed receipts rechecked; remaining phase refreshed and resumed.");
+  }
   if (mode === "run" && (run.status !== "ACTIVE" || hash(lot) !== hash(run.input.lot)))
     throw new Error("Recorded cycle is paused, restored or changed");
-  activeCycle = mode === "run" ? lot.cycleId : undefined;
+  activeCycle = mode === "run" || mode === "resume" ? lot.cycleId : undefined;
   for (const id of RETURN_STEPS) {
     let step = db.steps(lot.cycleId).find((s) => s.id === id)!;
     if (step.status === "CONFIRMED") continue;
@@ -108,7 +143,13 @@ async function main() {
       await submitReturnStep({ store: db, cycleId: lot.cycleId, id, client, apiKey: key });
       step = db.steps(lot.cycleId).find((s) => s.id === id)!;
     }
-    const evidence = await verifyReturnReceipt(client, step, run!.input.policy, key);
+    const evidence = await pollReturnReceipt(
+      () => verifyReturnReceipt(client, step, run!.input.policy, key),
+      {
+        onPending: (attempt) =>
+          console.log(`Waiting for the same ${id} execution receipt (${attempt}/5).`),
+      },
+    );
     db.confirm(lot.cycleId, id, evidence, evidence.capital);
     console.log(
       json({
@@ -127,7 +168,8 @@ async function main() {
         keeperhubExecution: true,
         policyDecision: true,
         originalLot: latest.input.lot,
-        initialDecision: decideReturn(latest.input),
+        initialDecision: decideReturn(db.initialInput(lot.cycleId)),
+        recoveries: db.recoveries(lot.cycleId),
         capital: latest.capital,
         status: latest.status,
         steps: db

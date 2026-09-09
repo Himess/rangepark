@@ -83,6 +83,18 @@ export function ReturnRunnerEvidence() {
         </a>
         <span>Local fork of Base Sepolia block {proof.sourceBlock}</span>
       </div>
+      <div className="policy-note">
+        <strong>
+          Recovery tested: two pauses, still only six transactions.
+        </strong>{' '}
+        A separate local run deliberately expired the swap and reentry phases
+        after their approvals. The runner rechecked confirmed receipts and
+        refreshed the remaining calls, preserving the same NFT and range.{' '}
+        <a href="/evidence/testnet-return-recovery-fork.json" download>
+          Download the local recovery proof
+        </a>
+        .
+      </div>
     </section>
   );
 }

@@ -66,4 +66,4 @@ At block `46590109`, NFT 82083 was already restored, spot/TWAP were both -196257
 
 ## Remaining work
 
-The [six-stage broadcast runner](return-runner.md) now consumes this gate and has passed actual contract execution on a local Base Sepolia fork. It adds fresh per-step guards, verified capital attribution, a ratio quote based on post-swap price, frozen phases, onchain minimums/deadlines and receipt reconciliation. Public automatic execution, controlled pause recovery, live fee/cost estimation and recurring monitoring remain pending. The observer itself remains non-broadcasting.
+The [six-stage broadcast runner](return-runner.md) now consumes this gate and has passed actual contract execution on a local Base Sepolia fork. It adds fresh per-step guards, verified capital attribution, a ratio quote based on post-swap price, frozen phases, onchain minimums/deadlines and receipt reconciliation. Public automatic execution, live fee/cost estimation and recurring monitoring remain pending. The observer itself remains non-broadcasting.

@@ -139,6 +139,7 @@ export async function buildReturnSwapStage(
   capital: AttributedCapital,
   policy: ReturnPolicy,
   now: number,
+  fixedInput?: bigint,
 ): Promise<StageDraft> {
   const checked = assertReentrySnapshot(snapshot, policy, now);
   if ((await client.getChainId()) !== 84532) throw new Error("Wrong quote chain");
@@ -159,6 +160,11 @@ export async function buildReturnSwapStage(
   // post-swap price. A spot-only ratio left substantial idle USDC in the fork.
   let candidate =
     (capital.amount0 * r1 * q192 * 1000000n) / (r1 * q192 * 1000000n + r0 * price * 999500n);
+  if (fixedInput !== undefined) {
+    if (fixedInput <= 0n || fixedInput >= capital.amount0)
+      throw new Error("Invalid approved swap amount");
+    candidate = fixedInput;
+  }
   let low = 1n,
     high = capital.amount0 - 1n;
   const lowerTick = p.tickLower + checked.edgeBufferTicks;
@@ -188,11 +194,13 @@ export async function buildReturnSwapStage(
     if (afterSqrt < sqrtLimit || afterSqrt > p.sqrtPriceX96 || afterSqrt >= upperSqrt)
       throw new Error("Swap quote violates the price limit or direction");
     if (afterSqrt === sqrtLimit) {
+      if (fixedInput !== undefined) throw new Error("Approved swap amount reaches price limit");
       high = candidate - 1n;
       candidate = (low + high) / 2n;
       continue;
     }
     if (result[0] <= 0n) {
+      if (fixedInput !== undefined) throw new Error("Approved swap amount has no output");
       low = candidate + 1n;
       candidate = (low + high) / 2n;
       continue;
@@ -218,6 +226,7 @@ export async function buildReturnSwapStage(
     if (scale <= 0n) throw new Error("No post-swap target liquidity");
     if (!best || error * best.scale < best.error * scale)
       best = { input: candidate, output: result[0], error, scale };
+    if (fixedInput !== undefined) break;
     if (error * 10000n <= scale * 5n) break;
     if (difference > 0n) low = candidate + 1n;
     else high = candidate - 1n;
