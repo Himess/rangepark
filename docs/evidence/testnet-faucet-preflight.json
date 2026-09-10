@@ -1,0 +1,20 @@
+{
+  "mode": "READ_ONLY_FAUCET_PREFLIGHT",
+  "chainId": 84532,
+  "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+  "token": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
+  "faucet": "0xD9145b5F45Ad4519c7ACcD6E0A4A82e83bB8A6Dc",
+  "block": {
+    "number": "46615117",
+    "hash": "0xfc6cdc09b0b26afd3ff4597eae88e78ce9d9714366a72c2fec807a2c8c586138"
+  },
+  "permissioned": false,
+  "timelockPerMint": "3600",
+  "maxWholeTokensPerMint": "1000000",
+  "lastMint": "0",
+  "mintSimulation": {
+    "success": true,
+    "amount": "100000000"
+  },
+  "transactions": []
+}

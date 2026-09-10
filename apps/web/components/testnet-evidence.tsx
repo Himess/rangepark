@@ -1,5 +1,6 @@
 import { CircleCheck, Download, ExternalLink } from 'lucide-react';
 import proof from '@/lib/testnet-evidence.json';
+import oracle from '@/lib/oracle-evidence.json';
 
 const labels: Record<string, string> = {
   wrap: 'Wrap test ETH',
@@ -18,7 +19,7 @@ export function TestnetEvidence() {
     <section className="panel evidence-panel testnet-proof">
       <div className="proof-heading">
         <p className="eyebrow">KEEPERHUB · BASE SEPOLIA</p>
-        <span className="pill good">9 PUBLIC RECEIPTS VERIFIED</span>
+        <span className="pill good">10 PUBLIC RECEIPTS VERIFIED</span>
       </div>
       <h2>Capital returned. Same NFT. Same range.</h2>
       <p className="muted">
@@ -92,9 +93,28 @@ export function TestnetEvidence() {
       <div className="evidence-download">
         <a href="/evidence/testnet-lifecycle.json" download>
           <Download size={16} />
-          Download all testnet evidence
+          Download nine lifecycle receipts
         </a>
         <span>Includes calldata, balance checks and original range</span>
+      </div>
+      <div className="policy-note">
+        <strong>10 · Price-history preparation confirmed.</strong> KeeperHub
+        reserved {oracle.capacityReserved} observation slots on the original
+        pool. NFT liquidity, balances and allowances stayed unchanged. Active
+        capacity was still {oracle.activeCapacity} at the receipt block;
+        sufficient history must develop before automatic RETURN.{' '}
+        <a href={oracle.url} target="_blank" rel="noreferrer">
+          View the preparation transaction ↗
+        </a>
+      </div>
+      <div className="evidence-download">
+        <a href="/evidence/testnet-oracle-setup.json" download>
+          <Download size={16} aria-hidden="true" /> Download oracle preparation
+          proof
+        </a>
+        <span>
+          Block {oracle.block} · KeeperHub execution {oracle.executionId}
+        </span>
       </div>
     </section>
   );

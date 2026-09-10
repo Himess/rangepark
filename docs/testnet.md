@@ -60,6 +60,10 @@ At block `46574572`, liquidity was `18309835226606` (one liquidity unit below it
 
 The restoration executor validates the original NFT, owner, token pair, fee, range and principal against the confirmed PARK journal; checks fixed-chain simulation and receipt proofs; and permanently records each submission before sending it. Dependent steps stop on ambiguous results. A changed price that no longer supports WETH-only restoration causes refusal. Restoring out-of-range liquidity proves contract interoperability; it does not demonstrate resumed LP fee earning.
 
+## Oracle preparation completed — 10 September 2026 (Türkiye)
+
+KeeperHub executed [the observation-capacity increase](https://sepolia.basescan.org/tx/0xc2373badd18485bd1de0850cce205b14e40bd0d31bfdadfc8801699f9786fd05), execution `r0ijw93lzzs6yfyk5w5v7`, on the original fee-500 pool at block 46610756. Gas was sponsored. Reserved capacity changed from 1 to 16, while active capacity stayed 1; sufficient history was not yet ready. NFT liquidity, original range, wallet WETH/USDC and allowances remained unchanged. This is the tenth public receipt and a preparation step, separate from the nine lifecycle receipts. See [scope and evidence](oracle-setup.md).
+
 ## Commands
 
 ```sh

@@ -1,0 +1,196 @@
+{
+  "mode": "BASE_SEPOLIA_ORACLE_PREPARATION",
+  "chainId": 84532,
+  "verified": true,
+  "keeperhubExecution": true,
+  "executionId": "r0ijw93lzzs6yfyk5w5v7",
+  "transactionHash": "0xc2373badd18485bd1de0850cce205b14e40bd0d31bfdadfc8801699f9786fd05",
+  "explorerUrl": "https://sepolia.basescan.org/tx/0xc2373badd18485bd1de0850cce205b14e40bd0d31bfdadfc8801699f9786fd05",
+  "sponsored": true,
+  "before": {
+    "snapshot": {
+      "lot": {
+        "cycleId": "0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8",
+        "chainId": 84532,
+        "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+        "tokenId": "82083",
+        "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+        "token0": "0x4200000000000000000000000000000000000006",
+        "token1": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
+        "fee": 500,
+        "lower": -196230,
+        "upper": -196170,
+        "asset": "0x4200000000000000000000000000000000000006",
+        "principal": "999999999999984",
+        "parkedAt": 1788901704,
+        "status": "RESTORED"
+      },
+      "aTokenBalance": "79047740317",
+      "totalDebtBase": "0",
+      "oracle": {
+        "cardinality": 1,
+        "cardinalityNext": 1
+      },
+      "position": {
+        "chainId": 84532,
+        "tokenId": "82083",
+        "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+        "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+        "token0": {
+          "address": "0x4200000000000000000000000000000000000006",
+          "decimals": 18,
+          "symbol": "testWETH"
+        },
+        "token1": {
+          "address": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
+          "decimals": 6,
+          "symbol": "Aave testUSDC"
+        },
+        "fee": 500,
+        "tickLower": -196230,
+        "tickUpper": -196170,
+        "currentTick": -196257,
+        "sqrtPriceX96": "4339511079700359205867475",
+        "liquidity": "18309835226606",
+        "principal0": "999999999999930",
+        "principal1": "0",
+        "checkpointOwed0": "0",
+        "checkpointOwed1": "0",
+        "twapTick": -196257,
+        "twapWindowSeconds": 300,
+        "block": {
+          "number": "46610751",
+          "hash": "0x76aec168a20f6feb485d3744a31343b6f463f0330336d314af8141790e4c67b8",
+          "timestamp": 1788989790
+        }
+      },
+      "market": {
+        "chainId": 84532,
+        "protocol": "aave-v3",
+        "pool": "0x8bAB6d1b75f19e9eD9fCe8b9BD338844fF79aE27",
+        "asset": {
+          "address": "0x4200000000000000000000000000000000000006",
+          "decimals": 18,
+          "symbol": "testWETH"
+        },
+        "aToken": "0x73a5bB60b0B0fc35710DDc0ea9c407031E31Bdbb",
+        "supplyAprRay": "171329742596780811131993361",
+        "availableLiquidity": "175482854672075301108",
+        "supplyCapRemaining": "1473677942643578850274",
+        "active": true,
+        "frozen": false,
+        "paused": false,
+        "block": {
+          "number": "46610751",
+          "hash": "0x76aec168a20f6feb485d3744a31343b6f463f0330336d314af8141790e4c67b8",
+          "timestamp": 1788989790
+        }
+      }
+    },
+    "wallet0": "68",
+    "wallet1": "0",
+    "nftCount": "1",
+    "swapAllowance": "0",
+    "lp0Allowance": "53",
+    "lp1Allowance": "0"
+  },
+  "after": {
+    "snapshot": {
+      "lot": {
+        "cycleId": "0x06cd1be60f0cfe23b869f36bd045460262b33644fd495daca765f9dbbaf9e8b8",
+        "chainId": 84532,
+        "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+        "tokenId": "82083",
+        "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+        "token0": "0x4200000000000000000000000000000000000006",
+        "token1": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
+        "fee": 500,
+        "lower": -196230,
+        "upper": -196170,
+        "asset": "0x4200000000000000000000000000000000000006",
+        "principal": "999999999999984",
+        "parkedAt": 1788901704,
+        "status": "RESTORED"
+      },
+      "aTokenBalance": "79047744611",
+      "totalDebtBase": "0",
+      "oracle": {
+        "cardinality": 1,
+        "cardinalityNext": 16
+      },
+      "position": {
+        "chainId": 84532,
+        "tokenId": "82083",
+        "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+        "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+        "token0": {
+          "address": "0x4200000000000000000000000000000000000006",
+          "decimals": 18,
+          "symbol": "testWETH"
+        },
+        "token1": {
+          "address": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
+          "decimals": 6,
+          "symbol": "Aave testUSDC"
+        },
+        "fee": 500,
+        "tickLower": -196230,
+        "tickUpper": -196170,
+        "currentTick": -196257,
+        "sqrtPriceX96": "4339511079700359205867475",
+        "liquidity": "18309835226606",
+        "principal0": "999999999999930",
+        "principal1": "0",
+        "checkpointOwed0": "0",
+        "checkpointOwed1": "0",
+        "twapTick": -196257,
+        "twapWindowSeconds": 300,
+        "block": {
+          "number": "46610756",
+          "hash": "0x3496b48d5db4842927019e5a0407923d5b2cdfe10ab18b1c29ff8f78d198c51b",
+          "timestamp": 1788989800
+        }
+      },
+      "market": {
+        "chainId": 84532,
+        "protocol": "aave-v3",
+        "pool": "0x8bAB6d1b75f19e9eD9fCe8b9BD338844fF79aE27",
+        "asset": {
+          "address": "0x4200000000000000000000000000000000000006",
+          "decimals": 18,
+          "symbol": "testWETH"
+        },
+        "aToken": "0x73a5bB60b0B0fc35710DDc0ea9c407031E31Bdbb",
+        "supplyAprRay": "171329742596780811131993361",
+        "availableLiquidity": "175482854672075301108",
+        "supplyCapRemaining": "1473677887149125613945",
+        "active": true,
+        "frozen": false,
+        "paused": false,
+        "block": {
+          "number": "46610756",
+          "hash": "0x3496b48d5db4842927019e5a0407923d5b2cdfe10ab18b1c29ff8f78d198c51b",
+          "timestamp": 1788989800
+        }
+      }
+    },
+    "wallet0": "68",
+    "wallet1": "0",
+    "nftCount": "1",
+    "swapAllowance": "0",
+    "lp0Allowance": "53",
+    "lp1Allowance": "0"
+  },
+  "request": {
+    "chainId": 84532,
+    "contractAddress": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+    "abi": "[{\"name\":\"increaseObservationCardinalityNext\",\"type\":\"function\",\"stateMutability\":\"nonpayable\",\"inputs\":[{\"type\":\"uint16\",\"name\":\"observationCardinalityNext\"}],\"outputs\":[]},{\"name\":\"IncreaseObservationCardinalityNext\",\"type\":\"event\",\"inputs\":[{\"type\":\"uint16\",\"name\":\"observationCardinalityNextOld\"},{\"type\":\"uint16\",\"name\":\"observationCardinalityNextNew\"}]}]",
+    "functionName": "increaseObservationCardinalityNext",
+    "functionArgs": "[\n  16\n]",
+    "value": "0"
+  },
+  "calldata": "0x32148f670000000000000000000000000000000000000000000000000000000000000010",
+  "capacityReserved": 16,
+  "historyReady": false,
+  "automaticReturnExecuted": false
+}
