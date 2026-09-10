@@ -4,7 +4,7 @@
 
 RangePark is a KeeperHub hackathon project for parking fee-idle Uniswap V3 capital in the same underlying asset on Aave V3, then returning it to its original range.
 
-## Current milestone: observed RETURN economics with explainable HOLD
+## Current milestone: continuous local RETURN monitoring
 
 Implemented:
 
@@ -28,7 +28,9 @@ Implemented:
 
 - Read-only RETURN economics generator: one hour of reconciled pool fee growth, project-activity exclusions, OP Stack gas/data/operator fee inputs and a conservative swap-loss budget. The local runner consumes the expiring quote. [Method, live HOLD evidence and local contract proof](docs/return-economics.md).
 
-**Not implemented yet:** public validation of the automatic RETURN runner, a production strategy executor, continuous automatic fee/cost refresh and calibrated execution budgets, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. Strategy RETURN plans are review drafts; they require fresh chain checks before execution.
+- Continuous local read-only RETURN monitor: fresh chain/economics inputs every minute, durable observation history, renewable process lease, explicit degraded status and bounded evidence retention. [Commands and operational limits](docs/return-monitor.md).
+
+**Not implemented yet:** public validation of the automatic RETURN runner, a production strategy executor, calibrated execution budgets, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. Strategy RETURN plans are review drafts; they require fresh chain checks before execution.
 
 KeeperHub has now executed **0.001 test ETH → Uniswap NFT → Aave → the same NFT** on Base Sepolia. [Original-NFT restoration proof](https://sepolia.basescan.org/tx/0x309437e32585b8901531db3736c15f6d708175fa716f873ec6a1dae0b3d4ccc2) and [execution boundaries](docs/testnet.md) document the manual contract rehearsal. Price remained below the original range; this is not an automatic range-triggered RETURN or a profitable strategy claim. Interest remains in Aave as test tokens. The generated decision demo remains synthetic. Automatic RETURN and hackathon eligibility checks are pending.
 
@@ -61,7 +63,7 @@ Commands save reports under `artifacts/`, which is excluded from Git:
 
 `inspect` never claims that a single snapshot proves 30 minutes out of range. It reports `NOT_EVALUATED` for the live policy decision until monitoring history and cost assumptions are supplied.
 
-`observe` preserves samples in `artifacts/rangepark.sqlite` across processes. Repeated calls at one-minute intervals accumulate history; gaps over 120 seconds reset it. The web observation switch runs only while its Position view is open. Neither path schedules autonomous transactions.
+`observe` preserves samples in `artifacts/rangepark.sqlite` across processes. Repeated calls at one-minute intervals accumulate history; gaps over 120 seconds reset it. The web observation switch runs only while its Position view is open. Neither path schedules autonomous transactions. The separate `testnet:return-monitor` command now combines fresh economics and observations in a continuous foreground loop, also without broadcasting.
 
 The optional local `RANGEPARK_ECONOMICS_FILE` supplies chainId, asset address, atomic-unit roundTripCost and foregoneLpFees, source, quotedAt, expiresAt, and nullable lastActionAt. Quotes must be current, belong to the relevant asset and have a lifetime no longer than 120 seconds. A valid quote enables live policy evaluation and a review-only draft; absent costs never silently become zero.
 

@@ -1,11 +1,13 @@
 import { existsSync } from "node:fs";
-import { readFile, rename, writeFile } from "node:fs/promises";
+import { rename, writeFile } from "node:fs/promises";
 import { isAddress } from "viem";
 import { json } from "../src/core/serialization.js";
 import { readRecordedReturnLot } from "../src/testnet/return-context.js";
 import { defaultReturnPolicy } from "../src/testnet/return-policy.js";
 import { readReturnSnapshot, testnetReturnClient } from "../src/testnet/return-reader.js";
 import { readEconomicsEvidence } from "../src/testnet/return-economics.js";
+
+import { readFixtureExclusions } from "../src/testnet/return-economics-input.js";
 
 if (existsSync(".env")) process.loadEnvFile(".env");
 async function main() {
@@ -14,22 +16,7 @@ async function main() {
   const lot = readRecordedReturnLot(owner),
     client = testnetReturnClient(),
     policy = defaultReturnPolicy;
-  const excludedHashes = new Set<string>();
-  const path = existsSync("artifacts/testnet-price-fixture.json")
-    ? "artifacts/testnet-price-fixture.json"
-    : "docs/evidence/testnet-price-fixture.json";
-  if (existsSync(path)) {
-    const fixture = JSON.parse(await readFile(path, "utf8")) as {
-      syntheticMarketIntervention?: boolean;
-      steps?: { transactionHash: string }[];
-    };
-    if (fixture.syntheticMarketIntervention !== true || !Array.isArray(fixture.steps))
-      throw Error("Expected explicit fixture exclusion evidence");
-    for (const step of fixture.steps) {
-      if (!/^0x[0-9a-fA-F]{64}$/.test(step.transactionHash)) throw Error("Invalid fixture hash");
-      excludedHashes.add(step.transactionHash.toLowerCase());
-    }
-  }
+  const excludedHashes = await readFixtureExclusions();
   const snapshot = await readReturnSnapshot(client, lot, policy),
     result = await readEconomicsEvidence(client, snapshot, policy, excludedHashes);
   const report = { ...result, broadcasts: 0 };

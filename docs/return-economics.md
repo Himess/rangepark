@@ -2,7 +2,7 @@
 
 The read-only generator now replaces missing economics with a time-limited estimate. It does not manufacture a passing decision: the recorded public one-hour window contained no fee-generating activity, so expected LP income was zero and the runner returned `RETURN_NOT_ECONOMIC`. A monitoring gap also left `RETURN_PERSISTENCE_NOT_MET`. No withdrawal, simulation or public transaction occurred.
 
-Run `npm run testnet:return-economics`, then `npm run testnet:return-run` for a non-broadcasting decision. The default quote is `artifacts/testnet-return-economics.json`; an explicit `RANGEPARK_RETURN_ECONOMICS_FILE` takes precedence. Quotes last at most 120 seconds, must match the allocation and asset, and never substitute for fresh chain and persistence checks. This is an explicit local command, not a continuous hosted feed.
+Run `npm run testnet:return-economics`, then `npm run testnet:return-run` for a non-broadcasting decision. The default quote is `artifacts/testnet-return-economics.json`; an explicit `RANGEPARK_RETURN_ECONOMICS_FILE` takes precedence. Quotes last at most 120 seconds, must match the allocation and asset, and never substitute for fresh chain and persistence checks. This is an explicit local command, not a continuous hosted feed. The separate [foreground monitor](return-monitor.md) invokes the same reader each minute and stores the quote inside its evidence; it does not overwrite this execution-input file.
 
 ## Historical fee model
 
@@ -37,4 +37,4 @@ The existing policy applies a further 20% income haircut and requires benefit gr
 
 For the local test, start Anvil on `127.0.0.1:8546` with Base Sepolia chain ID 84532 and fork block 46631150, then run `npm run test:fork-return-economics`. The script checks the loopback client and fork, snapshots it, and reverts all local state afterward. Its files never replace the public runner's quote.
 
-Remaining work includes calibrated budgets, stronger attribution of project actors, robust fee forecasting beyond this bounded conservative model, continuous fresh observations and public validation of automatic RETURN. The current public capital remains parked until all existing gates pass.
+Remaining work includes calibrated budgets, stronger attribution of project actors, robust fee forecasting beyond this bounded conservative model, hosted continuous observation and public validation of automatic RETURN. The current public capital remains parked until all existing gates pass.

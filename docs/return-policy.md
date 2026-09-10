@@ -60,10 +60,10 @@ npm run testnet:return-observe -- preflight
 
 The first command needs only RPC and the verified owner in the local environment. The second uses the read-only KeeperHub key only after every gate passes. The request fixes chain, contract, recipient and principal with `simulate:true`. The response must match sender, target, returned amount and non-reverting simulation status. A simulation that finishes after decision expiry is discarded. A new chain snapshot and actual receipt verification will still be required before any future execution stage.
 
-There is no background scheduler. Repeated explicit calls accumulate observations in `artifacts/testnet-return-observations.sqlite`; a long pause correctly resets them. Detailed results go to `artifacts/testnet-return-observation.json`.
+The [local foreground monitor](return-monitor.md) can now repeat observations and economics reads every minute. There is no hosted scheduler. Repeated calls accumulate observations in `artifacts/testnet-return-observations.sqlite`; a long pause correctly resets them. Detailed results go to `artifacts/testnet-return-observation.json`.
 
 At block `46590109`, NFT 82083 was already restored, spot/TWAP were both -196257 and no economics file was provided. The command returned HOLD with no draft, no preflight call and no transaction. See [recorded live policy evidence](evidence/testnet-return-policy.json). Positive RETURN cases are tested with explicitly synthetic inputs; they are not public testnet execution evidence.
 
 ## Remaining work
 
-The [six-stage broadcast runner](return-runner.md) now consumes this gate and has passed actual contract execution on a local Base Sepolia fork. It adds fresh per-step guards, verified capital attribution, a ratio quote based on post-swap price, frozen phases, onchain minimums/deadlines and receipt reconciliation. Public automatic execution, continuous estimate refresh, calibrated execution budgets and recurring monitoring remain pending. The observer itself remains non-broadcasting.
+The [six-stage broadcast runner](return-runner.md) now consumes this gate and has passed actual contract execution on a local Base Sepolia fork. It adds fresh per-step guards, verified capital attribution, a ratio quote based on post-swap price, frozen phases, onchain minimums/deadlines and receipt reconciliation. Public automatic execution, calibrated execution budgets and hosted monitoring remain pending. The observer itself remains non-broadcasting.

@@ -24,6 +24,7 @@
     "testnet:repark": "tsx scripts/testnet-repark.ts",
     "testnet:return-check": "tsx scripts/testnet-return-check.ts",
     "testnet:return-economics": "tsx scripts/testnet-return-economics.ts",
+    "testnet:return-monitor": "tsx scripts/testnet-return-monitor.ts",
     "testnet:return-observe": "tsx scripts/testnet-return-observe.ts",
     "testnet:return-run": "tsx scripts/testnet-return-run.ts",
     "testnet:restore": "tsx scripts/testnet-restore.ts",
