@@ -4,7 +4,7 @@
 
 RangePark is a KeeperHub hackathon project for parking fee-idle Uniswap V3 capital in the same underlying asset on Aave V3, then returning it to its original range.
 
-## Current milestone: original NFT re-parked through KeeperHub
+## Current milestone: public test-price scenario with isolated Aave principal
 
 Implemented:
 
@@ -33,6 +33,8 @@ KeeperHub has now executed **0.001 test ETH → Uniswap NFT → Aave → the sam
 KeeperHub also completed a separate public oracle preparation transaction on 10 September (Türkiye time): reserved pool observation capacity increased from 1 to 16, with the NFT and token balances unchanged. Ten public receipts now cover the nine manual lifecycle steps plus this preparation. Active capacity remained 1 at its receipt block; price history still needs to populate. [Oracle evidence and remaining gates](docs/oracle-setup.md).
 
 The same NFT was released again and its **999999999999930 wei WETH** supplied to Aave in three further verified KeeperHub transactions. There are now **13 public receipts**. The new cycle is PARKED; old Aave shares and the separate wallet balance were preserved. RETURN recognizes this cycle but remains on HOLD until its conditions pass. [Re-PARK receipts, accounting and limitations](docs/repark.md).
+
+Four further KeeperHub transactions prepared a **controlled test-price scenario**, bringing the pool inside the original range without changing Aave principal shares. Total public receipts: **17**, including four explicitly labelled fixture transactions. The test swap's wallet proceeds remain separate from strategy principal. [Scenario proof and remaining RETURN gates](docs/price-fixture.md).
 
 ## Run locally
 

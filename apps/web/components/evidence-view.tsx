@@ -1,6 +1,7 @@
 import { CircleCheck, Download, ShieldCheck } from 'lucide-react';
 import evidence from '@/lib/fork-evidence.json';
 import { TestnetEvidence } from '@/components/testnet-evidence';
+import { PriceFixtureEvidence } from '@/components/price-fixture-evidence';
 import { ReturnRunnerEvidence } from '@/components/return-runner-evidence';
 const labels: Record<string, string> = {
   release: 'Exit original LP',
@@ -18,6 +19,7 @@ export function EvidenceView() {
   return (
     <>
       <TestnetEvidence />
+      <PriceFixtureEvidence />
       <ReturnRunnerEvidence />
       <section className="panel evidence-panel" style={{ marginTop: 24 }}>
         <p className="eyebrow">SHOW THE WORK</p>
@@ -116,8 +118,8 @@ export function EvidenceView() {
             <ShieldCheck />
             <h3>KeeperHub execution</h3>
             <p>
-              Thirteen public Base Sepolia receipts verify the first round trip,
-              oracle preparation and a new Aave allocation from the same NFT.
+              Seventeen public Base Sepolia receipts cover the first round trip,
+              oracle preparation, re-PARK and four controlled test-price steps.
               The guarded RETURN runner also passed a separate local contract
               test; its public execution is still pending.
             </p>

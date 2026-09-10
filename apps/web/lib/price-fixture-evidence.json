@@ -1,0 +1,43 @@
+{
+  "mode": "MANUAL_BASE_SEPOLIA_PRICE_FIXTURE",
+  "syntheticMarketIntervention": true,
+  "targetTick": -196198,
+  "completedAt": "2026-09-10T08:56:28.000Z",
+  "budgetUsdc": "100000000",
+  "spentUsdc": "12099203",
+  "receivedWeth": "4019302920150745",
+  "scaledATokenBefore": "680750395413806",
+  "scaledATokenAfter": "680750395413806",
+  "remainingAllowance": "0",
+  "oracleCapacity": 16,
+  "transactions": [
+    {
+      "id": "mint-test-usdc",
+      "hash": "0x55d11d766d6c29fb9e05192e1a2e31bcea97a8676db2fbe7199fa2db0e0cd48a",
+      "url": "https://sepolia.basescan.org/tx/0x55d11d766d6c29fb9e05192e1a2e31bcea97a8676db2fbe7199fa2db0e0cd48a",
+      "executionId": "ax8pn33fm9yf19b0rkcwv",
+      "block": "46631129"
+    },
+    {
+      "id": "approve-test-usdc",
+      "hash": "0x56557bc85c2af7e06459bf3ca3e2d3e98d6667919f2eea3b9ee011aa00e69470",
+      "url": "https://sepolia.basescan.org/tx/0x56557bc85c2af7e06459bf3ca3e2d3e98d6667919f2eea3b9ee011aa00e69470",
+      "executionId": "fuqf4nm9fd0qg45ks8anc",
+      "block": "46631135"
+    },
+    {
+      "id": "move-test-price",
+      "hash": "0x550e4a5c1e4f8c1940bc6f3efc17cfa860fdb3a667441aa8db5017100a7207f4",
+      "url": "https://sepolia.basescan.org/tx/0x550e4a5c1e4f8c1940bc6f3efc17cfa860fdb3a667441aa8db5017100a7207f4",
+      "executionId": "e0squgq7po1101lsup7e0",
+      "block": "46631142"
+    },
+    {
+      "id": "revoke-test-usdc",
+      "hash": "0x8f9d5716bd22e85a48505354728462227269ded0bb170f957f8855d335f5ee36",
+      "url": "https://sepolia.basescan.org/tx/0x8f9d5716bd22e85a48505354728462227269ded0bb170f957f8855d335f5ee36",
+      "executionId": "kne0n1dpdppxge73a8sdn",
+      "block": "46631150"
+    }
+  ]
+}

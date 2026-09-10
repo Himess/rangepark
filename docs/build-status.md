@@ -31,6 +31,10 @@ Private console deployed successfully: https://rangepark.semihcvlk53.chatgpt.sit
 
 ## Evidence boundaries
 
+Public observation milestone: eight real-time samples confirmed 308 seconds of eligible spot/TWAP history inside the original range at block 46631417. The sole remaining HOLD reason was `RETURN_ECONOMICS_MISSING`; no withdrawal was submitted. This historical result is in [sampling evidence](evidence/testnet-return-sampling.json). Root typecheck and **295 tests** pass.
+
+Controlled price scenario: four public KeeperHub fixture transactions minted test USDC, moved the pool to tick -196198, and revoked the remaining allowance. Aave scaled shares stayed exactly unchanged. Total public receipts are **17**, including four deliberate market-intervention receipts. See [fixture scope, capital isolation and verification](price-fixture.md). Organic activity, live profitability and automatic public RETURN are not implied.
+
 Execution-status follow-up: RETURN and re-PARK now share receipt validation that honors KeeperHub's poll interval header, preserves unknown pending states and caps total inter-poll waiting at 60 seconds without polling early. All **270 tests** pass. Read-only checks of the three public re-PARK execution IDs returned terminal zero hints and verified matching receipts; this validation sent no transactions.
 
 Latest milestone: the original NFT was re-parked in three additional KeeperHub transactions on 10 September. At block 46615724, `999999999999930` wei WETH formed a new Aave allocation, with NFT 82083 empty, its range unchanged, and old Aave shares excluded from the new principal. RETURN selects the new supply hash and cooldown. Total public receipts: **13**. Root typecheck, **245 tests**, and a separate three-call local contract rehearsal passed. See [re-PARK evidence and commands](repark.md).

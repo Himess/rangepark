@@ -10,6 +10,7 @@ import { ReturnRunStore } from "../state/return-runs.js";
 import { BASE_SEPOLIA as config } from "./config.js";
 import type { ParkedLot, ReturnEconomics } from "./return-policy.js";
 import { readReparkAnchor, selectReparkLot } from "./repark-context.js";
+import { FIXTURE_STEPS, fixtureIntent } from "./price-fixture.js";
 
 export function readOriginalReturnLot(owner: Address, includeRunnerState = true): ParkedLot {
   if (!existsSync("artifacts/testnet-park.sqlite"))
@@ -59,7 +60,11 @@ export function readOriginalReturnLot(owner: Address, includeRunnerState = true)
     returns?.close();
   }
 }
-export function readRecordedReturnLot(owner: Address, includeRunnerState = true): ParkedLot {
+export function readRecordedReturnLot(
+  owner: Address,
+  includeRunnerState = true,
+  includePriceFixture = true,
+): ParkedLot {
   let lot = readOriginalReturnLot(owner, includeRunnerState);
   if (lot.status !== "RESTORED" || !existsSync("artifacts/testnet-repark.sqlite")) return lot;
   const store = new TestnetDepositStore("artifacts/testnet-repark.sqlite");
@@ -80,6 +85,20 @@ export function readRecordedReturnLot(owner: Address, includeRunnerState = true)
       else if (run?.status === "PAUSED") lot = { ...lot, status: "RECOVERY" };
     } finally {
       returns.close();
+    }
+  }
+  if (
+    includePriceFixture &&
+    lot.status === "PARKED" &&
+    existsSync("artifacts/testnet-price-fixture.sqlite")
+  ) {
+    const fixture = new TestnetDepositStore("artifacts/testnet-price-fixture.sqlite");
+    try {
+      const rows = FIXTURE_STEPS.map((id) => fixture.get(fixtureIntent(lot, id)));
+      if (rows.some(Boolean) && !rows.every((row) => row?.status === "CONFIRMED"))
+        lot = { ...lot, status: "RECOVERY" };
+    } finally {
+      fixture.close();
     }
   }
   return lot;

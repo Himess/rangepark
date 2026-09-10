@@ -1,5 +1,7 @@
 # Base Sepolia rehearsal
 
+**Latest test scenario:** four additional KeeperHub transactions moved the pool into range using faucet tokens and then revoked the test allowance. Total receipts: **17**. Aave principal remained untouched. [Controlled market-intervention proof](price-fixture.md).
+
 **Latest state, 10 September:** NFT 82083 was re-parked through three further KeeperHub transactions. Its `999999999999930` wei WETH is now a new Aave allocation, and its liquidity is zero. There are **13 verified public receipts** across the first lifecycle, oracle preparation and re-PARK. [Current allocation and proof](repark.md). The records below describe earlier milestones.
 
 The next onchain milestone uses **Base Sepolia, chain 84532**, following the user's testnet-first instruction. No mainnet funding or execution is authorized by this milestone. The existing KeeperHub organization signer is reused; no seed phrase or private-key export is needed.

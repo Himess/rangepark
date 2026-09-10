@@ -20,7 +20,7 @@ export function TestnetEvidence() {
     <section className="panel evidence-panel testnet-proof">
       <div className="proof-heading">
         <p className="eyebrow">KEEPERHUB · BASE SEPOLIA</p>
-        <span className="pill good">13 PUBLIC RECEIPTS VERIFIED</span>
+        <span className="pill good">13 LIFECYCLE & SETUP RECEIPTS</span>
       </div>
       <h2>Same capital, parked again.</h2>
       <p className="muted">

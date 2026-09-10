@@ -18,6 +18,18 @@ export function testnetReturnClient() {
 }
 export type TestnetReturnClient = ReturnType<typeof testnetReturnClient>;
 
+// A sequencer tip can be one second ahead of this host. Read a real earlier
+// block in that case; never rewrite chain timestamps or relax policy freshness.
+export async function readTimeAlignedHead(
+  client: Pick<TestnetReturnClient, "getBlock">,
+  now = Math.floor(Date.now() / 1000),
+) {
+  if (!Number.isSafeInteger(now) || now <= 0) throw new Error("Invalid read time");
+  const head = await client.getBlock();
+  if (head.timestamp <= BigInt(now)) return head;
+  return client.getBlock({ blockNumber: head.number > 2n ? head.number - 2n : 0n });
+}
+
 export async function readReturnSnapshot(
   client: TestnetReturnClient,
   lot: ParkedLot,
@@ -26,7 +38,10 @@ export async function readReturnSnapshot(
 ): Promise<ReturnSnapshot> {
   requireTestnetChain(lot.chainId);
   requireTestnetChain(await client.getChainId());
-  const rawBlock = await client.getBlock(blockNumber === undefined ? {} : { blockNumber });
+  const rawBlock =
+    blockNumber === undefined
+      ? await readTimeAlignedHead(client)
+      : await client.getBlock({ blockNumber });
   const block = {
     number: rawBlock.number,
     hash: rawBlock.hash,
