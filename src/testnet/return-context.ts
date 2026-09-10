@@ -9,8 +9,9 @@ import { RESTORE_STEPS } from "./restore-plan.js";
 import { ReturnRunStore } from "../state/return-runs.js";
 import { BASE_SEPOLIA as config } from "./config.js";
 import type { ParkedLot, ReturnEconomics } from "./return-policy.js";
+import { readReparkAnchor, selectReparkLot } from "./repark-context.js";
 
-export function readRecordedReturnLot(owner: Address, includeRunnerState = true): ParkedLot {
+export function readOriginalReturnLot(owner: Address, includeRunnerState = true): ParkedLot {
   if (!existsSync("artifacts/testnet-park.sqlite"))
     throw new Error("Confirmed PARK journal required");
   const db = new TestnetDepositStore("artifacts/testnet-park.sqlite");
@@ -33,7 +34,8 @@ export function readRecordedReturnLot(owner: Address, includeRunnerState = true)
       returns = new ReturnRunStore("artifacts/testnet-return-runs.sqlite");
       const run = returns.get(supply.transactionHash);
       if (run?.status === "COMPLETE") status = "RESTORED";
-      else if (run?.status === "PAUSED") status = "RECOVERY";
+      else if (run?.status === "PAUSED" || (run?.status === "ACTIVE" && status === "RESTORED"))
+        status = "RECOVERY";
     }
     return {
       cycleId: supply.transactionHash,
@@ -56,6 +58,31 @@ export function readRecordedReturnLot(owner: Address, includeRunnerState = true)
     restore?.close();
     returns?.close();
   }
+}
+export function readRecordedReturnLot(owner: Address, includeRunnerState = true): ParkedLot {
+  let lot = readOriginalReturnLot(owner, includeRunnerState);
+  if (lot.status !== "RESTORED" || !existsSync("artifacts/testnet-repark.sqlite")) return lot;
+  const store = new TestnetDepositStore("artifacts/testnet-repark.sqlite");
+  try {
+    lot = selectReparkLot(lot, readReparkAnchor(lot), store);
+  } finally {
+    store.close();
+  }
+  if (
+    lot.status === "PARKED" &&
+    includeRunnerState &&
+    existsSync("artifacts/testnet-return-runs.sqlite")
+  ) {
+    const returns = new ReturnRunStore("artifacts/testnet-return-runs.sqlite");
+    try {
+      const run = returns.get(lot.cycleId);
+      if (run?.status === "COMPLETE") lot = { ...lot, status: "RESTORED" };
+      else if (run?.status === "PAUSED") lot = { ...lot, status: "RECOVERY" };
+    } finally {
+      returns.close();
+    }
+  }
+  return lot;
 }
 const quoteSchema = z
   .object({

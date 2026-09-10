@@ -1,0 +1,41 @@
+{
+  "mode": "MANUAL_BASE_SEPOLIA_REPARK",
+  "keeperhubExecution": true,
+  "policyDecision": false,
+  "tokenId": "82083",
+  "range": {
+    "lower": -196230,
+    "upper": -196170
+  },
+  "principal": "999999999999930",
+  "status": "PARKED",
+  "completedAt": "2026-09-10T00:22:16.000Z",
+  "block": "46615724",
+  "cycleId": "0x37a8140b1cc6f69816fbb81bfea0803f41e141aaeca67cb8684f410a77725381",
+  "walletWeth": "68",
+  "oldScaledShares": "53810434268",
+  "scaledSharesAfter": "680750395413806",
+  "transactions": [
+    {
+      "id": "release",
+      "hash": "0x85ba09cf19c341390de7cc0bc25be347e23af9baeb7ad2f1117bf50db0e5e2c6",
+      "url": "https://sepolia.basescan.org/tx/0x85ba09cf19c341390de7cc0bc25be347e23af9baeb7ad2f1117bf50db0e5e2c6",
+      "executionId": "456y4hyrwzq9u30pe30nd",
+      "block": "46615709"
+    },
+    {
+      "id": "approve-aave",
+      "hash": "0x8c88ef692df014d46c0feea75657124cd848b7b398cc70d42ee9ba23b0782de5",
+      "url": "https://sepolia.basescan.org/tx/0x8c88ef692df014d46c0feea75657124cd848b7b398cc70d42ee9ba23b0782de5",
+      "executionId": "jfqgsuyns7xoi6m36boqw",
+      "block": "46615716"
+    },
+    {
+      "id": "supply",
+      "hash": "0x37a8140b1cc6f69816fbb81bfea0803f41e141aaeca67cb8684f410a77725381",
+      "url": "https://sepolia.basescan.org/tx/0x37a8140b1cc6f69816fbb81bfea0803f41e141aaeca67cb8684f410a77725381",
+      "executionId": "cwqodz1mvv9syi6710ohx",
+      "block": "46615724"
+    }
+  ]
+}

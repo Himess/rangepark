@@ -116,10 +116,10 @@ export function EvidenceView() {
             <ShieldCheck />
             <h3>KeeperHub execution</h3>
             <p>
-              Nine public Base Sepolia receipts verify funding, Uniswap exit,
-              Aave supply and manual principal restoration to the same NFT. The
-              guarded RETURN runner also passed a separate local contract test;
-              its public execution is still pending.
+              Thirteen public Base Sepolia receipts verify the first round trip,
+              oracle preparation and a new Aave allocation from the same NFT.
+              The guarded RETURN runner also passed a separate local contract
+              test; its public execution is still pending.
             </p>
             <span className="pill good">Testnet rehearsal verified</span>
           </article>

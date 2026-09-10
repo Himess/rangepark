@@ -31,11 +31,13 @@ Private console deployed successfully: https://rangepark.semihcvlk53.chatgpt.sit
 
 ## Evidence boundaries
 
+Latest milestone: the original NFT was re-parked in three additional KeeperHub transactions on 10 September. At block 46615724, `999999999999930` wei WETH formed a new Aave allocation, with NFT 82083 empty, its range unchanged, and old Aave shares excluded from the new principal. RETURN selects the new supply hash and cooldown. Total public receipts: **13**. Root typecheck, **245 tests**, and a separate three-call local contract rehearsal passed. See [re-PARK evidence and commands](repark.md).
+
 The original public read sample is NFT `5950133` at Base block `50998408`, hash `0x2d4d801ef6db4e58e8924c6d41acafa19dfb6c544bd22511514a963d974fa8dc`. The SDK principal calculation matched NFPM `decreaseLiquidity` through read-only `eth_call`. That public NFT is not owned by this project. Later refreshes may have different values.
 
 The local-fork lifecycle report is marked `LOCAL_BASE_FORK` and `keeperhubExecution: false`. Its funding, impersonation, time advancement and transactions occurred exclusively on localhost. Local hashes must never be presented as Basescan transaction links. The separate testnet report contains nine actual Basescan transaction links and explicitly marks `policyDecision:false` and `rangeTriggeredReturn:false`.
 
-KeeperHub has executed nine verified Base Sepolia transactions: the initial wrap, five PARK steps and three manual principal-restoration steps. See [testnet receipts and scope](testnet.md). This was a manually staged contract rehearsal with `policyDecision:false`; it did not wait for 30-minute persistence or assert positive live economics. Automatic in-range RETURN is still pending. The project execution wallet had no Base mainnet ETH/WETH/USDC or Uniswap NFT at the last recorded mainnet read. The console includes the historical public proof; its runtime has received neither local API credential.
+KeeperHub has executed thirteen verified Base Sepolia transactions: the initial wrap, five PARK steps, three manual restoration steps, oracle preparation and three re-PARK steps. See [testnet receipts and scope](testnet.md). These were manually staged rehearsals with `policyDecision:false`; they did not wait for 30-minute persistence or assert positive live economics. Automatic in-range RETURN is still pending. The project execution wallet had no Base mainnet ETH/WETH/USDC or Uniswap NFT at the last recorded mainnet read. The console includes historical public proof; its runtime has received neither local API credential.
 
 ## Next delivery gates
 
