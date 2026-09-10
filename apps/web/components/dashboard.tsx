@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { PositionView } from '@/components/position-view';
 import { DecisionLab } from '@/components/decision-lab';
 import { EvidenceView } from '@/components/evidence-view';
+import { HostedMonitorView } from '@/components/hosted-monitor-view';
 
 export default function Dashboard() {
   return (
@@ -44,6 +45,7 @@ export default function Dashboard() {
           <TabsTrigger value="position">Position</TabsTrigger>
           <TabsTrigger value="lab">Decision lab</TabsTrigger>
           <TabsTrigger value="evidence">Execution evidence</TabsTrigger>
+          <TabsTrigger value="monitor">Server monitor</TabsTrigger>
         </TabsList>
         <TabsContent value="position">
           <PositionView />
@@ -53,6 +55,9 @@ export default function Dashboard() {
         </TabsContent>
         <TabsContent value="evidence">
           <EvidenceView />
+        </TabsContent>
+        <TabsContent value="monitor">
+          <HostedMonitorView />
         </TabsContent>
       </Tabs>
       <footer>

@@ -4,7 +4,7 @@
 
 RangePark is a KeeperHub hackathon project for parking fee-idle Uniswap V3 capital in the same underlying asset on Aave V3, then returning it to its original range.
 
-## Current milestone: continuous local RETURN monitoring
+## Current milestone: hosted read-only RETURN service
 
 Implemented:
 
@@ -30,7 +30,9 @@ Implemented:
 
 - Continuous local read-only RETURN monitor: fresh chain/economics inputs every minute, durable observation history, renewable process lease, explicit degraded status and bounded evidence retention. [Commands and operational limits](docs/return-monitor.md).
 
-**Not implemented yet:** public validation of the automatic RETURN runner, a production strategy executor, calibrated execution budgets, strategy-owned aToken share accounting across existing deposits, continuous hosted monitoring, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. Strategy RETURN plans are review drafts; they require fresh chain checks before execution.
+- Hosted RETURN service with authenticated checks, atomic D1 history, per-minute deduplication and a server-status view. The scheduler is not connected: KeeperHub HTTP actions require Pro and this account currently reports Free. [Deployment, authentication and limits](docs/hosted-return-monitor.md).
+
+**Not implemented yet:** public validation of the automatic RETURN runner, a production strategy executor, calibrated execution budgets, strategy-owned aToken share accounting across existing deposits, unattended hosted scheduling, Compound/Morpho and submission video. Stored approval actors are local records, not wallet signatures. Strategy RETURN plans are review drafts; they require fresh chain checks before execution.
 
 KeeperHub has now executed **0.001 test ETH → Uniswap NFT → Aave → the same NFT** on Base Sepolia. [Original-NFT restoration proof](https://sepolia.basescan.org/tx/0x309437e32585b8901531db3736c15f6d708175fa716f873ec6a1dae0b3d4ccc2) and [execution boundaries](docs/testnet.md) document the manual contract rehearsal. Price remained below the original range; this is not an automatic range-triggered RETURN or a profitable strategy claim. Interest remains in Aave as test tokens. The generated decision demo remains synthetic. Automatic RETURN and hackathon eligibility checks are pending.
 

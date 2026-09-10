@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-09-10T16:33:35.262Z",
+  "plan": "free",
+  "billingEnabled": true,
+  "httpAction": {
+    "actionType": "HTTP Request",
+    "requiredPlan": "pro",
+    "featureEnabled": true
+  },
+  "webhookAction": {
+    "actionType": "webhook/send-webhook",
+    "requiredPlan": "pro"
+  },
+  "workflowCreated": false,
+  "schedulerEnabled": false
+}
