@@ -3,6 +3,7 @@ import evidence from '@/lib/fork-evidence.json';
 import { TestnetEvidence } from '@/components/testnet-evidence';
 import { PriceFixtureEvidence } from '@/components/price-fixture-evidence';
 import { ReturnRunnerEvidence } from '@/components/return-runner-evidence';
+import { ReturnEconomicsEvidence } from '@/components/return-economics-evidence';
 const labels: Record<string, string> = {
   release: 'Exit original LP',
   approve: 'Approve parked amount',
@@ -20,6 +21,7 @@ export function EvidenceView() {
     <>
       <TestnetEvidence />
       <PriceFixtureEvidence />
+      <ReturnEconomicsEvidence />
       <ReturnRunnerEvidence />
       <section className="panel evidence-panel" style={{ marginTop: 24 }}>
         <p className="eyebrow">SHOW THE WORK</p>

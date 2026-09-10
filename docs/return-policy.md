@@ -30,7 +30,7 @@ Aave's freeze flag blocks new supply but is not a withdrawal prohibition; the RE
 
 ## Economics
 
-No estimate is supplied automatically. Set `RANGEPARK_RETURN_ECONOMICS_FILE` to a local JSON file with:
+Run `npm run testnet:return-economics` to generate a read-only historical fee projection and conservative execution budget. The observer and runner automatically read `artifacts/testnet-return-economics.json`; the file expires and has no background refresh. See the [method and limits](return-economics.md). An explicit `RANGEPARK_RETURN_ECONOMICS_FILE` overrides that default and must contain:
 
 - `chainId`: 84532.
 - `cycleId`: the confirmed Aave supply transaction hash identifying this allocation.
@@ -66,4 +66,4 @@ At block `46590109`, NFT 82083 was already restored, spot/TWAP were both -196257
 
 ## Remaining work
 
-The [six-stage broadcast runner](return-runner.md) now consumes this gate and has passed actual contract execution on a local Base Sepolia fork. It adds fresh per-step guards, verified capital attribution, a ratio quote based on post-swap price, frozen phases, onchain minimums/deadlines and receipt reconciliation. Public automatic execution, live fee/cost estimation and recurring monitoring remain pending. The observer itself remains non-broadcasting.
+The [six-stage broadcast runner](return-runner.md) now consumes this gate and has passed actual contract execution on a local Base Sepolia fork. It adds fresh per-step guards, verified capital attribution, a ratio quote based on post-swap price, frozen phases, onchain minimums/deadlines and receipt reconciliation. Public automatic execution, continuous estimate refresh, calibrated execution budgets and recurring monitoring remain pending. The observer itself remains non-broadcasting.

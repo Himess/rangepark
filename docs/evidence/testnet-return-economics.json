@@ -1,0 +1,207 @@
+{
+  "evidence": {
+    "mode": "BASE_SEPOLIA_OBSERVED_ECONOMICS",
+    "chainId": 84532,
+    "lot": {
+      "cycleId": "0x37a8140b1cc6f69816fbb81bfea0803f41e141aaeca67cb8684f410a77725381",
+      "chainId": 84532,
+      "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+      "tokenId": "82083",
+      "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+      "token0": "0x4200000000000000000000000000000000000006",
+      "token1": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
+      "fee": 500,
+      "lower": -196230,
+      "upper": -196170,
+      "asset": "0x4200000000000000000000000000000000000006",
+      "principal": "999999999999930",
+      "parkedAt": 1788999736,
+      "status": "PARKED"
+    },
+    "snapshot": {
+      "lot": {
+        "cycleId": "0x37a8140b1cc6f69816fbb81bfea0803f41e141aaeca67cb8684f410a77725381",
+        "chainId": 84532,
+        "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+        "tokenId": "82083",
+        "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+        "token0": "0x4200000000000000000000000000000000000006",
+        "token1": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
+        "fee": 500,
+        "lower": -196230,
+        "upper": -196170,
+        "asset": "0x4200000000000000000000000000000000000006",
+        "principal": "999999999999930",
+        "parkedAt": 1788999736,
+        "status": "PARKED"
+      },
+      "aTokenBalance": "1000284328454085",
+      "totalDebtBase": "0",
+      "oracle": {
+        "cardinality": 16,
+        "cardinalityNext": 16
+      },
+      "position": {
+        "chainId": 84532,
+        "tokenId": "82083",
+        "owner": "0x7109C8e3B56C0A94729F3f538105b6916EF5934B",
+        "pool": "0x9d9203f8a29c600D567b240692DB569B77D1F4A9",
+        "token0": {
+          "address": "0x4200000000000000000000000000000000000006",
+          "decimals": 18,
+          "symbol": "testWETH"
+        },
+        "token1": {
+          "address": "0xba50Cd2A20f6DA35D788639E581bca8d0B5d4D5f",
+          "decimals": 6,
+          "symbol": "Aave testUSDC"
+        },
+        "fee": 500,
+        "tickLower": -196230,
+        "tickUpper": -196170,
+        "currentTick": -196198,
+        "sqrtPriceX96": "4352183025671375275879924",
+        "liquidity": "0",
+        "principal0": "0",
+        "principal1": "0",
+        "checkpointOwed0": "0",
+        "checkpointOwed1": "0",
+        "twapTick": -196198,
+        "twapWindowSeconds": 300,
+        "block": {
+          "number": "46634393",
+          "hash": "0x4a659f1d30637bc013290c944648800a8ffe0cb085197ca91ea83654d039b797",
+          "timestamp": 1789037074
+        }
+      },
+      "market": {
+        "chainId": 84532,
+        "protocol": "aave-v3",
+        "pool": "0x8bAB6d1b75f19e9eD9fCe8b9BD338844fF79aE27",
+        "asset": {
+          "address": "0x4200000000000000000000000000000000000006",
+          "decimals": 18,
+          "symbol": "testWETH"
+        },
+        "aToken": "0x73a5bB60b0B0fc35710DDc0ea9c407031E31Bdbb",
+        "supplyAprRay": "174533471637169787771589133",
+        "availableLiquidity": "173898854672075301038",
+        "supplyCapRemaining": "1473353261537595477935",
+        "active": true,
+        "frozen": false,
+        "paused": false,
+        "block": {
+          "number": "46634393",
+          "hash": "0x4a659f1d30637bc013290c944648800a8ffe0cb085197ca91ea83654d039b797",
+          "timestamp": 1789037074
+        }
+      }
+    },
+    "start": {
+      "block": {
+        "number": "46632593",
+        "hash": "0x7ad4dabc0e197ebc7710fa4a943cc7c0343b14aaa164eeb4d23c72d311b52c4f",
+        "timestamp": 1789033474
+      },
+      "growth0": "3741695827233435033638927458558443429",
+      "growth1": "38479530555207311525167777911",
+      "tick": -196198,
+      "liquidity": "75609400509703"
+    },
+    "end": {
+      "block": {
+        "number": "46634393",
+        "hash": "0x4a659f1d30637bc013290c944648800a8ffe0cb085197ca91ea83654d039b797",
+        "timestamp": 1789037074
+      },
+      "growth0": "3741695827233435033638927458558443429",
+      "growth1": "38479530555207311525167777911",
+      "tick": -196198,
+      "liquidity": "75609400509703"
+    },
+    "fees": {
+      "elapsed": 3600,
+      "projectedLiquidity": "18142215907425",
+      "historicalFees0": "0",
+      "historicalFees1": "0",
+      "historicalValueWeth": "0",
+      "expectedLpFees": "0",
+      "details": [],
+      "model": "Conditional historical fee-rate projection; not guaranteed future earnings"
+    },
+    "cost": {
+      "l2": "288000000000000",
+      "l1": "2402820662868",
+      "operator": "0",
+      "swapLoss": "10000000000000",
+      "gasPrice": "6000000",
+      "gasPriceBudget": "12000000",
+      "total": "300402820662868",
+      "assumptions": {
+        "calls": 6,
+        "gasPerCall": "4000000",
+        "unsignedBytesPerCall": "8192",
+        "gasPriceMultiplier": "2",
+        "swapLossBps": "100",
+        "allocatedValueBps": "9900"
+      },
+      "model": "Conservative planning budget, not an invoice or guaranteed transaction gas limit; sponsorship not assumed free"
+    },
+    "feeBlocks": [],
+    "excludedHashes": [
+      "0x55d11d766d6c29fb9e05192e1a2e31bcea97a8676db2fbe7199fa2db0e0cd48a",
+      "0x56557bc85c2af7e06459bf3ca3e2d3e98d6667919f2eea3b9ee011aa00e69470",
+      "0x550e4a5c1e4f8c1940bc6f3efc17cfa860fdb3a667441aa8db5017100a7207f4",
+      "0x8f9d5716bd22e85a48505354728462227269ded0bb170f957f8855d335f5ee36"
+    ],
+    "activityCount": 0,
+    "quotedAt": 1789037082
+  },
+  "quote": {
+    "chainId": 84532,
+    "cycleId": "0x37a8140b1cc6f69816fbb81bfea0803f41e141aaeca67cb8684f410a77725381",
+    "asset": "0x4200000000000000000000000000000000000006",
+    "horizonSeconds": 3600,
+    "quotedAt": 1789037082,
+    "expiresAt": 1789037202,
+    "expectedLpFees": "0",
+    "executionCost": "300402820662868",
+    "source": "Observed fee growth and OP fee oracle; conservative budget; evidence 0xca93bf50d9a961edb79953fef737402ffca2a3c141cf5d246398299f419b80ff"
+  },
+  "broadcasts": 0,
+  "decisionRecord": {
+    "mode": "BASE_SEPOLIA_RETURN_RUNNER_STATUS",
+    "lotStatus": "PARKED",
+    "cycleId": "0x37a8140b1cc6f69816fbb81bfea0803f41e141aaeca67cb8684f410a77725381",
+    "decision": {
+      "action": "HOLD",
+      "mode": "REVIEW_ONLY",
+      "reasons": [
+        "RETURN_PERSISTENCE_NOT_MET",
+        "RETURN_NOT_ECONOMIC"
+      ],
+      "chainId": 84532,
+      "cycleId": "0x37a8140b1cc6f69816fbb81bfea0803f41e141aaeca67cb8684f410a77725381",
+      "tokenId": "82083",
+      "principal": "999999999999930",
+      "expectedFees": "0",
+      "requiredBenefit": "901228385900892",
+      "foregoneAaveYield": "19923912288",
+      "policyHash": "0xad74bc85610ae73f4f49ba50bc68b7d653de89ee0ac650d24632fea79bc2c09a",
+      "inputHash": "0xb96f57e4d261c22aa1f6c303a2b87e7ce58025f951ef64db2c2ba52edd0f6584",
+      "observedBlock": {
+        "number": "46634402",
+        "hash": "0x76a91f9658722db8c150347398f397aab410f72e2b40785ab81c6f64aadabbf6",
+        "timestamp": 1789037092
+      },
+      "createdAt": 1789037100,
+      "expiresAt": 1789037152,
+      "simulation": "NOT_RUN",
+      "decisionHash": "0x4606fd62e94fba4982b67addff1a736b70af314dca2c9077372b3c996507f622"
+    },
+    "runStatus": "NOT_STARTED",
+    "steps": [],
+    "transactions": []
+  },
+  "publicationNotice": "Historical read-only evidence, not a current execution quote. Refresh through the local economics command. No public broadcasts."
+}

@@ -61,7 +61,7 @@ Run `node --import tsx scripts/fork-testnet-return.ts --recovery` on the same lo
 
 ## Remaining limitations
 
-- No continuous scheduler or live LP-fee/execution-cost estimator. Initial economics must be current before withdrawal; subsequent steps enforce price/account/capital guards rather than forecasting profitability again.
+- No continuous scheduler. The [local economics generator](return-economics.md) now reads historical LP fees and current execution-budget inputs; it must be refreshed explicitly. Initial economics must be current before withdrawal; subsequent steps enforce price/account/capital guards rather than forecasting profitability again.
 - The explicit resume path remains conservative: insufficient balance, changed allowances, a reorg, unavailable receipts or an approved swap amount that no longer fits the ratio keeps it paused. Unknown submissions without an execution ID need further investigation. Capital may remain in the wallet after a partial return; no emergency withdrawal or automatic allowance repair is implemented.
 - One original-NFT re-PARK cycle is implemented, with isolated deposited principal. Arbitrary repeated cycles and a full strategy share ledger across unrelated Aave deposits remain unfinished.
 - Public automatic KeeperHub swap/reentry, oracle readiness and event eligibility remain to be verified. No mainnet execution is authorized or claimed.

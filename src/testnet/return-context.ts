@@ -117,7 +117,10 @@ const quoteSchema = z
   })
   .strict();
 export async function readReturnEconomics(
-  path = process.env.RANGEPARK_RETURN_ECONOMICS_FILE,
+  path = process.env.RANGEPARK_RETURN_ECONOMICS_FILE ||
+    (existsSync("artifacts/testnet-return-economics.json")
+      ? "artifacts/testnet-return-economics.json"
+      : undefined),
 ): Promise<ReturnEconomics | null> {
   if (!path) return null;
   const q = quoteSchema.parse(JSON.parse(await readFile(path, "utf8")));
