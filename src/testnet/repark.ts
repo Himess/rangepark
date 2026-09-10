@@ -1,3 +1,4 @@
+import { verifiedTestnetExecution } from "./execution-status.js";
 import { decodeEventLog, erc20Abi, isAddressEqual, parseAbi, type Address, type Hex } from "viem";
 import { z } from "zod";
 import { hash } from "../core/serialization.js";
@@ -387,40 +388,12 @@ export async function reconcileReparkStep(
     },
   );
   if (!response.ok) throw new Error(`Re-PARK status HTTP ${response.status}`);
-  const status = z
-    .object({
-      executionId: z.literal(result.executionId),
-      status: z.string(),
-      sponsored: z.boolean(),
-      transactionHash: z
-        .string()
-        .regex(/^0x[0-9a-fA-F]{64}$/)
-        .nullish(),
-      receipts: z.array(
-        z.object({
-          hash: z.string(),
-          chainId: z.number(),
-          verified: z.boolean(),
-          receiptStatus: z.string(),
-        }),
-      ),
-    })
-    .parse(await response.json());
-  if (status.status === "failed") throw new Error("Re-PARK transaction failed; no retry");
-  const txHash = status.transactionHash as Hex | undefined;
-  if (
-    !txHash ||
-    !status.receipts.some(
-      (r) =>
-        r.hash.toLowerCase() === txHash.toLowerCase() &&
-        r.chainId === 84532 &&
-        r.verified &&
-        r.receiptStatus === "success",
-    )
-  )
-    throw new Error(
-      `Re-PARK receipt pending; reconcile after ${response.headers.get("X-Poll-Interval-Hint") ?? "5"} seconds`,
-    );
+  const status = verifiedTestnetExecution(
+    await response.json(),
+    result.executionId,
+    response.headers,
+  );
+  const txHash = status.transactionHash as Hex;
   if (result.transactionHash && result.transactionHash.toLowerCase() !== txHash.toLowerCase())
     throw new Error("Re-PARK transaction hash changed");
   const receipt = await client.waitForTransactionReceipt({

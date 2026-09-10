@@ -4,7 +4,7 @@ Implemented and tested on 9 September 2026, with controlled recovery verified on
 
 ## Execution boundaries
 
-Only Base Sepolia (84532), the recorded owner and NFT, WETH/Aave test USDC, fee 500 and up to 0.001 test WETH principal are accepted. A confirmed PARK allocation and a passing [RETURN policy](return-policy.md) are required. The currently recorded public allocation is already RESTORED and correctly produces HOLD.
+Only Base Sepolia (84532), the recorded owner and NFT, WETH/Aave test USDC, fee 500 and up to 0.001 test WETH principal are accepted. A confirmed PARK allocation and a passing [RETURN policy](return-policy.md) are required. The latest public allocation is the [new re-PARK cycle](repark.md); it remains on HOLD until oracle history, prices, persistence, cooldown and economics pass.
 
 The ordered steps are withdrawal, exact swap approval, ratio swap, exact WETH approval, exact USDC approval and increase of the original NFT. Every stage uses a fresh pinned snapshot. Simulation runs before submission, followed by another freshness check. Known ABIs, recipient, target, chain and attributable principal are reconstructed and validated independently of the plan hash.
 
@@ -53,7 +53,9 @@ The first contract run exposed a one-observation oracle: a swap overwrote the hi
 
 Confirmed calls and original decision evidence are preserved. The swap retains an already approved input amount and obtains a fresh quote; it holds if that fixed amount no longer fits the price ratio or limits. LP reentry uses the exact attributed balances and refreshed nonzero minima/deadline. An unsent withdrawal requires fresh full eligibility and economics. Concurrent journal changes invalidate recovery. No confirmed step or unknown submission is reset to READY.
 
-Pending KeeperHub receipts are checked up to five times without another write. Verification mismatches fail immediately. If still unresolved, the run pauses. An execution whose write response was lost and has no execution ID cannot yet be recovered automatically. Do not delete its journal or resubmit it.
+Pending KeeperHub receipts are checked up to five times without another write. RETURN and re-PARK share the same status parser. Polls honor `X-Poll-Interval-Hint` in seconds, including a zero terminal hint and previously unknown status names. Positive hints keep an execution pending even if its status label says completed. Missing/malformed hints leave unknown states pending; completed results still require verified Base Sepolia receipts. These semantics follow the [KeeperHub Direct Execution API](https://docs.keeperhub.com/api/direct-execution).
+
+The local wait budget is 60 seconds in total, in addition to bounded network reads. If the next recommended delay exceeds the remaining budget, the client stops instead of polling early. Verification mismatches and contradictory terminal receipts fail immediately. An unresolved RETURN run pauses. A write response lost without an execution ID cannot yet be recovered automatically. Do not delete its journal or resubmit it.
 
 Run `node --import tsx scripts/fork-testnet-return.ts --recovery` on the same local fork configuration to reproduce [the recovery proof](evidence/testnet-return-recovery-fork.json). Two 90-second time advances deliberately expire the phase after swap approval and after both LP approvals. Both resumes reverify receipts; the entire lifecycle still contains exactly six strategy transactions. SQLite reopen tests separately verify durable recovery across process restarts.
 
@@ -61,5 +63,5 @@ Run `node --import tsx scripts/fork-testnet-return.ts --recovery` on the same lo
 
 - No continuous scheduler or live LP-fee/execution-cost estimator. Initial economics must be current before withdrawal; subsequent steps enforce price/account/capital guards rather than forecasting profitability again.
 - The explicit resume path remains conservative: insufficient balance, changed allowances, a reorg, unavailable receipts or an approved swap amount that no longer fits the ratio keeps it paused. Unknown submissions without an execution ID need further investigation. Capital may remain in the wallet after a partial return; no emergency withdrawal or automatic allowance repair is implemented.
-- No new PARK-cycle creation or strategy share accounting across arbitrary existing Aave deposits.
+- One original-NFT re-PARK cycle is implemented, with isolated deposited principal. Arbitrary repeated cycles and a full strategy share ledger across unrelated Aave deposits remain unfinished.
 - Public automatic KeeperHub swap/reentry, oracle readiness and event eligibility remain to be verified. No mainnet execution is authorized or claimed.

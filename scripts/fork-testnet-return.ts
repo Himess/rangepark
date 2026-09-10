@@ -240,6 +240,7 @@ async function main() {
       return new Response(
         json({
           executionId: id,
+          status: "completed",
           transactionHash: tx,
           sponsored: false,
           receipts: [{ hash: tx, chainId: 84532, verified: true, receiptStatus: "success" }],

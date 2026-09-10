@@ -1,11 +1,15 @@
 import { decodeEventLog, erc20Abi, isAddressEqual, parseAbi, type Hex } from "viem";
-import { z } from "zod";
 import { hash } from "../core/serialization.js";
 import { BASE_SEPOLIA as config } from "./config.js";
 import { readReturnSnapshot, type TestnetReturnClient } from "./return-reader.js";
 import { verifyParkTransaction } from "./park-executor.js";
 import { TESTNET_GAS_DELEGATE } from "./receipt.js";
 import { executionResponseSchema } from "./execution.js";
+import {
+  ExecutionReceiptPending as ReturnReceiptPending,
+  verifiedTestnetExecution,
+} from "./execution-status.js";
+export { ExecutionReceiptPending as ReturnReceiptPending } from "./execution-status.js";
 import { decodeRun, type RunStep } from "../state/return-runs.js";
 import type { ParkedLot, ReturnPolicy, ReturnSnapshot } from "./return-policy.js";
 import type { AttributedCapital, ReturnCall, ReturnStepId, StageDraft } from "./return-stages.js";
@@ -24,13 +28,13 @@ export type ReturnBaseline = {
   capital: AttributedCapital;
   plan: StageDraft;
 };
-export class ReturnReceiptPending extends Error {}
 
 export async function pollReturnReceipt<T>(
   verify: () => Promise<T>,
   options: {
     attempts?: number;
     delayMs?: number;
+    waitBudgetMs?: number;
     wait?: (ms: number) => Promise<void>;
     onPending?: (attempt: number) => void;
   } = {},
@@ -41,13 +45,23 @@ export async function pollReturnReceipt<T>(
   const delay = options.delayMs ?? 2000;
   if (!Number.isInteger(delay) || delay < 0 || delay > 5000)
     throw new Error("Invalid receipt poll delay");
+  const budget = options.waitBudgetMs ?? 60000;
+  if (!Number.isInteger(budget) || budget < 0 || budget > 60000)
+    throw new Error("Invalid receipt wait budget");
+  let waited = 0;
   for (let i = 1; ; i++) {
     try {
       return await verify();
     } catch (error) {
       if (!(error instanceof ReturnReceiptPending) || i >= attempts) throw error;
+      const nextDelay = error.retryAfterMs ?? delay;
+      // Never poll sooner than the server hint to fit our local budget.
+      if (nextDelay > budget - waited) throw error;
       options.onPending?.(i);
-      await (options.wait ?? ((ms) => new Promise((resolve) => setTimeout(resolve, ms))))(delay);
+      await (options.wait ?? ((ms) => new Promise((resolve) => setTimeout(resolve, ms))))(
+        nextDelay,
+      );
+      waited += nextDelay;
     }
   }
 }
@@ -283,55 +297,14 @@ export async function verifyReturnReceipt(
     },
   );
   if (!statusResponse.ok) throw new Error(`Receipt status HTTP ${statusResponse.status}`);
-  const rawStatus: unknown = await statusResponse.json();
-  const envelope = z
-    .object({ executionId: z.literal(result.executionId), status: z.string().optional() })
-    .parse(rawStatus);
-  if (envelope.status === "failed") throw new Error("KeeperHub execution failed; no retry");
-  if (
-    ["pending", "running", "unconfirmed"].includes(envelope.status ?? "") &&
-    !(rawStatus as { transactionHash?: unknown }).transactionHash
-  )
-    throw new ReturnReceiptPending("KeeperHub execution pending; same execution will be checked");
-  const status = z
-    .object({
-      executionId: z.literal(result.executionId),
-      sponsored: z.boolean(),
-      transactionHash: z.string().regex(/^0x[0-9a-fA-F]{64}$/),
-      receipts: z.array(
-        z.object({
-          hash: z.string(),
-          chainId: z.number(),
-          verified: z.boolean(),
-          receiptStatus: z.string(),
-        }),
-      ),
-    })
-    .parse(rawStatus);
+  const status = verifiedTestnetExecution(
+    await statusResponse.json(),
+    result.executionId,
+    statusResponse.headers,
+  );
   const txHash = status.transactionHash as Hex;
   if (result.transactionHash && result.transactionHash.toLowerCase() !== txHash.toLowerCase())
     throw new Error("KeeperHub transaction hash changed");
-  if (
-    !status.receipts.some(
-      (r) =>
-        r.hash.toLowerCase() === txHash.toLowerCase() &&
-        r.chainId === 84532 &&
-        r.verified &&
-        r.receiptStatus === "success",
-    )
-  ) {
-    if (
-      status.receipts.some(
-        (r) =>
-          r.hash.toLowerCase() === txHash.toLowerCase() &&
-          r.chainId === 84532 &&
-          r.receiptStatus !== "success" &&
-          r.verified,
-      )
-    )
-      throw new Error("KeeperHub receipt failed verification; no retry");
-    throw new ReturnReceiptPending("Chain-verified KeeperHub receipt not yet available");
-  }
   const receipt = await client.waitForTransactionReceipt({
     hash: txHash,
     confirmations: 2,

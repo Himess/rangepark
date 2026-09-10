@@ -19,6 +19,7 @@ import {
   verifyReparkParent,
 } from "../src/testnet/repark.js";
 import { decodeRun } from "../src/state/return-runs.js";
+import { pollReturnReceipt } from "../src/testnet/return-receipts.js";
 
 if (existsSync(".env")) process.loadEnvFile(".env");
 let db: TestnetDepositStore | undefined;
@@ -79,7 +80,7 @@ async function main() {
       if (mode === "reconcile") break;
       await submitReparkStep({ client, anchor, id, store: db, apiKey: key, manualRehearsal: true });
     }
-    const proof = await reconcileReparkStep(client, anchor, id, db, key);
+    const proof = await pollReturnReceipt(() => reconcileReparkStep(client, anchor, id, db!, key));
     console.log(
       json({
         step: id,
