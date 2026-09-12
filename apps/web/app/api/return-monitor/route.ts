@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     return response({ error: 'Unauthorized' }, 401);
   if (!monitorEnabled()) return response({ error: 'Monitor disabled' }, 503);
   try {
-    const client = testnetReturnClient(true);
+    const client = testnetReturnClient(true, 'https://base-sepolia-rpc.publicnode.com');
     const report = await hostedReturnTick({
       store: hostedMonitorStore(),
       lot: monitoredLot,

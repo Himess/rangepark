@@ -27,7 +27,7 @@ Iterations run sequentially, targeting 60-second start spacing. Slow work is nev
 
 The latest 120 detailed samples are retained. Status records include a write timestamp; consumers must treat them as historical and inspect age. Normal shutdown writes `STOPPED` with no actionable decision and exports `artifacts/testnet-return-monitor.json`. A crash may skip the export, but committed SQLite observations remain. The observation journal and monitor journal are separate databases: a failure between writes can preserve price history without a corresponding monitor sample, but cannot create an execution authorization.
 
-No background process is promised by these files. The recorded live validation run is bounded and stops after collecting its evidence. The [hosted service](hosted-return-monitor.md) now implements authenticated single-sample checks with D1 persistence. Unattended scheduling, ongoing alert delivery, automatic execution and public proof of a condition-triggered RETURN remain separate work.
+The local commands above remain foreground processes; their recorded validation runs were bounded. The [hosted service](hosted-return-monitor.md) now receives unattended checks from an [isolated VPS timer](vps-monitor.md), with separate D1 persistence. Ongoing alert delivery, automatic execution and public proof of a condition-triggered RETURN remain separate work.
 
 ## Recorded validation
 

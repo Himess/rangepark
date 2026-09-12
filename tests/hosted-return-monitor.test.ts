@@ -105,6 +105,43 @@ describe("hosted read-only checks", () => {
     expect((await hostedReturnTick(f.dependencies)).status).toBe("SKIPPED");
     expect(f.dependencies.snapshot).not.toHaveBeenCalled();
   });
+  it("starts both canonicality reads together without omitting either block", async () => {
+    const f = setup();
+    await hostedReturnTick(f.dependencies);
+    f.setNow(10060);
+    const pending: (() => void)[] = [];
+    const numbers: bigint[] = [];
+    f.dependencies.blockHash = (number) => new Promise<`0x${string}`>((resolve) => {
+      numbers.push(number);
+      pending.push(() => resolve(returnFixture(Number(number)).position.block.hash));
+      if (pending.length === 2) pending.forEach((finish) => finish());
+    });
+    await hostedReturnTick(f.dependencies);
+    expect(numbers).toHaveLength(2);
+    expect(numbers[0]).not.toBe(numbers[1]);
+    expect(JSON.parse((await f.store.get())!.report!).status).toBe("OBSERVED");
+  });
+  it("reports a provider request budget failure without leaking its endpoint", async () => {
+    const f = setup();
+    f.dependencies.blockHash = async () => { throw Error("Too many API requests: secret endpoint"); };
+    await hostedReturnTick(f.dependencies);
+    const report = (await f.store.get())!.report!;
+    expect(JSON.parse(report).failureReason).toBe("RPC_SUBREQUEST_LIMIT");
+    expect(report).not.toContain("secret endpoint");
+    expect(JSON.parse(report).decision).toBeNull();
+  });
+  it("classifies upstream throttling while preserving the previous observation", async () => {
+    const f = setup();
+    await hostedReturnTick(f.dependencies);
+    const before = (await f.store.get())!.observation;
+    f.setNow(10060);
+    f.dependencies.blockHash = async () => { throw Error("RPC Request failed. Details: over rate limit"); };
+    await hostedReturnTick(f.dependencies);
+    const row = (await f.store.get())!;
+    expect(JSON.parse(row.report!).failureReason).toBe("RPC_RATE_LIMIT");
+    expect(JSON.parse(row.report!).decision).toBeNull();
+    expect(row.observation).toBe(before);
+  });
   it("clears the current decision on RPC failure while preserving historical observations", async () => {
     const f = setup();
     await hostedReturnTick(f.dependencies);

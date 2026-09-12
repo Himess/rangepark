@@ -36,7 +36,8 @@
     "sync:web": "node scripts/sync-web-core.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --maxWorkers=1 --minWorkers=1",
-    "check": "npm run typecheck && npm test"
+    "test:timer": "node --test tests/monitor-tick.node.mjs",
+    "check": "npm run typecheck && npm test && npm run test:timer"
   },
   "dependencies": {
     "@uniswap/sdk-core": "7.19.2",

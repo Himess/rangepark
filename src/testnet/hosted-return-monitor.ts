@@ -59,14 +59,20 @@ export async function hostedReturnTick(d: {
       unavailable = true;
     }
     stage = "REVALIDATE";
-    const canonical =
-      !previous || (await d.blockHash(previous.block.number)) === previous.block.hash;
-    if ((await d.blockHash(snapshot.position.block.number)) !== snapshot.position.block.hash)
+    // Let the HTTP transport batch both canonicality reads in one round trip.
+    const [previousHash, sourceHash] = await Promise.all([
+      previous ? d.blockHash(previous.block.number) : Promise.resolve(null),
+      d.blockHash(snapshot.position.block.number),
+    ]);
+    const canonical = !previous || previousHash === previous.block.hash;
+    if (sourceHash !== snapshot.position.block.hash)
       throw Error("Reorg");
     const now = d.clock();
     if (now < snapshot.position.block.timestamp || now - snapshot.position.block.timestamp >= 60)
       throw Error("Expired snapshot");
+    stage = "OBSERVATION";
     observation = observeReturn(snapshot, defaultReturnPolicy, previous, now, canonical);
+    stage = "DECISION";
     const decision = decideReturn({
       ...snapshot,
       policy: defaultReturnPolicy,
@@ -89,10 +95,15 @@ export async function hostedReturnTick(d: {
   } catch (error) {
     observation = previous;
     const message = error instanceof Error ? error.message : "";
-    const failureReason = message.includes("Too many subrequests") ? "RPC_SUBREQUEST_LIMIT"
+    const failureReason = /Too many (subrequests|API requests)/i.test(message) ? "RPC_SUBREQUEST_LIMIT"
+      : /rate limit|rate.limit.exceeded/i.test(message) ? "RPC_RATE_LIMIT"
+      : /different request|Cannot perform I\/O/i.test(message) ? "RPC_REQUEST_CONTEXT"
+      : /block.+could not be found/i.test(message) ? "RPC_BLOCK_NOT_FOUND"
       : message === "Reorg" ? "SOURCE_BLOCK_CHANGED"
       : message === "Expired snapshot" ? "SNAPSHOT_TIME_INVALID"
       : message === "Allocation mismatch" ? "ALLOCATION_CHANGED" : "READ_FAILED";
+    const knownErrors = ["TypeError", "RangeError", "HttpRequestError", "RpcRequestError", "TimeoutError", "UnknownRpcError", "BlockNotFoundError", "InternalRpcError", "LimitExceededRpcError", "InvalidInputRpcError", "ResourceUnavailableRpcError"];
+    const failureType = error instanceof Error && knownErrors.includes(error.name) ? error.name : "Error";
     report = {
       status: "DEGRADED",
       startedAt,
@@ -101,6 +112,7 @@ export async function hostedReturnTick(d: {
       economics: null,
       errors: [`${stage}_FAILED`],
       failureReason,
+      failureType,
       sourceBlock,
       broadcasts: 0,
     };

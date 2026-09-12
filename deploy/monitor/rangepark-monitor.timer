@@ -1,0 +1,12 @@
+[Unit]
+Description=Check RangePark every minute without moving funds
+
+[Timer]
+OnCalendar=*-*-* *:*:05 UTC
+AccuracySec=1s
+RandomizedDelaySec=0
+Persistent=true
+Unit=rangepark-monitor.service
+
+[Install]
+WantedBy=timers.target

@@ -6,9 +6,9 @@ The deployment preserves owner-only site access. Machine calls need both the Sit
 
 ## Scheduling boundary
 
-An external service must call the POST endpoint once per minute. There is no always-running loop in the Worker, and refreshing the page does not schedule work. The current KeeperHub organization reports the Free plan; its live action registry marks both `HTTP Request` and `webhook/send-webhook` as Pro features. Therefore no KeeperHub schedule was created or activated and no paid upgrade was purchased. The [workflow API](https://docs.keeperhub.com/api/workflows) documents action discovery and organization feature checks; these were checked against the authenticated account.
+An isolated systemd timer on the existing VPS now calls the POST endpoint once per minute. There is no always-running loop in the Worker, and refreshing the page does not schedule work. The timer survives PC shutdown and is enabled across server restarts. See [installation and operation](vps-monitor.md).
 
-The proposed private workflow is a `Schedule` trigger with `scheduleCron: "* * * * *"` and `scheduleTimezone: "UTC"`, followed by an `HTTP Request` action with method POST, the fixed endpoint above, a 30-second timeout and failure reporting enabled. Secrets belong only in the private workflow's headers/credential configuration. Do not publish a workflow containing them. Pro access or an existing external scheduler is required before this can run unattended. A failure or schedule gap never relaxes the RETURN policy.
+KeeperHub's Free plan previously blocked a native HTTP schedule because its authenticated action registry marked `HTTP Request` and `webhook/send-webhook` as Pro features. No KeeperHub workflow or paid upgrade was created. The existing-server trigger provides unattended read-only checks without that upgrade. The [workflow API](https://docs.keeperhub.com/api/workflows) remains the reference for any future native schedule. A failure or schedule gap never relaxes the RETURN policy.
 
 ## Ownership, freshness and allocation
 
@@ -18,12 +18,14 @@ The record fixes the previously confirmed cycle, NFT, owner, principal and proje
 
 Fresh successful checks are labeled recent; records 90 seconds old are overdue. The decision itself retains its stricter expiry and is always historical evidence, not execution authorization. The view advances record age between polls and clears failed status reads. Economics failures store a degraded HOLD with null economics; snapshot or revalidation failures store no current decision. A process that times out before committing leaves the prior record to age visibly.
 
-The read budget remains bounded by the economics model's log limits, the RPC timeout, snapshot freshness and the lease. KeeperHub HTTP actions allow at most 30 seconds, so consistently slower reads need operational tuning before enabling that schedule. An HTTP timeout does not authorize a duplicate run or a transaction.
+The read budget remains bounded by the economics model's log limits, RPC timeout, snapshot freshness and lease. The VPS client times out after 45 seconds; its service is limited to 50 seconds. An HTTP timeout does not authorize a duplicate run or a transaction.
+
+During installation, the default Base public RPC returned error `-32016`, `over rate limit`, from the hosted runtime. The monitor now uses the verified Base Sepolia endpoint `https://base-sepolia-rpc.publicnode.com` from [PublicNode](https://base.publicnode.com/). Chain identity is still checked on every snapshot. Local CLI clients keep their original default endpoint. Canonicality reads are batched together; throttled reads produce an explicit failure without stale economics reuse or relaxed gates. Public RPC availability remains an operational dependency.
 
 ## Verification
 
-The hosted SQL tests execute the actual generated migration and queries against SQLite, including minute deduplication, lease fencing and atomic persistence. The same read-only decision module is copied into the Site by `npm run sync:web`; local filesystem journals and broadcasting code are excluded from that monitor dependency chain. The repository test suite passes 340 tests, with three optional live tests skipped.
+The hosted SQL tests execute the actual generated migration and queries against SQLite, including minute deduplication, lease fencing and atomic persistence. The same read-only decision module is copied into the Site by `npm run sync:web`; local filesystem journals and broadcasting code are excluded from that monitor dependency chain. The repository passes 343 core tests plus ten timer-client tests, with three optional live tests skipped.
 
 [Direct production API verification](evidence/hosted-return-monitor-check.json) passed: an unauthenticated application request returned 401; one of two simultaneous authenticated calls produced OBSERVED with fresh economics, the other returned SKIPPED; GET returned FRESH and the same persisted decision hash. The snapshot was Base Sepolia block 46644808. This manually triggered sample proves the hosted read/store path, not autonomous scheduling or automatic RETURN. Batched JSON-RPC reads are enabled for the Worker to reduce outbound request count; local CLI clients retain their existing default.
 
-[Scheduler availability](evidence/hosted-scheduler-availability.json) records the Free/Pro feature boundary without account credentials. No schedule is active.
+[Scheduler availability](evidence/hosted-scheduler-availability.json) preserves the earlier Free/Pro feature check. The current external schedule is documented in [VPS monitor operation](vps-monitor.md); it does not enable automatic RETURN execution.

@@ -10,10 +10,10 @@ import type { ParkedLot, ReturnPolicy, ReturnSnapshot } from "./return-policy.js
 export const aaveAccountAbi = parseAbi([
   "function getUserAccountData(address user) view returns (uint256 totalCollateralBase,uint256 totalDebtBase,uint256 availableBorrowsBase,uint256 currentLiquidationThreshold,uint256 ltv,uint256 healthFactor)",
 ]);
-export function testnetReturnClient(batch = false) {
+export function testnetReturnClient(batch = false, rpc: string = config.rpc) {
   return createPublicClient({
     chain: baseSepolia,
-    transport: http(config.rpc, { timeout: 20000, retryCount: 1, batch }),
+    transport: http(rpc, { timeout: 20000, retryCount: 1, batch }),
   });
 }
 export type TestnetReturnClient = ReturnType<typeof testnetReturnClient>;

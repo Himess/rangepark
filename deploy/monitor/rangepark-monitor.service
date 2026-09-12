@@ -1,0 +1,30 @@
+[Unit]
+Description=RangePark read-only hosted monitor tick
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+DynamicUser=yes
+LoadCredential=request.json:/etc/rangepark-monitor/request.json
+ExecStart=/usr/bin/node /opt/rangepark-monitor/tick.mjs
+TimeoutStartSec=50
+MemoryMax=128M
+CPUQuota=10%
+TasksMax=32
+Nice=10
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=yes
+UMask=0077
+StandardOutput=journal
+StandardError=journal
+LogRateLimitIntervalSec=60
+LogRateLimitBurst=5

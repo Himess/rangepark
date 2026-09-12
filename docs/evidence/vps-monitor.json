@@ -1,0 +1,199 @@
+{
+  "mode": "UNATTENDED_VPS_READ_ONLY_MONITOR",
+  "capturedAt": "2026-09-12T11:45:30.000Z",
+  "timerEnabledAt": "2026-09-10T23:13:49Z",
+  "site": "https://rangepark.semihcvlk53.chatgpt.site/",
+  "chainId": 84532,
+  "tokenId": "82083",
+  "source": {
+    "webCommit": "0271ae2b37f377a35826eee86404bd8b226ff84f",
+    "siteVersion": 14,
+    "timerFileSha256": {
+      "tick.mjs": "164ce7f3efa5d865a7ee16688878308aec5455c31550d7c283ddf25bc3c9e750",
+      "rangepark-monitor.service": "666fe3b62906c0407b77df7079502d92716e8375ad17dd6385848dd35bfbd3e3",
+      "rangepark-monitor.timer": "1f9987b4022c9985b7201c6872c27f17c638bed481e56cc5eaf9cf7e68ec0e94"
+    }
+  },
+  "runtime": {
+    "timerActive": true,
+    "timerEnabled": true,
+    "lastRunSucceeded": true,
+    "existingApplicationProcessesUnchanged": true,
+    "lastRunMemoryPeakBytes": 16146432,
+    "lastRunCpuNanoseconds": 157409000
+  },
+  "history": {
+    "firstResultAt": 1789082062,
+    "lastResultAt": 1789213508,
+    "elapsedSeconds": 131446,
+    "totalRuns": 2192,
+    "observedRuns": 2187,
+    "failedRuns": 5,
+    "failures": [
+      {
+        "at": 1789082062,
+        "reason": "REQUEST_FAILED"
+      },
+      {
+        "at": 1789210868,
+        "reason": "HTTP_503"
+      },
+      {
+        "at": 1789212248,
+        "reason": "HTTP_503"
+      },
+      {
+        "at": 1789212308,
+        "reason": "HTTP_503"
+      },
+      {
+        "at": 1789212908,
+        "reason": "HTTP_503"
+      }
+    ],
+    "claimedMinuteSkips": 0
+  },
+  "verification": {
+    "hostedHealthAtCapture": "FRESH",
+    "ageSecondsAtCapture": 22,
+    "lastSevenMatchServerJournal": true,
+    "lastSevenBlockSpanSeconds": 360,
+    "serverFilesMatchVersionedSources": true,
+    "allRecordedBroadcastCountsZero": true
+  },
+  "latestSamples": [
+    {
+      "completedAt": 1789213148,
+      "block": {
+        "number": "46722430",
+        "hash": "0x9255f4089d527ace70b85a9e64ac5db0ec5cd5fe1004b1529b60ff38ff76dab8",
+        "timestamp": 1789213148
+      },
+      "action": "HOLD",
+      "reasons": [
+        "RETURN_NOT_ECONOMIC"
+      ],
+      "decisionHash": "0xebb96f7bed4e8a2e5832d7a336f82bb66adeb9647c7cb58c940adce7592feea1"
+    },
+    {
+      "completedAt": 1789213208,
+      "block": {
+        "number": "46722459",
+        "hash": "0xdff2841a48d06655f08781b5a0b79585560cb5e4ccad61ad572d76d953918b5d",
+        "timestamp": 1789213206
+      },
+      "action": "HOLD",
+      "reasons": [
+        "RETURN_NOT_ECONOMIC"
+      ],
+      "decisionHash": "0x0cdeda3ca817e98946e374d6137d0d1dca5356896f314bd6d76243e422483815"
+    },
+    {
+      "completedAt": 1789213268,
+      "block": {
+        "number": "46722490",
+        "hash": "0x95b2af202373496f22dfb108ecbcc97acaa9d10da8b4cd76ee588bdbd3241c4b",
+        "timestamp": 1789213268
+      },
+      "action": "HOLD",
+      "reasons": [
+        "RETURN_NOT_ECONOMIC"
+      ],
+      "decisionHash": "0xcd5b102953f4c7a69d6de6eff58bcb1f77a9699f325e79dcd3b147a2e12fe6bd"
+    },
+    {
+      "completedAt": 1789213328,
+      "block": {
+        "number": "46722520",
+        "hash": "0x2e71287914a7229699ef2675ca1eb014cefc75cc8489b6b433c7a39e170f6bdb",
+        "timestamp": 1789213328
+      },
+      "action": "HOLD",
+      "reasons": [
+        "RETURN_NOT_ECONOMIC"
+      ],
+      "decisionHash": "0xdab19a6a15d2f9917a620f42fc1e10ac34c52d845929654b6865db3dddee75f7"
+    },
+    {
+      "completedAt": 1789213388,
+      "block": {
+        "number": "46722550",
+        "hash": "0xb0277ffe90ad5e06ebf5632d66c433fb5bf9a114ceadf5c74ce792e95ef410a2",
+        "timestamp": 1789213388
+      },
+      "action": "HOLD",
+      "reasons": [
+        "RETURN_NOT_ECONOMIC"
+      ],
+      "decisionHash": "0x7dfb1f624950a59f9d0bb1ef8d03dab872fe9d20cb4fcf8a363ee3d7bf850459"
+    },
+    {
+      "completedAt": 1789213448,
+      "block": {
+        "number": "46722580",
+        "hash": "0x14cec93696fac13cfba78ec60e15f0459b617749fc837d8442305808961728a5",
+        "timestamp": 1789213448
+      },
+      "action": "HOLD",
+      "reasons": [
+        "RETURN_NOT_ECONOMIC"
+      ],
+      "decisionHash": "0xb32423f77bcc8911be8323c03cd2a67eee9131e3f99011bbc61760c1a55fdcf3"
+    },
+    {
+      "completedAt": 1789213508,
+      "block": {
+        "number": "46722610",
+        "hash": "0xed7cb697e23f6edffaaf029f1b3f5469109fba4033939d98cd49c7225a2662df",
+        "timestamp": 1789213508
+      },
+      "action": "HOLD",
+      "reasons": [
+        "RETURN_NOT_ECONOMIC"
+      ],
+      "decisionHash": "0xeec905596178a65a233b98cd6ed073683450d4fbfb8ef9ac6331a762bd768753"
+    }
+  ],
+  "latestObservation": {
+    "contextHash": "0x56c4c088446dc57711f6823f273365bd318c4e00821062182bb24d0464fc0b75",
+    "since": 1789212366,
+    "samples": 19,
+    "block": {
+      "number": "46722610",
+      "hash": "0xed7cb697e23f6edffaaf029f1b3f5469109fba4033939d98cd49c7225a2662df",
+      "timestamp": 1789213508
+    }
+  },
+  "latestDecision": {
+    "action": "HOLD",
+    "mode": "REVIEW_ONLY",
+    "reasons": [
+      "RETURN_NOT_ECONOMIC"
+    ],
+    "chainId": 84532,
+    "cycleId": "0x37a8140b1cc6f69816fbb81bfea0803f41e141aaeca67cb8684f410a77725381",
+    "tokenId": "82083",
+    "principal": "999999999999930",
+    "expectedFees": "0",
+    "requiredBenefit": "901110040099186",
+    "foregoneAaveYield": "19905981274",
+    "policyHash": "0xad74bc85610ae73f4f49ba50bc68b7d653de89ee0ac650d24632fea79bc2c09a",
+    "inputHash": "0xe4f4c3ceb830d95500decfc51986fa618eb3b8c99b8e5c83d2f7fdc73701267d",
+    "observedBlock": {
+      "number": "46722610",
+      "hash": "0xed7cb697e23f6edffaaf029f1b3f5469109fba4033939d98cd49c7225a2662df",
+      "timestamp": 1789213508
+    },
+    "createdAt": 1789213508,
+    "expiresAt": 1789213568,
+    "simulation": "NOT_RUN",
+    "decisionHash": "0xeec905596178a65a233b98cd6ed073683450d4fbfb8ef9ac6331a762bd768753"
+  },
+  "broadcasts": 0,
+  "limits": [
+    "Historical capture; inspect the live service for current health.",
+    "Five transient failures are retained; continuity is not a guarantee of zero outages.",
+    "No automatic RETURN execution or external alert delivery is enabled.",
+    "Public RPC, hosted service and VPS availability remain dependencies."
+  ]
+}
